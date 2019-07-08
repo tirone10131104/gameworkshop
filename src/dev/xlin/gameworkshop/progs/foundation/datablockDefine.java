@@ -1,6 +1,6 @@
 package dev.xlin.gameworkshop.progs.foundation;
 
-import dev.xlin.gameworkshop.progs.foundation.beans.beanDatablockDefine;
+import dev.xlin.gameworkshop.progs.foundation.beans.BeanDatablockDefine;
 import dev.xlin.gameworkshop.progs.iConst;
 import dev.xlin.gameworkshop.progs.iReturn;
 import dev.xlin.tols.data.jcommon;
@@ -36,7 +36,7 @@ public class datablockDefine implements iDAO, iBeanCheckable
         {
             return r0;
         }
-        beanDatablockDefine bean = (beanDatablockDefine) o;
+        BeanDatablockDefine bean = (BeanDatablockDefine) o;
         //检查标签
         if (getDataDefineByTag(bean.getDbTag()) != null)
         {
@@ -48,26 +48,26 @@ public class datablockDefine implements iDAO, iBeanCheckable
         return jcommon.eInsert(sn, bean, table, false);
     }
 
-    public beanDatablockDefine getDataDefineByXmlNodeTag(String tag)
+    public BeanDatablockDefine getDataDefineByXmlNodeTag(String tag)
     {
         String sql = "select * from " + table + " where xmlNodeTag = '" + tag.trim() + "'";
-        List ls = sn.querySQL(sql, beanDatablockDefine.class);
+        List ls = sn.querySQL(sql, BeanDatablockDefine.class);
         if (ls == null)
         {
             return null;
         }
-        return (beanDatablockDefine) ls.get(0);
+        return (BeanDatablockDefine) ls.get(0);
     }
 
-    public beanDatablockDefine getDataDefineByTag(String stg)
+    public BeanDatablockDefine getDataDefineByTag(String stg)
     {
         String sql = "select * from " + table + " where dbTag = '" + stg.trim() + "'";
-        List ls = sn.querySQL(sql, beanDatablockDefine.class);
+        List ls = sn.querySQL(sql, BeanDatablockDefine.class);
         if (ls == null)
         {
             return null;
         }
-        return (beanDatablockDefine) ls.get(0);
+        return (BeanDatablockDefine) ls.get(0);
     }
 
     private int doCheckParam(Object o)
@@ -76,7 +76,7 @@ public class datablockDefine implements iDAO, iBeanCheckable
         {
             return iDAO.PARAM_OBJECT_NULL;
         }
-        if (o.getClass() != beanDatablockDefine.class)
+        if (o.getClass() != BeanDatablockDefine.class)
         {
             return iDAO.PARAM_OBJECT_CLASS_INCORRECT;
         }
@@ -91,8 +91,8 @@ public class datablockDefine implements iDAO, iBeanCheckable
         {
             return r0;
         }
-        beanDatablockDefine bean = (beanDatablockDefine) o;
-        beanDatablockDefine obean = (beanDatablockDefine) getRecordByID(bean.getOID());
+        BeanDatablockDefine bean = (BeanDatablockDefine) o;
+        BeanDatablockDefine obean = (BeanDatablockDefine) getRecordByID(bean.getOID());
         if (checkBean(obean) == false)
         {
             return iDAO.OBJECT_RECORD_NOTEXIST;
@@ -111,7 +111,7 @@ public class datablockDefine implements iDAO, iBeanCheckable
     @Override
     public int deleteRecord(int i)
     {
-        beanDatablockDefine bean = (beanDatablockDefine) getRecordByID(i);
+        BeanDatablockDefine bean = (BeanDatablockDefine) getRecordByID(i);
         {
             if (bean == null)
             {
@@ -130,14 +130,14 @@ public class datablockDefine implements iDAO, iBeanCheckable
     public List getAllRecord()
     {
         String sql = "select * from " + table +" order by OID ";
-        return sn.querySQL(sql, beanDatablockDefine.class);
+        return sn.querySQL(sql, BeanDatablockDefine.class);
     }
 
     @Override
     public Object getRecordByID(int i)
     {
         String sql = "select * from " + table + " where OID = " + i;
-        List ls = sn.querySQL(sql, beanDatablockDefine.class);
+        List ls = sn.querySQL(sql, BeanDatablockDefine.class);
         if (ls == null)
         {
             return null;
@@ -152,7 +152,7 @@ public class datablockDefine implements iDAO, iBeanCheckable
         {
             return false;
         }
-        if (o.getClass() != beanDatablockDefine.class)
+        if (o.getClass() != BeanDatablockDefine.class)
         {
             return false;
         }

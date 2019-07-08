@@ -1,7 +1,7 @@
 package dev.xlin.gameworkshop.progs.foundation;
 
-import dev.xlin.gameworkshop.progs.foundation.beans.beanSkillDefine;
-import dev.xlin.gameworkshop.progs.foundation.beans.beanSkillLevel;
+import dev.xlin.gameworkshop.progs.foundation.beans.BeanSkillDefine;
+import dev.xlin.gameworkshop.progs.foundation.beans.BeanSkillLevel;
 import dev.xlin.gameworkshop.progs.iConst;
 import dev.xlin.gameworkshop.progs.iReturn;
 import dev.xlin.gameworkshop.progs.tools.dbTask;
@@ -41,7 +41,7 @@ public class skillLevel implements iDAO
         {
             return r0;
         }
-        beanSkillLevel bean = (beanSkillLevel) o;
+        BeanSkillLevel bean = (BeanSkillLevel) o;
         //检查，并丰富
         int rck = doCheckLevelAndComplete(bean);
         if (rck != 0)
@@ -77,11 +77,11 @@ public class skillLevel implements iDAO
         }
     }
 
-    private int doCheckLevelAndComplete(beanSkillLevel bean)
+    private int doCheckLevelAndComplete(BeanSkillLevel bean)
     {
         //检查SKILL是否存在
         skillDefine skd = new skillDefine(up);
-        beanSkillDefine bskd = (beanSkillDefine) skd.getRecordByID(bean.getSkillOID());
+        BeanSkillDefine bskd = (BeanSkillDefine) skd.getRecordByID(bean.getSkillOID());
         if (skd.checkBean(bskd) == false)
         {
             return iReturn.SKL_NOT_FOUND;
@@ -95,7 +95,7 @@ public class skillLevel implements iDAO
         if (lls != null)
         {
             //HEAD设置为列表末尾的节点，IDX= 节点末尾的IDX+1，
-            beanSkillLevel bsklv = (beanSkillLevel) lls.get(lls.size() - 1);
+            BeanSkillLevel bsklv = (BeanSkillLevel) lls.get(lls.size() - 1);
             bean.setLevelIdx(bsklv.getLevelIdx() + 1);
         }
         else
@@ -111,7 +111,7 @@ public class skillLevel implements iDAO
     {
         String sql = "select * from " + table + " where skillOID = " + skid
                 + " order by levelIdx ";
-        return sn.querySQL(sql, beanSkillLevel.class);
+        return sn.querySQL(sql, BeanSkillLevel.class);
     }
 
     private int checkParam(Object o)
@@ -120,7 +120,7 @@ public class skillLevel implements iDAO
         {
             return iDAO.PARAM_OBJECT_NULL;
         }
-        if (o.getClass() != beanSkillLevel.class)
+        if (o.getClass() != BeanSkillLevel.class)
         {
             return iDAO.PARAM_OBJECT_CLASS_INCORRECT;
         }
@@ -135,8 +135,8 @@ public class skillLevel implements iDAO
         {
             return r0;
         }
-        beanSkillLevel bean = (beanSkillLevel) o;
-        beanSkillLevel obean = (beanSkillLevel) getRecordByID(bean.getOID());
+        BeanSkillLevel bean = (BeanSkillLevel) o;
+        BeanSkillLevel obean = (BeanSkillLevel) getRecordByID(bean.getOID());
         if (obean == null)
         {
             return iDAO.OBJECT_RECORD_NOTEXIST;
@@ -151,7 +151,7 @@ public class skillLevel implements iDAO
     @Override
     public int deleteRecord(int i)
     {
-        beanSkillLevel bean = (beanSkillLevel) getRecordByID(i);
+        BeanSkillLevel bean = (BeanSkillLevel) getRecordByID(i);
         if (bean == null)
         {
             return iDAO.OBJECT_RECORD_NOTEXIST;
@@ -186,21 +186,21 @@ public class skillLevel implements iDAO
         }
     }
 
-    public beanSkillLevel getLevel(int skid, int lvidx)
+    public BeanSkillLevel getLevel(int skid, int lvidx)
     {
         String sql = "select * from " + table + " where skillOID = " + skid
                 + " and levelIdx = " + lvidx;
-        List ls = sn.querySQL(sql, beanSkillLevel.class);
+        List ls = sn.querySQL(sql, BeanSkillLevel.class);
         if (ls == null)
         {
             return null;
         }
-        return (beanSkillLevel) ls.get(0);
+        return (BeanSkillLevel) ls.get(0);
     }
 
     public int moveLevelUp(int id)
     {
-        beanSkillLevel obean = (beanSkillLevel) getRecordByID(id);
+        BeanSkillLevel obean = (BeanSkillLevel) getRecordByID(id);
         if (obean == null)
         {
             return iDAO.OBJECT_RECORD_NOTEXIST;
@@ -209,7 +209,7 @@ public class skillLevel implements iDAO
         {
             return iReturn.BEAN_CANT_MOVE_UP;
         }
-        beanSkillLevel bhead = getLevel(obean.getSkillOID(), obean.getLevelIdx() - 1);
+        BeanSkillLevel bhead = getLevel(obean.getSkillOID(), obean.getLevelIdx() - 1);
         //执行操作
         //对调
         bhead.setLevelIdx(obean.getLevelIdx());
@@ -231,13 +231,13 @@ public class skillLevel implements iDAO
 
     public int moveLevelDown(int id)
     {
-        beanSkillLevel obean = (beanSkillLevel) getRecordByID(id);
+        BeanSkillLevel obean = (BeanSkillLevel) getRecordByID(id);
         if (obean == null)
         {
             return iDAO.OBJECT_RECORD_NOTEXIST;
         }
         //获取其尾随的Level
-        beanSkillLevel blask = getLevel(obean.getSkillOID(), obean.getLevelIdx() + 1);
+        BeanSkillLevel blask = getLevel(obean.getSkillOID(), obean.getLevelIdx() + 1);
         if (blask == null)
         {
             return iReturn.BEAN_CANT_MOVE_DOWN;
@@ -262,7 +262,7 @@ public class skillLevel implements iDAO
 
     public int setLevelAsMaster(int id)
     {
-        beanSkillLevel obean = (beanSkillLevel) getRecordByID(id);
+        BeanSkillLevel obean = (BeanSkillLevel) getRecordByID(id);
         if (obean == null)
         {
             return iDAO.OBJECT_RECORD_NOTEXIST;
@@ -274,7 +274,7 @@ public class skillLevel implements iDAO
         //获取原MASTER记录
         //数据库事务启用
         dbTask.openManualTask(up);
-        beanSkillLevel boms = getMasterLevel(obean.getSkillOID());
+        BeanSkillLevel boms = getMasterLevel(obean.getSkillOID());
         if (boms != null)
         {
             //取消原MAST，设置新的为MAST
@@ -307,16 +307,16 @@ public class skillLevel implements iDAO
         return dbTask.returnSuccess(up);
     }
 
-    public beanSkillLevel getMasterLevel(int skid)
+    public BeanSkillLevel getMasterLevel(int skid)
     {
         String sql = "select * from " + table + " where masterLevel = " + iConst.BOL_TRUE
                 + " and skillOID = " + skid;
-        List ls = sn.querySQL(sql, beanSkillLevel.class);
+        List ls = sn.querySQL(sql, BeanSkillLevel.class);
         if (ls == null)
         {
             return null;
         }
-        return (beanSkillLevel) ls.get(0);
+        return (BeanSkillLevel) ls.get(0);
     }
 
     public int rebuildSkillLevelIndex(int skid, boolean useTask)
@@ -329,7 +329,7 @@ public class skillLevel implements iDAO
         ArrayList aup = new ArrayList();
         for (int i = 0; i < ls.size(); i++)
         {
-            beanSkillLevel bsl = (beanSkillLevel) ls.get(i);
+            BeanSkillLevel bsl = (BeanSkillLevel) ls.get(i);
             String sup = "update " + table + " set levelIdx = " + (i + 1)
                     + " where OID = " + bsl.getOID();
             System.err.println("sup = " + sup);
@@ -371,7 +371,7 @@ public class skillLevel implements iDAO
     public Object getRecordByID(int i)
     {
         String sql = "select * from " + table + " where OID = " + i;
-        List ls = sn.querySQL(sql, beanSkillLevel.class);
+        List ls = sn.querySQL(sql, BeanSkillLevel.class);
         if (ls == null)
         {
             return null;

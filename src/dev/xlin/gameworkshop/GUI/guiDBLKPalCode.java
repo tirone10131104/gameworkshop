@@ -1,14 +1,14 @@
 package dev.xlin.gameworkshop.GUI;
 
-import dev.xlin.gameworkshop.GUI.dialog.dlgDBTempletInfo;
-import dev.xlin.gameworkshop.GUI.dialog.dlgDataColumn;
-import dev.xlin.gameworkshop.GUI.dialog.dlgDataPage;
-import dev.xlin.gameworkshop.GUI.dialog.dlgDatablockTempletSelector;
+import dev.xlin.gameworkshop.GUI.dialog.DlgDBTempletInfo;
+import dev.xlin.gameworkshop.GUI.dialog.DlgDataColumn;
+import dev.xlin.gameworkshop.GUI.dialog.DlgDataPage;
+import dev.xlin.gameworkshop.GUI.dialog.DlgDatablockTempletSelector;
 import dev.xlin.gameworkshop.progs.foundation.beanDataColumn;
 import dev.xlin.gameworkshop.progs.foundation.beanDataPage;
-import dev.xlin.gameworkshop.progs.foundation.beans.beanDatablock;
-import dev.xlin.gameworkshop.progs.foundation.beans.beanDatablockDefine;
-import dev.xlin.gameworkshop.progs.foundation.beans.beanDatablockTemplet;
+import dev.xlin.gameworkshop.progs.foundation.beans.BeanDatablock;
+import dev.xlin.gameworkshop.progs.foundation.beans.BeanDatablockDefine;
+import dev.xlin.gameworkshop.progs.foundation.beans.BeanDatablockTemplet;
 import dev.xlin.gameworkshop.progs.foundation.datablockDefine;
 import dev.xlin.gameworkshop.progs.foundation.datablockService;
 import dev.xlin.gameworkshop.progs.foundation.datablockTemplet;
@@ -39,7 +39,7 @@ public class guiDBLKPalCode
 
     public static int doNewPage(iDataPageOper idpo)
     {
-        dlgDataPage dlg = new dlgDataPage(null, true, null);
+        DlgDataPage dlg = new DlgDataPage(null, true, null);
         dlg.setVisible(true);
         if (dlg.getOK())
         {
@@ -59,7 +59,7 @@ public class guiDBLKPalCode
             return 0;
         }
         int pgid = mpage.getNodeOID();
-        dlgDataColumn dlg = new dlgDataColumn(null, true, null);
+        DlgDataColumn dlg = new DlgDataColumn(null, true, null);
         dlg.setVisible(true);
         if (dlg.getOK())
         {
@@ -79,7 +79,7 @@ public class guiDBLKPalCode
             return 0;
         }
         beanDataPage bdp = idpo.getDataPageByIndex(mpage.getNodeOID());
-        dlgDataPage dlg = new dlgDataPage(null, true, bdp);
+        DlgDataPage dlg = new DlgDataPage(null, true, bdp);
         dlg.setVisible(true);
         if (dlg.getOK())
         {
@@ -114,7 +114,7 @@ public class guiDBLKPalCode
             return 0;
         }
         beanDataColumn bdc = idco.getColumnByOID(mcol.getNodeOID());
-        dlgDataColumn dlg = new dlgDataColumn(null, true, bdc);
+        DlgDataColumn dlg = new DlgDataColumn(null, true, bdc);
         dlg.setVisible(true);
         if (dlg.getOK())
         {
@@ -362,17 +362,17 @@ public class guiDBLKPalCode
         iDatablockCopy idcp = (iDatablockCopy) iadt;
         iAdtXML ia = (iAdtXML) idcp.datablockCopy();
         datablockService dbs = new datablockService(up);
-        beanDatablock bdb = dbs.getDatabean(dbIndex);
+        BeanDatablock bdb = dbs.getDatabean(dbIndex);
         if (bdb == null)
         {
             return iDAO.OBJECT_RECORD_NOTEXIST;
         }
-        dlgDBTempletInfo dlg = new dlgDBTempletInfo(null, true, up, null);
+        DlgDBTempletInfo dlg = new DlgDBTempletInfo(null, true, up, null);
         dlg.setVisible(true);
         int r = 0;
         if (dlg.getOK())
         {
-            beanDatablockTemplet btmp = dlg.getTempletBean();
+            BeanDatablockTemplet btmp = dlg.getTempletBean();
             if (dlg.getClearValue())
             {
                 //数据清除
@@ -382,7 +382,7 @@ public class guiDBLKPalCode
             //数据填充
             datablockDefine dbdef = new datablockDefine(up);
             iDatablockFace idbface = (iDatablockFace) ia;
-            beanDatablockDefine bdef = dbdef.getDataDefineByTag(idbface.getDatablockServiceTag());
+            BeanDatablockDefine bdef = dbdef.getDataDefineByTag(idbface.getDatablockServiceTag());
             btmp.setDbType(bdef.getOID());
             btmp.setOclsID(oclsID);
             btmp.setOriID(dbIndex);
@@ -399,11 +399,11 @@ public class guiDBLKPalCode
     {
         boolean b = false;
         iDatablockFace idbface = (iDatablockFace) iadt;
-        dlgDatablockTempletSelector dlg = new dlgDatablockTempletSelector(null, true, up, idbface.getDatablockServiceTag());
+        DlgDatablockTempletSelector dlg = new DlgDatablockTempletSelector(null, true, up, idbface.getDatablockServiceTag());
         dlg.setVisible(true);
         if (dlg.getOK())
         {
-            beanDatablockTemplet btmp = dlg.getTemplet();
+            BeanDatablockTemplet btmp = dlg.getTemplet();
             int sel = fast.ask("是否要使用模板[" + btmp.getTempName() + "]？\n使用这个模板将会清除现有的数据。\n \n是否确认？");
             if (sel == fast.YES)
             {

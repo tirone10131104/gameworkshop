@@ -1,31 +1,31 @@
 package dev.xlin.gameworkshop.GUI.CONTENT;
 
-import dev.xlin.gameworkshop.GUI.CONTENT.dialog.dlgCtxCelestialInfo;
-import dev.xlin.gameworkshop.GUI.CONTENT.dialog.dlgCtxConstellation;
-import dev.xlin.gameworkshop.GUI.CONTENT.dialog.dlgCtxResSource;
-import dev.xlin.gameworkshop.GUI.CONTENT.dialog.dlgCtxStellarData;
-import dev.xlin.gameworkshop.GUI.CONTENT.dialog.dlgCtxStellarRegion;
+import dev.xlin.gameworkshop.GUI.CONTENT.dialog.DlgCtxCelestialInfo;
+import dev.xlin.gameworkshop.GUI.CONTENT.dialog.DlgCtxConstellation;
+import dev.xlin.gameworkshop.GUI.CONTENT.dialog.DlgCtxResSource;
+import dev.xlin.gameworkshop.GUI.CONTENT.dialog.DlgCtxStellarData;
+import dev.xlin.gameworkshop.GUI.CONTENT.dialog.DlgCtxStellarRegion;
 import dev.xlin.gameworkshop.GUI.MDIPaneControl;
 import dev.xlin.gameworkshop.GUI.fast;
 import dev.xlin.gameworkshop.GUI.frmMain;
 import dev.xlin.gameworkshop.GUI.iMDIFrameFeature;
-import dev.xlin.gameworkshop.progs.contents.beans.beanCtxBaseResource;
-import dev.xlin.gameworkshop.progs.contents.beans.beanCtxCelestialWorld;
-import dev.xlin.gameworkshop.progs.contents.beans.beanCtxConstellation;
-import dev.xlin.gameworkshop.progs.contents.beans.beanCtxMineSource;
-import dev.xlin.gameworkshop.progs.contents.beans.beanCtxStellarData;
-import dev.xlin.gameworkshop.progs.contents.beans.beanCtxStellarRegion;
-import dev.xlin.gameworkshop.progs.contents.beans.beanCtxWorldCfgResItem;
-import dev.xlin.gameworkshop.progs.contents.beans.beanCtxWorldResSource;
-import dev.xlin.gameworkshop.progs.contents.progs.baseResourceDefine;
-import dev.xlin.gameworkshop.progs.contents.progs.celestialWorldData;
-import dev.xlin.gameworkshop.progs.contents.progs.constellationData;
+import dev.xlin.gameworkshop.progs.contents.beans.BeanCtxBaseResource;
+import dev.xlin.gameworkshop.progs.contents.beans.BeanCtxCelestialWorld;
+import dev.xlin.gameworkshop.progs.contents.beans.BeanCtxConstellation;
+import dev.xlin.gameworkshop.progs.contents.beans.BeanCtxMineSource;
+import dev.xlin.gameworkshop.progs.contents.beans.BeanCtxStellarData;
+import dev.xlin.gameworkshop.progs.contents.beans.BeanCtxStellarRegion;
+import dev.xlin.gameworkshop.progs.contents.beans.BeanCtxWorldCfgResItem;
+import dev.xlin.gameworkshop.progs.contents.beans.BeanCtxWorldResSource;
+import dev.xlin.gameworkshop.progs.contents.progs.BaseResourceDefine;
+import dev.xlin.gameworkshop.progs.contents.progs.CelestialWorldData;
+import dev.xlin.gameworkshop.progs.contents.progs.ConstellationData;
 import dev.xlin.gameworkshop.progs.contents.progs.ctxConst;
 import dev.xlin.gameworkshop.progs.contents.progs.ctxTranslate;
-import dev.xlin.gameworkshop.progs.contents.progs.stellarData;
-import dev.xlin.gameworkshop.progs.contents.progs.stellarRegion;
-import dev.xlin.gameworkshop.progs.contents.progs.worldResSource;
-import dev.xlin.gameworkshop.progs.contents.progs.worldTypeConfigResource;
+import dev.xlin.gameworkshop.progs.contents.progs.StellarData;
+import dev.xlin.gameworkshop.progs.contents.progs.StellarRegion;
+import dev.xlin.gameworkshop.progs.contents.progs.WorldResSource;
+import dev.xlin.gameworkshop.progs.contents.progs.WorldTypeConfigResource;
 import dev.xlin.swingTools2.dlgTools.dlgSelectListItem;
 import dev.xlin.swingTools2.dlgTools.dlgSelectTreeNode;
 import dev.xlin.swingTools2.guiCommon;
@@ -94,22 +94,22 @@ public class ifrmGlaxyEditor extends javax.swing.JInternalFrame implements iMDIF
     private void makeRegionsTree()
     {
         myTreeNode mtn = new myTreeNode("[星域数据库]", 0, NODE_REGION_ROOT);
-        stellarRegion sr = new stellarRegion(up);
-        constellationData csd = new constellationData(up);
+        StellarRegion sr = new StellarRegion(up);
+        ConstellationData csd = new ConstellationData(up);
         lregs = sr.getRegionsByGlaxy(glxid);
         hconss = new HashMap();
         if (lregs != null)
         {
             for (int i = 0; i < lregs.size(); i++)
             {
-                beanCtxStellarRegion bcsr = (beanCtxStellarRegion) lregs.get(i);
+                BeanCtxStellarRegion bcsr = (BeanCtxStellarRegion) lregs.get(i);
                 myTreeNode msr = new myTreeNode(bcsr.getRegionName(), bcsr.getOID(), NODE_REGION_DATA);
                 List lcs = csd.queryConstellationsByRegion(bcsr.getOID());
                 if (lcs != null)
                 {
                     for (int j = 0; j < lcs.size(); j++)
                     {
-                        beanCtxConstellation bcct = (beanCtxConstellation) lcs.get(j);
+                        BeanCtxConstellation bcct = (BeanCtxConstellation) lcs.get(j);
                         hconss.put(bcct.getOID(), bcct);
                         myTreeNode mcst = new myTreeNode(bcct.getConName(), bcct.getOID(), NODE_CONS_DATA);
                         msr.add(mcst);
@@ -126,19 +126,19 @@ public class ifrmGlaxyEditor extends javax.swing.JInternalFrame implements iMDIF
     private void makeStellarTree()
     {
         myTreeNode mtn = new myTreeNode("[恒星数据库]", 0, NODE_STELLAR_ROOT);
-        beanCtxConstellation bccs = getSelectedConstellation();
+        BeanCtxConstellation bccs = getSelectedConstellation();
         System.err.println(".bccs = " + bccs);
         hstes.clear();
         if (bccs != null)
         {
-            stellarData std = new stellarData(up);
+            StellarData std = new StellarData(up);
             List lsd = std.getStellarsByRegion(bccs.getRegionOID(), bccs.getOID());
             if (lsd != null)
             {
                 System.err.println("lsd.siz = " + lsd.size());
                 for (int i = 0; i < lsd.size(); i++)
                 {
-                    beanCtxStellarData bsd = (beanCtxStellarData) lsd.get(i);
+                    BeanCtxStellarData bsd = (BeanCtxStellarData) lsd.get(i);
                     myTreeNode msd = new myTreeNode(bsd.getStName() + "<" + bsd.getStTag() + ">" + " [" + ctxTranslate.transGreekCharactor(bsd.getConIndex()) + "(" + (bsd.getConIndex() + 1) + ")" + "]", bsd.getOID(), NODE_STELLAR_DATA);
                     mtn.add(msd);
                     hstes.put(bsd.getOID(), bsd);
@@ -153,16 +153,16 @@ public class ifrmGlaxyEditor extends javax.swing.JInternalFrame implements iMDIF
     {
         myTreeNode mtn = new myTreeNode("[恒星系数据库]", 0, NODE_WLD_ROOT);
         DefaultTreeModel dtm = new DefaultTreeModel(mtn);
-        beanCtxStellarData bst = getSelectedStellarData();
+        BeanCtxStellarData bst = getSelectedStellarData();
         if (bst != null)
         {
-            celestialWorldData cwd = new celestialWorldData(up);
+            CelestialWorldData cwd = new CelestialWorldData(up);
             List ls = cwd.getCelestialsByParent(bst.getOID(), 0, 0);
             if (ls != null)
             {
                 for (int i = 0; i < ls.size(); i++)
                 {
-                    beanCtxCelestialWorld bccw = (beanCtxCelestialWorld) ls.get(i);
+                    BeanCtxCelestialWorld bccw = (BeanCtxCelestialWorld) ls.get(i);
                     dMakeWorldTree(bccw, mtn, cwd);
                 }
             }
@@ -171,7 +171,7 @@ public class ifrmGlaxyEditor extends javax.swing.JInternalFrame implements iMDIF
         guiCommon.expandTree(trWorlds);
     }
 
-    private void dMakeWorldTree(beanCtxCelestialWorld bccw, myTreeNode mpar, celestialWorldData cwd)
+    private void dMakeWorldTree(BeanCtxCelestialWorld bccw, myTreeNode mpar, CelestialWorldData cwd)
     {
         String swtp = "";
         int wtpNtp = 0;
@@ -196,7 +196,7 @@ public class ifrmGlaxyEditor extends javax.swing.JInternalFrame implements iMDIF
         {
             for (int i = 0; i < lws.size(); i++)
             {
-                beanCtxCelestialWorld bwld = (beanCtxCelestialWorld) lws.get(i);
+                BeanCtxCelestialWorld bwld = (BeanCtxCelestialWorld) lws.get(i);
                 dMakeWorldTree(bwld, mtn, cwd);
             }
         }
@@ -213,10 +213,10 @@ public class ifrmGlaxyEditor extends javax.swing.JInternalFrame implements iMDIF
         mtm.addColumn("DIC");
         mtm.addColumn("EDC");
         mtm.addColumn("DAG");
-        beanCtxCelestialWorld bccw = getSelectedWorld();
+        BeanCtxCelestialWorld bccw = getSelectedWorld();
         if (bccw != null)
         {
-            worldResSource wrs = new worldResSource(up);
+            WorldResSource wrs = new WorldResSource(up);
             int idx = cmbWldRes.getSelectedIndex();
             if (idx >= 0)
             {
@@ -224,14 +224,14 @@ public class ifrmGlaxyEditor extends javax.swing.JInternalFrame implements iMDIF
                 int cid = 0;
                 if (idx > 0)
                 {
-                    beanCtxBaseResource bres = (beanCtxBaseResource) lress.get(idx - 1);
+                    BeanCtxBaseResource bres = (BeanCtxBaseResource) lress.get(idx - 1);
                     rsid = bres.getOID();
                     int cidx = cmbCfgItem.getSelectedIndex();
                     if (cidx > 0)
                     {
                         listItem li = (listItem) cmbCfgItem.getSelectedItem();
                         int cfgid = li.getNodeOID();
-                        beanCtxWorldCfgResItem bri = findCfgItemInTempList(cfgid);
+                        BeanCtxWorldCfgResItem bri = findCfgItemInTempList(cfgid);
                         cid = bri.getOID();
                     }
                 } 
@@ -240,9 +240,9 @@ public class ifrmGlaxyEditor extends javax.swing.JInternalFrame implements iMDIF
                 {
                     for (int i = 0; i < lreSrcs.size(); i++)
                     {
-                        beanCtxWorldResSource bsrc = (beanCtxWorldResSource) lreSrcs.get(i);
+                        BeanCtxWorldResSource bsrc = (BeanCtxWorldResSource) lreSrcs.get(i);
                         Object[] row = new Object[7];
-                        beanCtxBaseResource brs = findBaseResInTempList(bsrc.getResOID());
+                        BeanCtxBaseResource brs = findBaseResInTempList(bsrc.getResOID());
                         row[0] = brs.getResName();
                         row[1] = bsrc.getCapability();
                         row[2] = fast.makeRound2(bsrc.getDifficulty() * 100) + "%";
@@ -258,13 +258,13 @@ public class ifrmGlaxyEditor extends javax.swing.JInternalFrame implements iMDIF
         tbRess.setModel(mtm);
     }
 
-    private beanCtxWorldCfgResItem findCfgItemInTempList (int cid )
+    private BeanCtxWorldCfgResItem findCfgItemInTempList (int cid )
     {
         if (rcfgItems!= null)
         {
             for (int i = 0; i < rcfgItems.size(); i++)
             {
-                beanCtxWorldCfgResItem bri = (beanCtxWorldCfgResItem) rcfgItems.get(i);
+                BeanCtxWorldCfgResItem bri = (BeanCtxWorldCfgResItem) rcfgItems.get(i);
                 if (bri.getOID() == cid )
                 {
                     return bri;
@@ -274,11 +274,11 @@ public class ifrmGlaxyEditor extends javax.swing.JInternalFrame implements iMDIF
         return null;
     }
     
-    private beanCtxBaseResource findBaseResInTempList(int rsid)
+    private BeanCtxBaseResource findBaseResInTempList(int rsid)
     {
         for (int i = 0; i < lress.size(); i++)
         {
-            beanCtxBaseResource bres = (beanCtxBaseResource) lress.get(i);
+            BeanCtxBaseResource bres = (BeanCtxBaseResource) lress.get(i);
             if (bres.getOID() == rsid)
             {
                 return bres;
@@ -289,7 +289,7 @@ public class ifrmGlaxyEditor extends javax.swing.JInternalFrame implements iMDIF
 
     private void newRegion()
     {
-        dlgCtxStellarRegion dlg = new dlgCtxStellarRegion(null, true, up, null, glxid);
+        DlgCtxStellarRegion dlg = new DlgCtxStellarRegion(null, true, up, null, glxid);
         dlg.setVisible(true);
         if (dlg.getOK())
         {
@@ -299,7 +299,7 @@ public class ifrmGlaxyEditor extends javax.swing.JInternalFrame implements iMDIF
         dlg = null;
     }
 
-    private beanCtxStellarRegion getSelectedRegion()
+    private BeanCtxStellarRegion getSelectedRegion()
     {
         TreePath tph = trRegions.getSelectionPath();
         if (tph == null)
@@ -319,13 +319,13 @@ public class ifrmGlaxyEditor extends javax.swing.JInternalFrame implements iMDIF
         return findRegion(oid);
     }
 
-    private beanCtxStellarRegion findRegion(int oid)
+    private BeanCtxStellarRegion findRegion(int oid)
     {
         if (lregs != null)
         {
             for (int i = 0; i < lregs.size(); i++)
             {
-                beanCtxStellarRegion bean = (beanCtxStellarRegion) lregs.get(i);
+                BeanCtxStellarRegion bean = (BeanCtxStellarRegion) lregs.get(i);
                 if (bean.getOID() == oid)
                 {
                     return bean;
@@ -337,12 +337,12 @@ public class ifrmGlaxyEditor extends javax.swing.JInternalFrame implements iMDIF
 
     private void editRegion()
     {
-        beanCtxStellarRegion bean = getSelectedRegion();
+        BeanCtxStellarRegion bean = getSelectedRegion();
         if (bean == null)
         {
             return;
         }
-        dlgCtxStellarRegion dlg = new dlgCtxStellarRegion(null, true, up, bean, 0);
+        DlgCtxStellarRegion dlg = new DlgCtxStellarRegion(null, true, up, bean, 0);
         dlg.setVisible(true);
         if (dlg.getOK())
         {
@@ -354,7 +354,7 @@ public class ifrmGlaxyEditor extends javax.swing.JInternalFrame implements iMDIF
 
     private void removeRegion()
     {
-        beanCtxStellarRegion bean = getSelectedRegion();
+        BeanCtxStellarRegion bean = getSelectedRegion();
         if (bean == null)
         {
             return;
@@ -364,7 +364,7 @@ public class ifrmGlaxyEditor extends javax.swing.JInternalFrame implements iMDIF
         {
             return;
         }
-        stellarRegion srg = new stellarRegion(up);
+        StellarRegion srg = new StellarRegion(up);
         int r = srg.deleteRecord(bean.getOID());
         if (r == iDAO.OPERATE_SUCCESS)
         {
@@ -378,12 +378,12 @@ public class ifrmGlaxyEditor extends javax.swing.JInternalFrame implements iMDIF
 
     private void newCons()
     {
-        beanCtxStellarRegion bcsr = getSelectedRegion();
+        BeanCtxStellarRegion bcsr = getSelectedRegion();
         if (bcsr == null)
         {
             return;
         }
-        dlgCtxConstellation dlg = new dlgCtxConstellation(null, true, up, null, bcsr.getOID());
+        DlgCtxConstellation dlg = new DlgCtxConstellation(null, true, up, null, bcsr.getOID());
         dlg.setVisible(true);
         if (dlg.getOK())
         {
@@ -393,7 +393,7 @@ public class ifrmGlaxyEditor extends javax.swing.JInternalFrame implements iMDIF
         dlg = null;
     }
 
-    public beanCtxConstellation getSelectedConstellation()
+    public BeanCtxConstellation getSelectedConstellation()
     {
         TreePath tph = trRegions.getSelectionPath();
         if (tph == null)
@@ -407,17 +407,17 @@ public class ifrmGlaxyEditor extends javax.swing.JInternalFrame implements iMDIF
             System.err.println("..getSelectedConstellation.. not cons ");
             return null;
         }
-        return (beanCtxConstellation) hconss.get(mtn.getNodeOID());
+        return (BeanCtxConstellation) hconss.get(mtn.getNodeOID());
     }
 
     private void editCons()
     {
-        beanCtxConstellation bean = getSelectedConstellation();
+        BeanCtxConstellation bean = getSelectedConstellation();
         if (bean == null)
         {
             return;
         }
-        dlgCtxConstellation dlg = new dlgCtxConstellation(null, true, up, bean, 0);
+        DlgCtxConstellation dlg = new DlgCtxConstellation(null, true, up, bean, 0);
         dlg.setVisible(true);
         if (dlg.getOK())
         {
@@ -429,7 +429,7 @@ public class ifrmGlaxyEditor extends javax.swing.JInternalFrame implements iMDIF
 
     private void removeCons()
     {
-        beanCtxConstellation bean = getSelectedConstellation();
+        BeanCtxConstellation bean = getSelectedConstellation();
         if (bean == null)
         {
             return;
@@ -439,7 +439,7 @@ public class ifrmGlaxyEditor extends javax.swing.JInternalFrame implements iMDIF
         {
             return;
         }
-        constellationData cdt = new constellationData(up);
+        ConstellationData cdt = new ConstellationData(up);
         int r = cdt.deleteRecord(bean.getOID());
         if (r == iDAO.OPERATE_SUCCESS)
         {
@@ -453,17 +453,17 @@ public class ifrmGlaxyEditor extends javax.swing.JInternalFrame implements iMDIF
 
     private void moveConsToRegion()
     {
-        beanCtxConstellation bean = getSelectedConstellation();
+        BeanCtxConstellation bean = getSelectedConstellation();
         if (bean == null)
         {
             return;
         }
-        stellarRegion strg = new stellarRegion(up);
+        StellarRegion strg = new StellarRegion(up);
         List lrs = strg.getRegionsByGlaxy(this.glxid);
         List ls = new ArrayList();
         for (int i = 0; i < lrs.size(); i++)
         {
-            beanCtxStellarRegion bcsr = (beanCtxStellarRegion) lrs.get(i);
+            BeanCtxStellarRegion bcsr = (BeanCtxStellarRegion) lrs.get(i);
             if (bcsr.getOID() == bean.getRegionOID())
             {
                 continue;
@@ -477,7 +477,7 @@ public class ifrmGlaxyEditor extends javax.swing.JInternalFrame implements iMDIF
         {
             listItem lsel = dlg.getSelectedListItem();
             int NRID = lsel.getNodeOID();
-            constellationData csdt = new constellationData(up);
+            ConstellationData csdt = new ConstellationData(up);
             int r = csdt.moveToRegion(bean.getOID(), NRID);
             if (r != iDAO.OPERATE_SUCCESS)
             {
@@ -494,13 +494,13 @@ public class ifrmGlaxyEditor extends javax.swing.JInternalFrame implements iMDIF
 
     private void newStellar()
     {
-        beanCtxConstellation bcon = getSelectedConstellation();
+        BeanCtxConstellation bcon = getSelectedConstellation();
         int consid = 0;
         if (bcon != null)
         {
             consid = bcon.getOID();
         }
-        dlgCtxStellarData dlg = new dlgCtxStellarData(null, true, up, null, glxid, consid);
+        DlgCtxStellarData dlg = new DlgCtxStellarData(null, true, up, null, glxid, consid);
         dlg.setVisible(true);
         if (dlg.getOK())
         {
@@ -521,7 +521,7 @@ public class ifrmGlaxyEditor extends javax.swing.JInternalFrame implements iMDIF
         makeStellarSystemTree();
     }
 
-    private beanCtxStellarData getSelectedStellarData()
+    private BeanCtxStellarData getSelectedStellarData()
     {
         TreePath tph = trStes.getSelectionPath();
         if (tph == null)
@@ -535,17 +535,17 @@ public class ifrmGlaxyEditor extends javax.swing.JInternalFrame implements iMDIF
             System.err.println("..not ste data ");
             return null;
         }
-        return (beanCtxStellarData) hstes.get(mtn.getNodeOID());
+        return (BeanCtxStellarData) hstes.get(mtn.getNodeOID());
     }
 
     private void editStellarData()
     {
-        beanCtxStellarData obean = getSelectedStellarData();
+        BeanCtxStellarData obean = getSelectedStellarData();
         if (obean == null)
         {
             return;
         }
-        dlgCtxStellarData dlg = new dlgCtxStellarData(null, true, up, obean, glxid, obean.getConOID());
+        DlgCtxStellarData dlg = new DlgCtxStellarData(null, true, up, obean, glxid, obean.getConOID());
         dlg.setVisible(true);
         if (dlg.getOK())
         {
@@ -557,7 +557,7 @@ public class ifrmGlaxyEditor extends javax.swing.JInternalFrame implements iMDIF
 
     private void removeStellarData()
     {
-        beanCtxStellarData obean = getSelectedStellarData();
+        BeanCtxStellarData obean = getSelectedStellarData();
         if (obean == null)
         {
             return;
@@ -567,7 +567,7 @@ public class ifrmGlaxyEditor extends javax.swing.JInternalFrame implements iMDIF
         {
             return;
         }
-        stellarData sdt = new stellarData(up);
+        StellarData sdt = new StellarData(up);
         int r = sdt.deleteRecord(obean.getOID());
         if (r == iDAO.OPERATE_SUCCESS)
         {
@@ -581,12 +581,12 @@ public class ifrmGlaxyEditor extends javax.swing.JInternalFrame implements iMDIF
 
     private void moveStellarUp()
     {
-        beanCtxStellarData obean = getSelectedStellarData();
+        BeanCtxStellarData obean = getSelectedStellarData();
         if (obean == null)
         {
             return;
         }
-        stellarData sdt = new stellarData(up);
+        StellarData sdt = new StellarData(up);
         int r = sdt.moveStellarUp(obean.getOID());
         System.err.println("M UP = " + r);
         if (r == iDAO.OPERATE_SUCCESS)
@@ -597,12 +597,12 @@ public class ifrmGlaxyEditor extends javax.swing.JInternalFrame implements iMDIF
 
     private void moveStellarDown()
     {
-        beanCtxStellarData obean = getSelectedStellarData();
+        BeanCtxStellarData obean = getSelectedStellarData();
         if (obean == null)
         {
             return;
         }
-        stellarData sdt = new stellarData(up);
+        StellarData sdt = new StellarData(up);
         int r = sdt.moveStellarDown(obean.getOID());
         System.err.println("M DOWN = " + r);
         if (r == iDAO.OPERATE_SUCCESS)
@@ -614,27 +614,27 @@ public class ifrmGlaxyEditor extends javax.swing.JInternalFrame implements iMDIF
     //执行恒星系移动到指定星座的操作
     private void moveSteToCons()
     {
-        beanCtxStellarData obean = getSelectedStellarData();
+        BeanCtxStellarData obean = getSelectedStellarData();
         if (obean == null)
         {
             return;
         }
         myTreeNode mtn = new myTreeNode("[星域数据库]", 0, 0);
-        stellarRegion sr = new stellarRegion(up);
-        constellationData csd = new constellationData(up);
+        StellarRegion sr = new StellarRegion(up);
+        ConstellationData csd = new ConstellationData(up);
         List _lrg = sr.getRegionsByGlaxy(glxid);
         if (_lrg != null)
         {
             for (int i = 0; i < _lrg.size(); i++)
             {
-                beanCtxStellarRegion bcsr = (beanCtxStellarRegion) _lrg.get(i);
+                BeanCtxStellarRegion bcsr = (BeanCtxStellarRegion) _lrg.get(i);
                 myTreeNode msr = new myTreeNode(bcsr.getRegionName(), bcsr.getOID(), 0);
                 List lcs = csd.queryConstellationsByRegion(bcsr.getOID());
                 if (lcs != null)
                 {
                     for (int j = 0; j < lcs.size(); j++)
                     {
-                        beanCtxConstellation bcct = (beanCtxConstellation) lcs.get(j);
+                        BeanCtxConstellation bcct = (BeanCtxConstellation) lcs.get(j);
                         if (bcct.getOID() == obean.getConOID())
                         {
                             continue;
@@ -655,7 +655,7 @@ public class ifrmGlaxyEditor extends javax.swing.JInternalFrame implements iMDIF
             if (msel != null)
             {
                 int ncid = msel.getNodeOID();
-                stellarData sdt = new stellarData(up);
+                StellarData sdt = new StellarData(up);
                 int r = sdt.moveStellarToConstellation(obean.getOID(), ncid);
                 if (r == iDAO.OPERATE_SUCCESS)
                 {
@@ -678,20 +678,20 @@ public class ifrmGlaxyEditor extends javax.swing.JInternalFrame implements iMDIF
     private void newWorld()
     {
         //获取STELLAR
-        beanCtxStellarData bstellar = getSelectedStellarData();
+        BeanCtxStellarData bstellar = getSelectedStellarData();
         if (bstellar == null)
         {
             fast.warn("必须选择一个恒星系");
             return;
         }
         //获取父节点 
-        beanCtxCelestialWorld bpar = getSelectedWorld();
+        BeanCtxCelestialWorld bpar = getSelectedWorld();
         int pid = 0;
         if (bpar != null)
         {
             pid = bpar.getOID();
         }
-        dlgCtxCelestialInfo dlg = new dlgCtxCelestialInfo(null, true, up, null, bstellar.getOID(), pid);
+        DlgCtxCelestialInfo dlg = new DlgCtxCelestialInfo(null, true, up, null, bstellar.getOID(), pid);
         dlg.setVisible(true);
         if (dlg.getOK())
         {
@@ -701,7 +701,7 @@ public class ifrmGlaxyEditor extends javax.swing.JInternalFrame implements iMDIF
         dlg = null;
     }
 
-    private beanCtxCelestialWorld getSelectedWorld()
+    private BeanCtxCelestialWorld getSelectedWorld()
     {
         TreePath tph = trWorlds.getSelectionPath();
         if (tph == null)
@@ -714,18 +714,18 @@ public class ifrmGlaxyEditor extends javax.swing.JInternalFrame implements iMDIF
         {
             return null;
         }
-        celestialWorldData cwd = new celestialWorldData(up);
-        return (beanCtxCelestialWorld) cwd.getRecordByID(mtn.getNodeOID());
+        CelestialWorldData cwd = new CelestialWorldData(up);
+        return (BeanCtxCelestialWorld) cwd.getRecordByID(mtn.getNodeOID());
     }
 
     private void editWorld()
     {
-        beanCtxCelestialWorld bean = getSelectedWorld();
+        BeanCtxCelestialWorld bean = getSelectedWorld();
         if (bean == null)
         {
             return;
         }
-        dlgCtxCelestialInfo dlg = new dlgCtxCelestialInfo(null, true, up, bean, bean.getStellarOID(), bean.getParentOID());
+        DlgCtxCelestialInfo dlg = new DlgCtxCelestialInfo(null, true, up, bean, bean.getStellarOID(), bean.getParentOID());
         dlg.setVisible(true);
         if (dlg.getOK())
         {
@@ -737,7 +737,7 @@ public class ifrmGlaxyEditor extends javax.swing.JInternalFrame implements iMDIF
 
     private void removeWorld()
     {
-        beanCtxCelestialWorld bean = getSelectedWorld();
+        BeanCtxCelestialWorld bean = getSelectedWorld();
         if (bean == null)
         {
             return;
@@ -747,7 +747,7 @@ public class ifrmGlaxyEditor extends javax.swing.JInternalFrame implements iMDIF
         {
             return;
         }
-        celestialWorldData cwd = new celestialWorldData(up);
+        CelestialWorldData cwd = new CelestialWorldData(up);
         int r = cwd.deleteRecord(bean.getOID());
         if (r == iDAO.OPERATE_SUCCESS)
         {
@@ -761,12 +761,12 @@ public class ifrmGlaxyEditor extends javax.swing.JInternalFrame implements iMDIF
 
     private void appendResSource()
     {
-        beanCtxCelestialWorld bccw = getSelectedWorld();
+        BeanCtxCelestialWorld bccw = getSelectedWorld();
         if (bccw == null)
         {
             return;
         }
-        dlgCtxResSource dlg = new dlgCtxResSource(null, true, up, null, bccw.getOID());
+        DlgCtxResSource dlg = new DlgCtxResSource(null, true, up, null, bccw.getOID());
         dlg.setVisible(true);
         if (dlg.getOK())
         {
@@ -778,23 +778,23 @@ public class ifrmGlaxyEditor extends javax.swing.JInternalFrame implements iMDIF
 
     private void preLoadWorldRss()
     {
-        beanCtxCelestialWorld bccw = getSelectedWorld();
+        BeanCtxCelestialWorld bccw = getSelectedWorld();
         DefaultComboBoxModel mod = new DefaultComboBoxModel();
         mod.addElement(new listItem("<所有资源>", 0));
         if (bccw != null)
         {
-            worldTypeConfigResource wtcr = new worldTypeConfigResource(up);
+            WorldTypeConfigResource wtcr = new WorldTypeConfigResource(up);
             rcfgItems = wtcr.getResourceListByConfig(bccw.getWorldTypeConfigOID());
-            baseResourceDefine brd = new baseResourceDefine(up);
+            BaseResourceDefine brd = new BaseResourceDefine(up);
             lress = new ArrayList();
             if (rcfgItems != null)
             {
                 for (int i = 0; i < rcfgItems.size(); i++)
                 {
-                    beanCtxWorldCfgResItem bit = (beanCtxWorldCfgResItem) rcfgItems.get(i);
+                    BeanCtxWorldCfgResItem bit = (BeanCtxWorldCfgResItem) rcfgItems.get(i);
                     if (findBaseResInTempList(bit.getResOID()) == null)
                     {
-                        beanCtxBaseResource bcbr = (beanCtxBaseResource) brd.getRecordByID(bit.getResOID());
+                        BeanCtxBaseResource bcbr = (BeanCtxBaseResource) brd.getRecordByID(bit.getResOID());
                         listItem li = new listItem(bcbr.getResName(), bcbr.getOID());
                         lress.add(bcbr);
                         mod.addElement(li);
@@ -814,13 +814,13 @@ public class ifrmGlaxyEditor extends javax.swing.JInternalFrame implements iMDIF
         int idx = cmbWldRes.getSelectedIndex();
         if (idx >  0)
         {
-            beanCtxBaseResource bres = (beanCtxBaseResource) lress.get(idx-1);
+            BeanCtxBaseResource bres = (BeanCtxBaseResource) lress.get(idx-1);
             List ls = findResConfigItems(bres.getOID());
             if (ls != null)
             {
                 for (int i = 0; i < ls.size(); i++)
                 {
-                    beanCtxWorldCfgResItem bri = (beanCtxWorldCfgResItem) ls.get(i);
+                    BeanCtxWorldCfgResItem bri = (BeanCtxWorldCfgResItem) ls.get(i);
                     listItem li = new listItem(bri.getCfgDescp() + "<" + bri.getCriTag() + ">", bri.getOID());
                     mod.addElement(li);
                 }
@@ -836,7 +836,7 @@ public class ifrmGlaxyEditor extends javax.swing.JInternalFrame implements iMDIF
         {
             for (int i = 0; i < rcfgItems.size(); i++)
             {
-                beanCtxWorldCfgResItem bri = (beanCtxWorldCfgResItem) rcfgItems.get(i);
+                BeanCtxWorldCfgResItem bri = (BeanCtxWorldCfgResItem) rcfgItems.get(i);
                 if (bri.getResOID() == rsid)
                 {
                     ls.add(bri);
@@ -846,24 +846,24 @@ public class ifrmGlaxyEditor extends javax.swing.JInternalFrame implements iMDIF
         return ls;
     }
 
-    private beanCtxWorldResSource getSelectedSrc()
+    private BeanCtxWorldResSource getSelectedSrc()
     {
         int idx = tbRess.getSelectedRow();
         if (idx < 0)
         {
             return null;
         }
-        return (beanCtxWorldResSource) lreSrcs.get(idx);
+        return (BeanCtxWorldResSource) lreSrcs.get(idx);
     }
 
     private void editRess()
     {
-        beanCtxWorldResSource bsrc = getSelectedSrc();
+        BeanCtxWorldResSource bsrc = getSelectedSrc();
         if (bsrc == null)
         {
             return;
         }
-        dlgCtxResSource dlg = new dlgCtxResSource(null, true, up, bsrc, bsrc.getWorldOID());
+        DlgCtxResSource dlg = new DlgCtxResSource(null, true, up, bsrc, bsrc.getWorldOID());
         dlg.setVisible(true);
         if (dlg.getOK())
         {
@@ -875,7 +875,7 @@ public class ifrmGlaxyEditor extends javax.swing.JInternalFrame implements iMDIF
 
     private void removeRess()
     {
-        beanCtxWorldResSource bsrc = getSelectedSrc();
+        BeanCtxWorldResSource bsrc = getSelectedSrc();
         if (bsrc == null)
         {
             return;
@@ -885,7 +885,7 @@ public class ifrmGlaxyEditor extends javax.swing.JInternalFrame implements iMDIF
         {
             return;
         }
-        worldResSource wrs = new worldResSource(up);
+        WorldResSource wrs = new WorldResSource(up);
         int r = wrs.deleteRecord(bsrc.getOID());
         if (r == iDAO.OPERATE_SUCCESS)
         {

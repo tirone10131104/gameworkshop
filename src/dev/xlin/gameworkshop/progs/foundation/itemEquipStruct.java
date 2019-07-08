@@ -1,6 +1,6 @@
 package dev.xlin.gameworkshop.progs.foundation;
 
-import dev.xlin.gameworkshop.progs.foundation.beans.beanItemEquipStruct;
+import dev.xlin.gameworkshop.progs.foundation.beans.BeanItemEquipStruct;
 import dev.xlin.gameworkshop.progs.iReturn;
 import dev.xlin.tols.data.jcommon;
 import dev.xlin.tols.data.session;
@@ -36,7 +36,7 @@ public class itemEquipStruct implements iDAO, iBeanCheckable, iBeanRevert
         {
             return r0;
         }
-        beanItemEquipStruct bean = (beanItemEquipStruct) o;
+        BeanItemEquipStruct bean = (BeanItemEquipStruct) o;
         if (getItemEquipStructByTag(bean.getEquipTag()) != null)
         {
             return iReturn.BEAN_TAG_REPEAT;
@@ -53,7 +53,7 @@ public class itemEquipStruct implements iDAO, iBeanCheckable, iBeanRevert
         bean.setOID(oid);
         if (bean.getParentID() != 0)
         {
-            beanItemEquipStruct bpar = (beanItemEquipStruct) getRecordByID(bean.getParentID());
+            BeanItemEquipStruct bpar = (BeanItemEquipStruct) getRecordByID(bean.getParentID());
             bean.setLevelID(bpar.getLevelID() + 1);
         }
         else
@@ -63,7 +63,7 @@ public class itemEquipStruct implements iDAO, iBeanCheckable, iBeanRevert
         return jcommon.eInsert(sn, bean, table, bln);
     }
 
-    private int findMaxIndex(beanItemEquipStruct bean)
+    private int findMaxIndex(BeanItemEquipStruct bean)
     {
         String sql = "select max(indexID ) as maxid from " + table + " where parentID = " + bean.getParentID();
         try
@@ -86,11 +86,11 @@ public class itemEquipStruct implements iDAO, iBeanCheckable, iBeanRevert
         }
     }
 
-    private int doCheckLogic(beanItemEquipStruct bean)
+    private int doCheckLogic(BeanItemEquipStruct bean)
     {
         if (bean.getParentID() != 0)
         {
-            beanItemEquipStruct bpar = (beanItemEquipStruct) getRecordByID(bean.getParentID());
+            BeanItemEquipStruct bpar = (BeanItemEquipStruct) getRecordByID(bean.getParentID());
             if (bpar == null)
             {
                 return iReturn.IEST_PARENT_NOTEXIST;
@@ -103,15 +103,15 @@ public class itemEquipStruct implements iDAO, iBeanCheckable, iBeanRevert
         return 0;
     }
 
-    public beanItemEquipStruct getItemEquipStructByTag(String stg)
+    public BeanItemEquipStruct getItemEquipStructByTag(String stg)
     {
         String sql = "select * from " + table + " where equipTag = '" + stg.trim() + "'";
-        List ls = sn.querySQL(sql, beanItemEquipStruct.class);
+        List ls = sn.querySQL(sql, BeanItemEquipStruct.class);
         if (ls == null)
         {
             return null;
         }
-        return (beanItemEquipStruct) ls.get(0);
+        return (BeanItemEquipStruct) ls.get(0);
     }
 
     public List getItemListByParent(int id, boolean showAll)
@@ -122,12 +122,12 @@ public class itemEquipStruct implements iDAO, iBeanCheckable, iBeanRevert
             sql = sql + " and status = " + iDAO.OBJECT_STATE_ACTIVE;
         }
         sql = sql + " order by indexID";
-        return sn.querySQL(sql, beanItemEquipStruct.class);
+        return sn.querySQL(sql, BeanItemEquipStruct.class);
     }
 
     public List getItemListByParentTag(String stg, boolean showAll)
     {
-        beanItemEquipStruct bpar = getItemEquipStructByTag(stg);
+        BeanItemEquipStruct bpar = getItemEquipStructByTag(stg);
         if (bpar == null)
         {
             return null;
@@ -137,21 +137,21 @@ public class itemEquipStruct implements iDAO, iBeanCheckable, iBeanRevert
 
     public int moveUp(int oid)
     {
-        beanItemEquipStruct bean = (beanItemEquipStruct) getRecordByID(oid);
+        BeanItemEquipStruct bean = (BeanItemEquipStruct) getRecordByID(oid);
         if (checkBean(bean) == false)
         {
             return iDAO.OBJECT_RECORD_NOTEXIST;
         }
         String sql = "select * from " + table + " where parentID = " + bean.getParentID()
                 + " and indexID < " + bean.getIndexID() + " order by indexID desc ";
-        List ls = sn.querySQL(sql, beanItemEquipStruct.class);
+        List ls = sn.querySQL(sql, BeanItemEquipStruct.class);
         if (ls == null)
         {
             return iDAO.OPERATE_FAIL;
         }
         else
         {
-            beanItemEquipStruct bpre = (beanItemEquipStruct) ls.get(0);
+            BeanItemEquipStruct bpre = (BeanItemEquipStruct) ls.get(0);
             int tidx = bpre.getIndexID();
             //数据交换
             bpre.setIndexID(bean.getIndexID());
@@ -174,21 +174,21 @@ public class itemEquipStruct implements iDAO, iBeanCheckable, iBeanRevert
 
     public int moveDown(int oid)
     {
-        beanItemEquipStruct bean = (beanItemEquipStruct) getRecordByID(oid);
+        BeanItemEquipStruct bean = (BeanItemEquipStruct) getRecordByID(oid);
         if (checkBean(bean) == false)
         {
             return iDAO.OBJECT_RECORD_NOTEXIST;
         }
         String sql = "select * from " + table + " where parentID = " + bean.getParentID()
                 + " and indexID > " + bean.getIndexID() + " order by indexID ";
-        List ls = sn.querySQL(sql, beanItemEquipStruct.class);
+        List ls = sn.querySQL(sql, BeanItemEquipStruct.class);
         if (ls == null)
         {
             return iDAO.OPERATE_FAIL;
         }
         else
         {
-            beanItemEquipStruct blast = (beanItemEquipStruct) ls.get(0);
+            BeanItemEquipStruct blast = (BeanItemEquipStruct) ls.get(0);
             int tidx = blast.getIndexID();
             //数据交换
             blast.setIndexID(bean.getIndexID());
@@ -215,7 +215,7 @@ public class itemEquipStruct implements iDAO, iBeanCheckable, iBeanRevert
         {
             return iDAO.PARAM_OBJECT_NULL;
         }
-        if (o.getClass() != beanItemEquipStruct.class)
+        if (o.getClass() != BeanItemEquipStruct.class)
         {
             return iDAO.PARAM_OBJECT_CLASS_INCORRECT;
         }
@@ -230,8 +230,8 @@ public class itemEquipStruct implements iDAO, iBeanCheckable, iBeanRevert
         {
             return r0;
         }
-        beanItemEquipStruct bean = (beanItemEquipStruct) o;
-        beanItemEquipStruct obean = (beanItemEquipStruct) getRecordByID(bean.getOID());
+        BeanItemEquipStruct bean = (BeanItemEquipStruct) o;
+        BeanItemEquipStruct obean = (BeanItemEquipStruct) getRecordByID(bean.getOID());
         if (checkBean(obean) == false)
         {
             return iDAO.OBJECT_RECORD_NOTEXIST;
@@ -259,14 +259,14 @@ public class itemEquipStruct implements iDAO, iBeanCheckable, iBeanRevert
     public List getAllRecord()
     {
         String sql = "select * from " + table;
-        return sn.querySQL(sql, beanItemEquipStruct.class);
+        return sn.querySQL(sql, BeanItemEquipStruct.class);
     }
 
     @Override
     public Object getRecordByID(int i)
     {
         String sql = "select * from " + table + " where OID = " + i;
-        List ls = sn.querySQL(sql, beanItemEquipStruct.class);
+        List ls = sn.querySQL(sql, BeanItemEquipStruct.class);
         if (ls == null)
         {
             return null;
@@ -281,11 +281,11 @@ public class itemEquipStruct implements iDAO, iBeanCheckable, iBeanRevert
         {
             return false;
         }
-        if (o.getClass() != beanItemEquipStruct.class)
+        if (o.getClass() != BeanItemEquipStruct.class)
         {
             return false;
         }
-        beanItemEquipStruct bean = (beanItemEquipStruct) o;
+        BeanItemEquipStruct bean = (BeanItemEquipStruct) o;
         if (bean.getStatus() != iDAO.OBJECT_STATE_ACTIVE)
         {
             return false;
@@ -304,7 +304,7 @@ public class itemEquipStruct implements iDAO, iBeanCheckable, iBeanRevert
     @Override
     public int destroyBean(int i)
     {
-        beanItemEquipStruct bean = (beanItemEquipStruct) getRecordByID(i);
+        BeanItemEquipStruct bean = (BeanItemEquipStruct) getRecordByID(i);
         if (bean == null)
         {
             return iDAO.OBJECT_RECORD_NOTEXIST;

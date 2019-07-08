@@ -1,7 +1,7 @@
 package dev.xlin.gameworkshop.progs.foundation;
 
-import dev.xlin.gameworkshop.progs.foundation.beans.beanPropertyData;
-import dev.xlin.gameworkshop.progs.foundation.beans.beanPropertyDefine;
+import dev.xlin.gameworkshop.progs.foundation.beans.BeanPropertyData;
+import dev.xlin.gameworkshop.progs.foundation.beans.BeanPropertyDefine;
 import dev.xlin.gameworkshop.progs.foundation.interfaces.iAdtDocumentSave;
 import dev.xlin.gameworkshop.progs.foundation.interfaces.iAdtXML;
 import dev.xlin.gameworkshop.progs.foundation.interfaces.iDataColumnOper;
@@ -151,17 +151,17 @@ public class propertyListData implements iDataPageOper, iDataColumnOper, iDataEl
         {
             return iDAO.PARAM_OBJECT_NULL;
         }
-        beanPropertyData bpd = (beanPropertyData) ide;
+        BeanPropertyData bpd = (BeanPropertyData) ide;
         //检测基本逻辑
         //检查属性是否存在
         propertyDefine pdef = new propertyDefine(up);
-        beanPropertyDefine bpdef = (beanPropertyDefine) pdef.getRecordByID(bpd.getPropID());
+        BeanPropertyDefine bpdef = (BeanPropertyDefine) pdef.getRecordByID(bpd.getPropID());
         if (pdef.checkBean(bpdef) == false)
         {
             return iReturn.PROPERTY_DEF_NOT_EXIST;
         }
         //检查属性是否已经使用
-        beanPropertyData obean = getPropertyDataByPropID(bpd.getPropID());
+        BeanPropertyData obean = getPropertyDataByPropID(bpd.getPropID());
         if (obean != null)
         {
             return iReturn.PROPERTY_DATA_REPEAT;
@@ -178,12 +178,12 @@ public class propertyListData implements iDataPageOper, iDataColumnOper, iDataEl
         return DSO.appendDataElement(ide, colOID);
     }
 
-    public beanPropertyData getPropertyDataByPropID(int pid)
+    public BeanPropertyData getPropertyDataByPropID(int pid)
     {
         List ls = getAllDataElements(true);
         for (int i = 0; i < ls.size(); i++)
         {
-            beanPropertyData bpd = (beanPropertyData) ls.get(i);
+            BeanPropertyData bpd = (BeanPropertyData) ls.get(i);
             if (bpd.getPropID() == pid)
             {
                 return bpd;
@@ -195,8 +195,8 @@ public class propertyListData implements iDataPageOper, iDataColumnOper, iDataEl
     @Override
     public int updateDataElement(iDataElement ide)
     {
-        beanPropertyData bpd = (beanPropertyData) ide;
-        beanPropertyData obean = (beanPropertyData) getDataElementByOID(bpd.getOID());
+        BeanPropertyData bpd = (BeanPropertyData) ide;
+        BeanPropertyData obean = (BeanPropertyData) getDataElementByOID(bpd.getOID());
         if (obean == null)
         {
             return iDAO.OBJECT_RECORD_NOTEXIST;

@@ -1,6 +1,6 @@
 package dev.xlin.gameworkshop.progs.foundation;
 
-import dev.xlin.gameworkshop.progs.foundation.beans.beanSkillDefine;
+import dev.xlin.gameworkshop.progs.foundation.beans.BeanSkillDefine;
 import dev.xlin.gameworkshop.progs.iConst;
 import dev.xlin.gameworkshop.progs.iReturn;
 import dev.xlin.gameworkshop.progs.tools.dbTask;
@@ -41,7 +41,7 @@ public class skillDefine implements iDAO, iBeanCheckable, iBeanRevert
             return r0;
         }
 
-        beanSkillDefine bean = (beanSkillDefine) o;
+        BeanSkillDefine bean = (BeanSkillDefine) o;
         if (getSkillDefineByTag(bean.getSkillTag()) != null)
         {
             return iReturn.BEAN_TAG_REPEAT;
@@ -68,8 +68,8 @@ public class skillDefine implements iDAO, iBeanCheckable, iBeanRevert
 
     public int moveSkillAsChild(int skid, int parid)
     {
-        beanSkillDefine oribean = (beanSkillDefine) getRecordByID(skid);
-        beanSkillDefine parbean = (beanSkillDefine) getRecordByID(parid);
+        BeanSkillDefine oribean = (BeanSkillDefine) getRecordByID(skid);
+        BeanSkillDefine parbean = (BeanSkillDefine) getRecordByID(parid);
         if (checkBean(oribean) == false)
         {
             return iDAO.OBJECT_RECORD_NOTEXIST;
@@ -89,7 +89,7 @@ public class skillDefine implements iDAO, iBeanCheckable, iBeanRevert
 
     public int moveSkillAsRoot(int skid)
     {
-        beanSkillDefine oribean = (beanSkillDefine) getRecordByID(skid);
+        BeanSkillDefine oribean = (BeanSkillDefine) getRecordByID(skid);
         if (checkBean(oribean) == false)
         {
             return iDAO.OBJECT_RECORD_NOTEXIST;
@@ -107,8 +107,8 @@ public class skillDefine implements iDAO, iBeanCheckable, iBeanRevert
         {
             return r0;
         }
-        beanSkillDefine bean = (beanSkillDefine) o;
-        beanSkillDefine obean = (beanSkillDefine) getRecordByID(bean.getOID());
+        BeanSkillDefine bean = (BeanSkillDefine) o;
+        BeanSkillDefine obean = (BeanSkillDefine) getRecordByID(bean.getOID());
         if (checkBean(obean) == false)
         {
             return iDAO.OBJECT_RECORD_NOTEXIST;
@@ -136,7 +136,7 @@ public class skillDefine implements iDAO, iBeanCheckable, iBeanRevert
         return jcommon.eUpdate(sn, obean, tableSkill, "OID", bln);
     }
 
-    private int doCheckSkillData(beanSkillDefine bean)
+    private int doCheckSkillData(BeanSkillDefine bean)
     {
         if (constChk.isConst(iConst.class, "SKL_INVK_TYPE_", bean.getLevelInvokeType()) == false)
         {
@@ -163,26 +163,26 @@ public class skillDefine implements iDAO, iBeanCheckable, iBeanRevert
         {
             return iDAO.PARAM_OBJECT_NULL;
         }
-        if (o.getClass() != beanSkillDefine.class)
+        if (o.getClass() != BeanSkillDefine.class)
         {
             return iDAO.PARAM_OBJECT_CLASS_INCORRECT;
         }
         return 0;
     }
 
-    public beanSkillDefine getSkillDefineByTag(String tag)
+    public BeanSkillDefine getSkillDefineByTag(String tag)
     {
         if (tag == null)
         {
             return null;
         }
         String sql = "select * from " + tableSkill + " where skillTag = '" + tag.trim() + "'";
-        List ls = sn.querySQL(sql, beanSkillDefine.class);
+        List ls = sn.querySQL(sql, BeanSkillDefine.class);
         if (ls == null)
         {
             return null;
         }
-        return (beanSkillDefine) ls.get(0);
+        return (BeanSkillDefine) ls.get(0);
     }
 
     public List getSkillByType(int tp, boolean showAll)
@@ -192,7 +192,7 @@ public class skillDefine implements iDAO, iBeanCheckable, iBeanRevert
         {
             sql = sql + " and status = " + iDAO.OBJECT_STATE_ACTIVE;
         }
-        return sn.querySQL(sql, beanSkillDefine.class);
+        return sn.querySQL(sql, BeanSkillDefine.class);
     }
 
     public List getSkillsByParent(int poid, boolean showAll)
@@ -206,13 +206,13 @@ public class skillDefine implements iDAO, iBeanCheckable, iBeanRevert
         {
             sql = sql + " and status = " + iDAO.OBJECT_STATE_ACTIVE;
         }
-        return sn.querySQL(sql, beanSkillDefine.class);
+        return sn.querySQL(sql, BeanSkillDefine.class);
     }
 
     @Override
     public int deleteRecord(int i)
     {
-        beanSkillDefine bean = (beanSkillDefine) getRecordByID(i);
+        BeanSkillDefine bean = (BeanSkillDefine) getRecordByID(i);
         if (bean == null)
         {
             return iDAO.OBJECT_RECORD_NOTEXIST;
@@ -243,7 +243,7 @@ public class skillDefine implements iDAO, iBeanCheckable, iBeanRevert
     public Object getRecordByID(int i)
     {
         String sql = "select * from " + tableSkill + " where OID = " + i;
-        List ls = sn.querySQL(sql, beanSkillDefine.class);
+        List ls = sn.querySQL(sql, BeanSkillDefine.class);
         if (ls == null)
         {
             return null;
@@ -258,11 +258,11 @@ public class skillDefine implements iDAO, iBeanCheckable, iBeanRevert
         {
             return false;
         }
-        if (o.getClass() != beanSkillDefine.class)
+        if (o.getClass() != BeanSkillDefine.class)
         {
             return false;
         }
-        beanSkillDefine bean = (beanSkillDefine) o;
+        BeanSkillDefine bean = (BeanSkillDefine) o;
         if (bean.getStatus() != iDAO.OBJECT_STATE_ACTIVE)
         {
             return false;
@@ -281,7 +281,7 @@ public class skillDefine implements iDAO, iBeanCheckable, iBeanRevert
     @Override
     public int destroyBean(int i)
     {
-        beanSkillDefine bean = (beanSkillDefine) getRecordByID(i);
+        BeanSkillDefine bean = (BeanSkillDefine) getRecordByID(i);
         if (bean == null)
         {
             return iDAO.OBJECT_RECORD_NOTEXIST;

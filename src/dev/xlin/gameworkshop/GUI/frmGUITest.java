@@ -1,9 +1,9 @@
 package dev.xlin.gameworkshop.GUI;
 
-import dev.xlin.gameworkshop.GUI.dialog.dlgSelectIntfImplsByISET;
+import dev.xlin.gameworkshop.GUI.dialog.DlgSelectIntfImplsByISET;
 import dev.xlin.gameworkshop.GUI.techTest.runtest;
 import dev.xlin.gameworkshop.progs.databaseTools;
-import dev.xlin.gameworkshop.progs.foundation.beans.beanProgIntfRegister;
+import dev.xlin.gameworkshop.progs.foundation.beans.BeanProgIntfRegister;
 import dev.xlin.tols.data.wakeup;
 
 public class frmGUITest extends javax.swing.JDialog
@@ -20,11 +20,11 @@ public class frmGUITest extends javax.swing.JDialog
 
     private void test1()
     {
-        dlgSelectIntfImplsByISET dlg = new dlgSelectIntfImplsByISET(null, true, up, "");
+        DlgSelectIntfImplsByISET dlg = new DlgSelectIntfImplsByISET(null, true, up, "");
         dlg.setVisible(true);
         if (dlg.getOK())
         {
-            beanProgIntfRegister bpir = dlg.getSelectedReg();
+            BeanProgIntfRegister bpir = dlg.getSelectedReg();
             fast.msg(bpir.getRegDescription() + " adr= " + bpir.getImplAddress());
         }
         dlg.dispose();

@@ -1,6 +1,6 @@
 package dev.xlin.gameworkshop.progs.foundation;
 
-import dev.xlin.gameworkshop.progs.foundation.beans.beanSkillUpgradeCondition;
+import dev.xlin.gameworkshop.progs.foundation.beans.BeanSkillUpgradeCondition;
 import dev.xlin.gameworkshop.progs.foundation.interfaces.iAdtDocumentSave;
 import dev.xlin.gameworkshop.progs.foundation.interfaces.iAdtXML;
 import dev.xlin.gameworkshop.progs.foundation.interfaces.iDataElement;
@@ -40,7 +40,7 @@ public class skillUpgradeDataList implements iAdtXML, iAdtDocumentSave, iDatablo
         {
             return iDAO.PARAM_OBJECT_NULL;
         }
-        beanSkillUpgradeCondition bean = (beanSkillUpgradeCondition) ide;
+        BeanSkillUpgradeCondition bean = (BeanSkillUpgradeCondition) ide;
         bean.setOID(createElementOID());
         bean.setStatus(iDAO.OBJECT_STATE_ACTIVE);
         datapages.add(bean);
@@ -54,8 +54,8 @@ public class skillUpgradeDataList implements iAdtXML, iAdtDocumentSave, iDatablo
         {
             return iDAO.PARAM_OBJECT_NULL;
         }
-        beanSkillUpgradeCondition bean = (beanSkillUpgradeCondition) ide;
-        beanSkillUpgradeCondition obean = getBeanNotClone(bean.getOID());
+        BeanSkillUpgradeCondition bean = (BeanSkillUpgradeCondition) ide;
+        BeanSkillUpgradeCondition obean = getBeanNotClone(bean.getOID());
         if (obean == null)
         {
             return iDAO.OBJECT_RECORD_NOTEXIST;
@@ -79,8 +79,8 @@ public class skillUpgradeDataList implements iAdtXML, iAdtDocumentSave, iDatablo
         {
             return iDAO.PARAM_OBJECT_NULL;
         }
-        beanSkillUpgradeCondition bean = (beanSkillUpgradeCondition) ide;
-        beanSkillUpgradeCondition obean = getBeanNotClone(bean.getOID());
+        BeanSkillUpgradeCondition bean = (BeanSkillUpgradeCondition) ide;
+        BeanSkillUpgradeCondition obean = getBeanNotClone(bean.getOID());
         if (obean == null)
         {
             return iDAO.OBJECT_RECORD_NOTEXIST;
@@ -96,8 +96,8 @@ public class skillUpgradeDataList implements iAdtXML, iAdtDocumentSave, iDatablo
         {
             return iDAO.PARAM_OBJECT_NULL;
         }
-        beanSkillUpgradeCondition bean = (beanSkillUpgradeCondition) ide;
-        beanSkillUpgradeCondition obean = getBeanNotClone(bean.getOID());
+        BeanSkillUpgradeCondition bean = (BeanSkillUpgradeCondition) ide;
+        BeanSkillUpgradeCondition obean = getBeanNotClone(bean.getOID());
         if (obean == null)
         {
             return iDAO.OBJECT_RECORD_NOTEXIST;
@@ -117,8 +117,8 @@ public class skillUpgradeDataList implements iAdtXML, iAdtDocumentSave, iDatablo
         {
             return iDAO.PARAM_OBJECT_NULL;
         }
-        beanSkillUpgradeCondition bean = (beanSkillUpgradeCondition) ide;
-        beanSkillUpgradeCondition obean = getBeanNotClone(bean.getOID());
+        BeanSkillUpgradeCondition bean = (BeanSkillUpgradeCondition) ide;
+        BeanSkillUpgradeCondition obean = getBeanNotClone(bean.getOID());
         if (obean == null)
         {
             return iDAO.OBJECT_RECORD_NOTEXIST;
@@ -129,7 +129,7 @@ public class skillUpgradeDataList implements iAdtXML, iAdtDocumentSave, iDatablo
         }
         for (int i = 0; i < datapages.size(); i++)
         {
-            beanSkillUpgradeCondition bori = (beanSkillUpgradeCondition) datapages.get(i);
+            BeanSkillUpgradeCondition bori = (BeanSkillUpgradeCondition) datapages.get(i);
             if (bori.getOID() == obean.getOID())
             {
                 datapages.remove(i);
@@ -163,11 +163,11 @@ public class skillUpgradeDataList implements iAdtXML, iAdtDocumentSave, iDatablo
         }
     }
 
-    private beanSkillUpgradeCondition getBeanNotClone(int oid)
+    private BeanSkillUpgradeCondition getBeanNotClone(int oid)
     {
         for (int i = 0; i < datapages.size(); i++)
         {
-            beanSkillUpgradeCondition bean = (beanSkillUpgradeCondition) datapages.get(i);
+            BeanSkillUpgradeCondition bean = (BeanSkillUpgradeCondition) datapages.get(i);
             if (bean.getOID() == oid)
             {
                 return bean;
@@ -185,7 +185,7 @@ public class skillUpgradeDataList implements iAdtXML, iAdtDocumentSave, iDatablo
     @Override
     public iDataElement getDataElementByOID(int oid)
     {
-        beanSkillUpgradeCondition bean = getBeanNotClone(oid);
+        BeanSkillUpgradeCondition bean = getBeanNotClone(oid);
         if (bean == null)
         {
             return null;
@@ -199,7 +199,7 @@ public class skillUpgradeDataList implements iAdtXML, iAdtDocumentSave, iDatablo
         ArrayList arl = new ArrayList();
         for (int i = 0; i < datapages.size(); i++)
         {
-            beanSkillUpgradeCondition bean = (beanSkillUpgradeCondition) datapages.get(i);
+            BeanSkillUpgradeCondition bean = (BeanSkillUpgradeCondition) datapages.get(i);
             if (showAll == false && bean.getStatus() != iDAO.OBJECT_STATE_ACTIVE)
             {
                 continue;
@@ -213,7 +213,7 @@ public class skillUpgradeDataList implements iAdtXML, iAdtDocumentSave, iDatablo
     {
         for (int i = 0; i < datapages.size(); i++)
         {
-            beanSkillUpgradeCondition bean = (beanSkillUpgradeCondition) datapages.get(i);
+            BeanSkillUpgradeCondition bean = (BeanSkillUpgradeCondition) datapages.get(i);
             if (bean.getOID() == oid)
             {
                 return i;
@@ -268,7 +268,7 @@ public class skillUpgradeDataList implements iAdtXML, iAdtDocumentSave, iDatablo
         Element erot = xr.createElement("ROOT");
         for (int i = 0; i < datapages.size(); i++)
         {
-            beanSkillUpgradeCondition bean = (beanSkillUpgradeCondition) datapages.get(i);
+            BeanSkillUpgradeCondition bean = (BeanSkillUpgradeCondition) datapages.get(i);
             Element e = bean.transToXmlElement(xr);
             erot.appendChild(e);
         }
@@ -281,12 +281,12 @@ public class skillUpgradeDataList implements iAdtXML, iAdtDocumentSave, iDatablo
     {
         datapages.clear();
         Element erot = xr.getDocument().getDocumentElement();
-        beanSkillUpgradeCondition b = new beanSkillUpgradeCondition();
+        BeanSkillUpgradeCondition b = new BeanSkillUpgradeCondition();
         NodeList nl = erot.getElementsByTagName(b._getXmlNodeName());
         for (int i = 0; i < nl.getLength(); i++)
         {
             Element e = (Element) nl.item(i);
-            beanSkillUpgradeCondition bean = new beanSkillUpgradeCondition();
+            BeanSkillUpgradeCondition bean = new BeanSkillUpgradeCondition();
             boolean brv = bean.revertFromXmlElement(e);
             if (brv == false)
             {
@@ -339,7 +339,7 @@ public class skillUpgradeDataList implements iAdtXML, iAdtDocumentSave, iDatablo
     {
         for (int i = 0; i < datapages.size(); i++)
         {
-            beanSkillUpgradeCondition bean = (beanSkillUpgradeCondition) datapages.get(i);
+            BeanSkillUpgradeCondition bean = (BeanSkillUpgradeCondition) datapages.get(i);
             bean.setValue(0);
         }
     }

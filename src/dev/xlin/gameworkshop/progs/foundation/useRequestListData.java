@@ -1,7 +1,7 @@
 package dev.xlin.gameworkshop.progs.foundation;
 
-import dev.xlin.gameworkshop.progs.foundation.beans.beanBuildListItemData;
-import dev.xlin.gameworkshop.progs.foundation.beans.beanUseRequestData;
+import dev.xlin.gameworkshop.progs.foundation.beans.BeanBuildListItemData;
+import dev.xlin.gameworkshop.progs.foundation.beans.BeanUseRequestData;
 import dev.xlin.gameworkshop.progs.foundation.interfaces.iAdtDocumentSave;
 import dev.xlin.gameworkshop.progs.foundation.interfaces.iAdtXML;
 import dev.xlin.gameworkshop.progs.foundation.interfaces.iDataColumnOper;
@@ -43,7 +43,7 @@ public class useRequestListData implements iDataPageOper, iDataColumnOper, iData
         {
             return iDAO.PARAM_OBJECT_NULL;
         }
-        beanUseRequestData bean = (beanUseRequestData) ide;
+        BeanUseRequestData bean = (BeanUseRequestData) ide;
         int r0 = doCheckBeanLogic(bean);
         if (r0 != 0)
         {
@@ -55,7 +55,7 @@ public class useRequestListData implements iDataPageOper, iDataColumnOper, iData
         return DSO.appendDataElement(bean, colOID);
     }
 
-    private int doCheckBeanLogic(beanUseRequestData bean)
+    private int doCheckBeanLogic(BeanUseRequestData bean)
     {
         System.err.println("doCheckBeanLogic  use ");
         boolean b00 = constChk.isConst(iConst.class, "TARGET_REQ_METD_", bean.getRequestType());
@@ -80,8 +80,8 @@ public class useRequestListData implements iDataPageOper, iDataColumnOper, iData
     @Override
     public int updateDataElement(iDataElement ide)
     {
-        beanUseRequestData bean = (beanUseRequestData) ide;
-        beanUseRequestData obean = (beanUseRequestData) getDataElementByOID(bean.getOID());
+        BeanUseRequestData bean = (BeanUseRequestData) ide;
+        BeanUseRequestData obean = (BeanUseRequestData) getDataElementByOID(bean.getOID());
         if (obean == null)
         {
             return iDAO.OBJECT_RECORD_NOTEXIST;

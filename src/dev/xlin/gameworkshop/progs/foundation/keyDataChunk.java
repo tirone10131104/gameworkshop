@@ -1,6 +1,6 @@
 package dev.xlin.gameworkshop.progs.foundation;
 
-import dev.xlin.gameworkshop.progs.foundation.beans.beanKeyDataChunk;
+import dev.xlin.gameworkshop.progs.foundation.beans.BeanKeyDataChunk;
 import dev.xlin.gameworkshop.progs.iReturn;
 import dev.xlin.tols.data.jcommon;
 import dev.xlin.tols.data.session;
@@ -31,7 +31,7 @@ public class keyDataChunk implements iDAO, iBeanCheckable, iBeanRevert
         {
             return r0;
         }
-        beanKeyDataChunk bean = (beanKeyDataChunk) o;
+        BeanKeyDataChunk bean = (BeanKeyDataChunk) o;
         bean.setStatus(iDAO.OBJECT_STATE_ACTIVE);
         return jcommon.eInsert(sn, bean, table, false);
     }
@@ -42,7 +42,7 @@ public class keyDataChunk implements iDAO, iBeanCheckable, iBeanRevert
         {
             return iDAO.PARAM_OBJECT_NULL;
         }
-        if (o.getClass() != beanKeyDataChunk.class)
+        if (o.getClass() != BeanKeyDataChunk.class)
         {
             return iDAO.PARAM_OBJECT_CLASS_INCORRECT;
         }
@@ -57,8 +57,8 @@ public class keyDataChunk implements iDAO, iBeanCheckable, iBeanRevert
         {
             return r0;
         }
-        beanKeyDataChunk bean = (beanKeyDataChunk) o;
-        beanKeyDataChunk obean = (beanKeyDataChunk) getRecordByID(bean.getOID());
+        BeanKeyDataChunk bean = (BeanKeyDataChunk) o;
+        BeanKeyDataChunk obean = (BeanKeyDataChunk) getRecordByID(bean.getOID());
         if (checkBean(obean) == false)
         {
             return iDAO.OBJECT_RECORD_NOTEXIST;
@@ -81,14 +81,14 @@ public class keyDataChunk implements iDAO, iBeanCheckable, iBeanRevert
     public List getAllRecord()
     {
         String sql = "select * from " + table + " order by OID ";
-        return sn.querySQL(sql, beanKeyDataChunk.class);
+        return sn.querySQL(sql, BeanKeyDataChunk.class);
     }
 
     @Override
     public Object getRecordByID(int i)
     {
         String sql = "select * from " + table + " where OID = " + i;
-        List ls = sn.querySQL(sql, beanKeyDataChunk.class);
+        List ls = sn.querySQL(sql, BeanKeyDataChunk.class);
         if (ls == null)
         {
             return null;
@@ -103,11 +103,11 @@ public class keyDataChunk implements iDAO, iBeanCheckable, iBeanRevert
         {
             return false;
         }
-        if (o.getClass() != beanKeyDataChunk.class)
+        if (o.getClass() != BeanKeyDataChunk.class)
         {
             return false;
         }
-        beanKeyDataChunk bean = (beanKeyDataChunk) o;
+        BeanKeyDataChunk bean = (BeanKeyDataChunk) o;
         if (bean.getStatus() != iDAO.OBJECT_STATE_ACTIVE)
         {
             return false;
@@ -126,7 +126,7 @@ public class keyDataChunk implements iDAO, iBeanCheckable, iBeanRevert
     @Override
     public int destroyBean(int i)
     {
-        beanKeyDataChunk bean = (beanKeyDataChunk) getRecordByID(i);
+        BeanKeyDataChunk bean = (BeanKeyDataChunk) getRecordByID(i);
         if (bean == null)
         {
              return iDAO.OBJECT_RECORD_NOTEXIST;

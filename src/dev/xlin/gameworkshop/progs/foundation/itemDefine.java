@@ -1,7 +1,7 @@
 package dev.xlin.gameworkshop.progs.foundation;
 
-import dev.xlin.gameworkshop.progs.foundation.beans.beanItem;
-import dev.xlin.gameworkshop.progs.foundation.beans.beanItemEquipStruct;
+import dev.xlin.gameworkshop.progs.foundation.beans.BeanItem;
+import dev.xlin.gameworkshop.progs.foundation.beans.BeanItemEquipStruct;
 import dev.xlin.gameworkshop.progs.iReturn;
 import dev.xlin.gameworkshop.progs.tools.dbTask;
 import dev.xlin.tols.data.jcommon;
@@ -42,7 +42,7 @@ public class itemDefine implements iDAO, iBeanCheckable, iBeanRevert
         {
             return r0;
         }
-        beanItem bean = (beanItem) o;
+        BeanItem bean = (BeanItem) o;
         //检查标签重叠
         if (getItemDefineByTag(bean.getItemTag()) != null)
         {
@@ -91,29 +91,29 @@ public class itemDefine implements iDAO, iBeanCheckable, iBeanRevert
         }
     }
 
-    private String makeItemEquipStructString(beanItem bean)
+    private String makeItemEquipStructString(BeanItem bean)
     {
         String sr = "";
         itemEquipStruct ies = new itemEquipStruct(up);
         if (bean.getSlotRoot() != 0)
         {
-            beanItemEquipStruct bies = (beanItemEquipStruct) ies.getRecordByID(bean.getSlotRoot());
+            BeanItemEquipStruct bies = (BeanItemEquipStruct) ies.getRecordByID(bean.getSlotRoot());
             sr = sr + bies.getEquipTag();
         }
         if (bean.getSlotType() != 0)
         {
-            beanItemEquipStruct bies = (beanItemEquipStruct) ies.getRecordByID(bean.getSlotType());
+            BeanItemEquipStruct bies = (BeanItemEquipStruct) ies.getRecordByID(bean.getSlotType());
             sr = sr + ";" + bies.getEquipTag();
         }
         if (bean.getSlotIndex() != 0)
         {
-            beanItemEquipStruct bies = (beanItemEquipStruct) ies.getRecordByID(bean.getSlotIndex());
+            BeanItemEquipStruct bies = (BeanItemEquipStruct) ies.getRecordByID(bean.getSlotIndex());
             sr = sr + ";" + bies.getEquipTag();
         }
         return sr;
     }
 
-    private int doCheckItemLogic(beanItem bean)
+    private int doCheckItemLogic(BeanItem bean)
     {
 //        if (bean.getRealItem() != iConst.BOL_TRUE && bean.getEquipment() == iConst.BOL_TRUE)
 //        {
@@ -137,15 +137,15 @@ public class itemDefine implements iDAO, iBeanCheckable, iBeanRevert
         return jcommon.eExcute(up, sql);
     }
 
-    public beanItem getItemDefineByTag(String tag)
+    public BeanItem getItemDefineByTag(String tag)
     {
         String sql = "select * from " + tableItems + " where itemTag = '" + tag.trim() + "'";
-        List ls = sn.querySQL(sql, beanItem.class);
+        List ls = sn.querySQL(sql, BeanItem.class);
         if (ls == null)
         {
             return null;
         }
-        return (beanItem) ls.get(0);
+        return (BeanItem) ls.get(0);
     }
 
     private int doCheckParam(Object o)
@@ -154,7 +154,7 @@ public class itemDefine implements iDAO, iBeanCheckable, iBeanRevert
         {
             return iDAO.PARAM_OBJECT_NULL;
         }
-        if (o.getClass() != beanItem.class)
+        if (o.getClass() != BeanItem.class)
         {
             return iDAO.PARAM_OBJECT_CLASS_INCORRECT;
         }
@@ -182,7 +182,7 @@ public class itemDefine implements iDAO, iBeanCheckable, iBeanRevert
             sql = sql + " and (itemName like '%" + text + "%' or itemTag like '%" + text + "%')";
         }
         sql = sql + " order by oclsID";
-        return sn.querySQL(sql, beanItem.class);
+        return sn.querySQL(sql, BeanItem.class);
     }
 
     public List getItemsByType(int tpid, boolean showAll)
@@ -192,7 +192,7 @@ public class itemDefine implements iDAO, iBeanCheckable, iBeanRevert
         {
             sql = sql + " and state = " + iDAO.OBJECT_STATE_ACTIVE;
         }
-        return sn.querySQL(sql, beanItem.class);
+        return sn.querySQL(sql, BeanItem.class);
     }
 
     public List getItemsByOcls(int ocls, boolean showAll)
@@ -202,7 +202,7 @@ public class itemDefine implements iDAO, iBeanCheckable, iBeanRevert
         {
             sql = sql + " and state = " + iDAO.OBJECT_STATE_ACTIVE;
         }
-        return sn.querySQL(sql, beanItem.class);
+        return sn.querySQL(sql, BeanItem.class);
     }
 
     @Override
@@ -213,8 +213,8 @@ public class itemDefine implements iDAO, iBeanCheckable, iBeanRevert
         {
             return r0;
         }
-        beanItem bean = (beanItem) o;
-        beanItem obean = (beanItem) getRecordByID(bean.getOID());
+        BeanItem bean = (BeanItem) o;
+        BeanItem obean = (BeanItem) getRecordByID(bean.getOID());
         if (checkBean(obean) == false)
         {
             return iDAO.OBJECT_RECORD_NOTEXIST;
@@ -257,7 +257,7 @@ public class itemDefine implements iDAO, iBeanCheckable, iBeanRevert
     public Object getRecordByID(int i)
     {
         String sql = "select * from " + tableItems + " where OID = " + i;
-        List ls = sn.querySQL(sql, beanItem.class);
+        List ls = sn.querySQL(sql, BeanItem.class);
         if (ls == null)
         {
             return null;
@@ -272,11 +272,11 @@ public class itemDefine implements iDAO, iBeanCheckable, iBeanRevert
         {
             return false;
         }
-        if (o.getClass() != beanItem.class)
+        if (o.getClass() != BeanItem.class)
         {
             return false;
         }
-        beanItem bean = (beanItem) o;
+        BeanItem bean = (BeanItem) o;
         if (bean.getState() != iDAO.OBJECT_STATE_ACTIVE)
         {
             return false;
@@ -297,7 +297,7 @@ public class itemDefine implements iDAO, iBeanCheckable, iBeanRevert
     {
         //删除数据之前要特别的小心呐。。。。
         //在整体上，要删除所有联动的数据，特别是DATABLOCK相关对应的记录s
-        beanItem bse = (beanItem) getRecordByID(i);
+        BeanItem bse = (BeanItem) getRecordByID(i);
         if (bse.getState() != iDAO.OBJECT_STATE_DELETE)
         {
             return iReturn.BEAN_NOT_READY_DESTROY;

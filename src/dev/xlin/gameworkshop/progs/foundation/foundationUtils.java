@@ -1,7 +1,7 @@
 package dev.xlin.gameworkshop.progs.foundation;
 
 import dev.xlin.gameworkshop.progs.databaseTools;
-import dev.xlin.gameworkshop.progs.foundation.beans.beanDatablockDefine;
+import dev.xlin.gameworkshop.progs.foundation.beans.BeanDatablockDefine;
 import dev.xlin.tols.data.wakeup;
 import org.w3c.dom.Element;
 
@@ -41,7 +41,7 @@ public class foundationUtils
         wakeup up = databaseTools.connectDB();
         tag = tag.trim();
         datablockDefine dbd = new datablockDefine(up);
-        beanDatablockDefine bdd = dbd.getDataDefineByXmlNodeTag(tag);
+        BeanDatablockDefine bdd = dbd.getDataDefineByXmlNodeTag(tag);
         if (bdd == null)
         {
             databaseTools.disconnect(up);

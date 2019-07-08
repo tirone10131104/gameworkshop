@@ -1,6 +1,6 @@
 package dev.xlin.gameworkshop.progs.foundation;
 
-import dev.xlin.gameworkshop.progs.foundation.beans.beanItemEquipConfig;
+import dev.xlin.gameworkshop.progs.foundation.beans.BeanItemEquipConfig;
 import dev.xlin.gameworkshop.progs.foundation.interfaces.iAdtDocumentSave;
 import dev.xlin.gameworkshop.progs.foundation.interfaces.iAdtXML;
 import dev.xlin.gameworkshop.progs.foundation.interfaces.iDataElement;
@@ -53,12 +53,12 @@ public class itemEquipConfigList implements iDataElementOper, iAdtXML, iAdtDocum
         {
             return iDAO.PARAM_OBJECT_NULL;
         }
-        beanItemEquipConfig bean = (beanItemEquipConfig) ide;
+        BeanItemEquipConfig bean = (BeanItemEquipConfig) ide;
         if (findConfigByKeys(bean.getEquipType(), bean.getSlotType(), bean.getSlotIndex()) != null)
         {
             return iReturn.IEQCFG_SLOT_CONFIG_REPEAT;
         }
-        beanItemEquipConfig biec = (beanItemEquipConfig) ide;
+        BeanItemEquipConfig biec = (BeanItemEquipConfig) ide;
         int oid = createElementOID();
         biec.setOID(oid);
         biec.setStatus(iDAO.OBJECT_STATE_ACTIVE);
@@ -67,11 +67,11 @@ public class itemEquipConfigList implements iDataElementOper, iAdtXML, iAdtDocum
         return iDAO.OPERATE_SUCCESS;
     }
 
-    public beanItemEquipConfig findConfigByKeys(int ieqp, int isltp, int slix)
+    public BeanItemEquipConfig findConfigByKeys(int ieqp, int isltp, int slix)
     {
         for (int i = 0; i < datapages.size(); i++)
         {
-            beanItemEquipConfig biec = (beanItemEquipConfig) datapages.get(i);
+            BeanItemEquipConfig biec = (BeanItemEquipConfig) datapages.get(i);
             if (biec.getEquipType() == ieqp && biec.getSlotType() == isltp && biec.getSlotIndex() == slix)
             {
                 return biec;
@@ -87,8 +87,8 @@ public class itemEquipConfigList implements iDataElementOper, iAdtXML, iAdtDocum
         {
             return iDAO.PARAM_OBJECT_NULL;
         }
-        beanItemEquipConfig bean = (beanItemEquipConfig) ide;
-        beanItemEquipConfig obean = (beanItemEquipConfig) getItemEquipConfigNotClone(bean.getOID());
+        BeanItemEquipConfig bean = (BeanItemEquipConfig) ide;
+        BeanItemEquipConfig obean = (BeanItemEquipConfig) getItemEquipConfigNotClone(bean.getOID());
         if (obean == null)
         {
             return iDAO.OBJECT_RECORD_NOTEXIST;
@@ -106,7 +106,7 @@ public class itemEquipConfigList implements iDataElementOper, iAdtXML, iAdtDocum
     @Override
     public int disableDataElement(iDataElement ide)
     {
-        beanItemEquipConfig obean = getItemEquipConfigNotClone(ide._getDataOID());
+        BeanItemEquipConfig obean = getItemEquipConfigNotClone(ide._getDataOID());
         if (obean == null)
         {
             return iDAO.OBJECT_RECORD_NOTEXIST;
@@ -119,7 +119,7 @@ public class itemEquipConfigList implements iDataElementOper, iAdtXML, iAdtDocum
     @Override
     public int revertDataElement(iDataElement ide)
     {
-        beanItemEquipConfig obean = getItemEquipConfigNotClone(ide._getDataOID());
+        BeanItemEquipConfig obean = getItemEquipConfigNotClone(ide._getDataOID());
         if (obean == null)
         {
             return iDAO.OBJECT_RECORD_NOTEXIST;
@@ -134,7 +134,7 @@ public class itemEquipConfigList implements iDataElementOper, iAdtXML, iAdtDocum
     {
         for (int i = 0; i < datapages.size(); i++)
         {
-            beanItemEquipConfig bies = (beanItemEquipConfig) datapages.get(i);
+            BeanItemEquipConfig bies = (BeanItemEquipConfig) datapages.get(i);
             if (bies.getOID() == ide._getDataOID())
             {
                 if (bies.getStatus() != iDAO.OBJECT_STATE_DELETE)
@@ -179,11 +179,11 @@ public class itemEquipConfigList implements iDataElementOper, iAdtXML, iAdtDocum
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    private beanItemEquipConfig getItemEquipConfigNotClone(int oid)
+    private BeanItemEquipConfig getItemEquipConfigNotClone(int oid)
     {
         for (int i = 0; i < datapages.size(); i++)
         {
-            beanItemEquipConfig biec = (beanItemEquipConfig) datapages.get(i);
+            BeanItemEquipConfig biec = (BeanItemEquipConfig) datapages.get(i);
             if (biec.getOID() == oid)
             {
                 return biec;
@@ -195,7 +195,7 @@ public class itemEquipConfigList implements iDataElementOper, iAdtXML, iAdtDocum
     @Override
     public iDataElement getDataElementByOID(int oid)
     {
-        beanItemEquipConfig bean = getItemEquipConfigNotClone(oid);
+        BeanItemEquipConfig bean = getItemEquipConfigNotClone(oid);
         if (bean == null)
         {
             return null;
@@ -209,7 +209,7 @@ public class itemEquipConfigList implements iDataElementOper, iAdtXML, iAdtDocum
         ArrayList arl = new ArrayList();
         for (int i = 0; i < datapages.size(); i++)
         {
-            beanItemEquipConfig biec = (beanItemEquipConfig) datapages.get(i);
+            BeanItemEquipConfig biec = (BeanItemEquipConfig) datapages.get(i);
             if (showAll == false)
             {
                 if (biec.getStatus() != iDAO.OBJECT_STATE_ACTIVE)
@@ -217,7 +217,7 @@ public class itemEquipConfigList implements iDataElementOper, iAdtXML, iAdtDocum
                     continue;
                 }
             }
-            beanItemEquipConfig bcopy = (beanItemEquipConfig) biec.cloneMe();
+            BeanItemEquipConfig bcopy = (BeanItemEquipConfig) biec.cloneMe();
             arl.add(bcopy);
         }
         return arl;
@@ -227,7 +227,7 @@ public class itemEquipConfigList implements iDataElementOper, iAdtXML, iAdtDocum
     {
         for (int i = 0; i < datapages.size(); i++)
         {
-            beanItemEquipConfig biec = (beanItemEquipConfig) datapages.get(i);
+            BeanItemEquipConfig biec = (BeanItemEquipConfig) datapages.get(i);
             if (biec.getOID() == oid)
             {
                 return i;
@@ -244,7 +244,7 @@ public class itemEquipConfigList implements iDataElementOper, iAdtXML, iAdtDocum
         {
             return false;
         }
-        beanItemEquipConfig bpre = (beanItemEquipConfig) datapages.get(idx - 1);
+        BeanItemEquipConfig bpre = (BeanItemEquipConfig) datapages.get(idx - 1);
         datapages.remove(idx - 1);
         datapages.add(idx, bpre);
         saveFlag = true;
@@ -263,7 +263,7 @@ public class itemEquipConfigList implements iDataElementOper, iAdtXML, iAdtDocum
         {
             return false;
         }
-        beanItemEquipConfig bean = (beanItemEquipConfig) datapages.get(idx);
+        BeanItemEquipConfig bean = (BeanItemEquipConfig) datapages.get(idx);
         datapages.remove(idx);
         datapages.add(idx + 1, bean);
         saveFlag = true;
@@ -285,7 +285,7 @@ public class itemEquipConfigList implements iDataElementOper, iAdtXML, iAdtDocum
         Element erot = xr.createElement("ROOT");
         for (int i = 0; i < datapages.size(); i++)
         {
-            beanItemEquipConfig bean = (beanItemEquipConfig) datapages.get(i);
+            BeanItemEquipConfig bean = (BeanItemEquipConfig) datapages.get(i);
             Element ebean = bean.transToXmlElement(xr);
             erot.appendChild(ebean);
         }
@@ -306,7 +306,7 @@ public class itemEquipConfigList implements iDataElementOper, iAdtXML, iAdtDocum
             for (int i = 0; i < nls.getLength(); i++)
             {
                 Element e = (Element) nls.item(i);
-                beanItemEquipConfig bean = new beanItemEquipConfig();
+                BeanItemEquipConfig bean = new BeanItemEquipConfig();
                 boolean b = bean.revertFromXmlElement(e);
                 if (b)
                 {

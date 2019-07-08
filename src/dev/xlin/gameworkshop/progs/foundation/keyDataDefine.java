@@ -1,6 +1,6 @@
 package dev.xlin.gameworkshop.progs.foundation;
 
-import dev.xlin.gameworkshop.progs.foundation.beans.beanKeyDataDefine;
+import dev.xlin.gameworkshop.progs.foundation.beans.BeanKeyDataDefine;
 import dev.xlin.gameworkshop.progs.iConst;
 import dev.xlin.gameworkshop.progs.iReturn;
 import dev.xlin.tols.data.jcommon;
@@ -38,7 +38,7 @@ public class keyDataDefine implements iDAO, iBeanCheckable, iBeanRevert
         {
             return 0;
         }
-        beanKeyDataDefine bean = (beanKeyDataDefine) o;
+        BeanKeyDataDefine bean = (BeanKeyDataDefine) o;
         //检查逻辑关系
         int rlg = doCheckLogic(bean);
         if (rlg != 0)
@@ -62,18 +62,18 @@ public class keyDataDefine implements iDAO, iBeanCheckable, iBeanRevert
         return jcommon.eExcute(up, sql);
     }
 
-    public beanKeyDataDefine getKeyDefineByTag(String tag)
+    public BeanKeyDataDefine getKeyDefineByTag(String tag)
     {
         String sql = "select * from " + table + " where keyTag = '" + tag.trim() + "'";
-        List ls = sn.querySQL(sql, beanKeyDataDefine.class);
+        List ls = sn.querySQL(sql, BeanKeyDataDefine.class);
         if (ls == null)
         {
             return null;
         }
-        return (beanKeyDataDefine) ls.get(0);
+        return (BeanKeyDataDefine) ls.get(0);
     }
 
-    private int doCheckLogic(beanKeyDataDefine bean)
+    private int doCheckLogic(BeanKeyDataDefine bean)
     {
         //检查数据类型
         if (constChk.isConst(iConst.class, "KDT_DTP_", bean.getDataType()) == false)
@@ -89,7 +89,7 @@ public class keyDataDefine implements iDAO, iBeanCheckable, iBeanRevert
         {
             return iDAO.PARAM_OBJECT_NULL;
         }
-        if (o.getClass() != beanKeyDataDefine.class)
+        if (o.getClass() != BeanKeyDataDefine.class)
         {
             return iDAO.PARAM_OBJECT_CLASS_INCORRECT;
         }
@@ -103,7 +103,7 @@ public class keyDataDefine implements iDAO, iBeanCheckable, iBeanRevert
         {
             sql = sql + " and status = " + iDAO.OBJECT_STATE_ACTIVE;
         }
-        return sn.querySQL(sql, beanKeyDataDefine.class);
+        return sn.querySQL(sql, BeanKeyDataDefine.class);
     }
 
     @Override
@@ -114,8 +114,8 @@ public class keyDataDefine implements iDAO, iBeanCheckable, iBeanRevert
         {
             return r0;
         }
-        beanKeyDataDefine bean = (beanKeyDataDefine) o;
-        beanKeyDataDefine obean = (beanKeyDataDefine) getRecordByID(bean.getOID());
+        BeanKeyDataDefine bean = (BeanKeyDataDefine) o;
+        BeanKeyDataDefine obean = (BeanKeyDataDefine) getRecordByID(bean.getOID());
         if (checkBean(obean) == false)
         {
             return iDAO.OBJECT_RECORD_NOTEXIST;
@@ -151,7 +151,7 @@ public class keyDataDefine implements iDAO, iBeanCheckable, iBeanRevert
     public Object getRecordByID(int i)
     {
         String sql = "select * from " + table + " where OID = " + i;
-        List ls = sn.querySQL(sql, beanKeyDataDefine.class);
+        List ls = sn.querySQL(sql, BeanKeyDataDefine.class);
         if (ls == null)
         {
             return ls;
@@ -166,11 +166,11 @@ public class keyDataDefine implements iDAO, iBeanCheckable, iBeanRevert
         {
             return false;
         }
-        if (o.getClass() != beanKeyDataDefine.class)
+        if (o.getClass() != BeanKeyDataDefine.class)
         {
             return false;
         }
-        beanKeyDataDefine bean = (beanKeyDataDefine) o;
+        BeanKeyDataDefine bean = (BeanKeyDataDefine) o;
         if (bean.getStatus() != iDAO.OBJECT_STATE_ACTIVE)
         {
             return false;
@@ -189,7 +189,7 @@ public class keyDataDefine implements iDAO, iBeanCheckable, iBeanRevert
     @Override
     public int destroyBean(int i)
     {
-        beanKeyDataDefine bean = (beanKeyDataDefine) getRecordByID(i);
+        BeanKeyDataDefine bean = (BeanKeyDataDefine) getRecordByID(i);
         if (bean == null)
         {
             return iDAO.OPERATE_SUCCESS;
@@ -223,7 +223,7 @@ public class keyDataDefine implements iDAO, iBeanCheckable, iBeanRevert
         {
             sql = sql  +" and keyName like '%"+text+"%'";
         }
-        return sn.querySQL(sql, beanKeyDataDefine.class);
+        return sn.querySQL(sql, BeanKeyDataDefine.class);
     }
     
 }

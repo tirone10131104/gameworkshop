@@ -1,21 +1,21 @@
 package dev.xlin.gameworkshop.GUI;
 
-import dev.xlin.gameworkshop.GUI.dialog.dlgKeyDataSelector;
-import dev.xlin.gameworkshop.GUI.dialog.dlgPropertyDefSelector;
-import dev.xlin.gameworkshop.GUI.dialog.dlgSelectIntfImplsByISET;
-import dev.xlin.gameworkshop.GUI.dialog.dlgSelectIntfSet;
-import dev.xlin.gameworkshop.GUI.dialog.dlgSelectItemDefine;
-import dev.xlin.gameworkshop.GUI.dialog.dlgSelectSkill;
-import dev.xlin.gameworkshop.progs.foundation.beans.beanItem;
-import dev.xlin.gameworkshop.progs.foundation.beans.beanItemEquipStruct;
-import dev.xlin.gameworkshop.progs.foundation.beans.beanKeyDataDefine;
-import dev.xlin.gameworkshop.progs.foundation.beans.beanObjectClass;
-import dev.xlin.gameworkshop.progs.foundation.beans.beanProgIntfDefine;
-import dev.xlin.gameworkshop.progs.foundation.beans.beanProgIntfRegister;
-import dev.xlin.gameworkshop.progs.foundation.beans.beanProgIntfSet;
-import dev.xlin.gameworkshop.progs.foundation.beans.beanPropertyDefine;
-import dev.xlin.gameworkshop.progs.foundation.beans.beanSkillDefine;
-import dev.xlin.gameworkshop.progs.foundation.beans.beanSkillLevel;
+import dev.xlin.gameworkshop.GUI.dialog.DlgKeyDataSelector;
+import dev.xlin.gameworkshop.GUI.dialog.DlgPropertyDefSelector;
+import dev.xlin.gameworkshop.GUI.dialog.DlgSelectIntfImplsByISET;
+import dev.xlin.gameworkshop.GUI.dialog.DlgSelectIntfSet;
+import dev.xlin.gameworkshop.GUI.dialog.DlgSelectItemDefine;
+import dev.xlin.gameworkshop.GUI.dialog.DlgSelectSkill;
+import dev.xlin.gameworkshop.progs.foundation.beans.BeanItem;
+import dev.xlin.gameworkshop.progs.foundation.beans.BeanItemEquipStruct;
+import dev.xlin.gameworkshop.progs.foundation.beans.BeanKeyDataDefine;
+import dev.xlin.gameworkshop.progs.foundation.beans.BeanObjectClass;
+import dev.xlin.gameworkshop.progs.foundation.beans.BeanProgIntfDefine;
+import dev.xlin.gameworkshop.progs.foundation.beans.BeanProgIntfRegister;
+import dev.xlin.gameworkshop.progs.foundation.beans.BeanProgIntfSet;
+import dev.xlin.gameworkshop.progs.foundation.beans.BeanPropertyDefine;
+import dev.xlin.gameworkshop.progs.foundation.beans.BeanSkillDefine;
+import dev.xlin.gameworkshop.progs.foundation.beans.BeanSkillLevel;
 import dev.xlin.gameworkshop.progs.foundation.interfaceDefine;
 import dev.xlin.gameworkshop.progs.foundation.interfaceRegister;
 import dev.xlin.gameworkshop.progs.foundation.interfaceSet;
@@ -60,7 +60,7 @@ public class guiCodes
         {
             for (int i = 0; i < ls.size(); i++)
             {
-                beanItemEquipStruct bies = (beanItemEquipStruct) ls.get(i);
+                BeanItemEquipStruct bies = (BeanItemEquipStruct) ls.get(i);
                 listItem li = new listItem(bies.getEquipName(), bies.getOID());
                 modEQTP.addElement(li);
             }
@@ -81,7 +81,7 @@ public class guiCodes
             {
                 for (int i = 0; i < ls.size(); i++)
                 {
-                    beanItemEquipStruct bies = (beanItemEquipStruct) ls.get(i);
+                    BeanItemEquipStruct bies = (BeanItemEquipStruct) ls.get(i);
                     listItem li = new listItem(bies.getEquipName(), bies.getOID());
                     modSLTP.addElement(li);
                 }
@@ -105,7 +105,7 @@ public class guiCodes
         {
             sqlOcs = sqlOcs + " where state = " + iDAO.OBJECT_STATE_ACTIVE;
         }
-        List lsOcs = sn.querySQL(sqlOcs, beanObjectClass.class);
+        List lsOcs = sn.querySQL(sqlOcs, BeanObjectClass.class);
         if (lsTps != null)
         {
             for (int i = 0; i < lsTps.size(); i++)
@@ -125,7 +125,7 @@ public class guiCodes
         {
             for (int i = 0; i < lsOcs.size(); i++)
             {
-                beanObjectClass boc = (beanObjectClass) lsOcs.get(i);
+                BeanObjectClass boc = (BeanObjectClass) lsOcs.get(i);
                 if (boc.getStpID() == tpid)
                 {
                     myTreeNode moc = new myTreeNode(boc.getClassName(), boc.getOID(), 2);
@@ -279,11 +279,11 @@ public class guiCodes
     {
         if (tartp == iConst.DT_REQ_TARTYPE_ITEM)
         {
-            dlgSelectItemDefine dlg = new dlgSelectItemDefine(null, true, up);
+            DlgSelectItemDefine dlg = new DlgSelectItemDefine(null, true, up);
             dlg.setVisible(true);
             if (dlg.getOK())
             {
-                beanItem bit = dlg.getSelectedItemDefine();
+                BeanItem bit = dlg.getSelectedItemDefine();
                 return bit;
             }
             dlg.dispose();
@@ -291,11 +291,11 @@ public class guiCodes
         }
         else if (tartp == iConst.DT_REQ_TARTYPE_PROP)
         {
-            dlgPropertyDefSelector dlg = new dlgPropertyDefSelector(null, true, up);
+            DlgPropertyDefSelector dlg = new DlgPropertyDefSelector(null, true, up);
             dlg.setVisible(true);
             if (dlg.getOK())
             {
-                beanPropertyDefine bpd = dlg.getSelectedProp();
+                BeanPropertyDefine bpd = dlg.getSelectedProp();
                 return bpd;
             }
             dlg.dispose();
@@ -303,11 +303,11 @@ public class guiCodes
         }
         else if (tartp == iConst.DT_REQ_TARTYPE_KEY)
         {
-            dlgKeyDataSelector dlg = new dlgKeyDataSelector(null, true, up);
+            DlgKeyDataSelector dlg = new DlgKeyDataSelector(null, true, up);
             dlg.setVisible(true);
             if (dlg.getOK())
             {
-                beanKeyDataDefine bkd = dlg.getSelectedKey();
+                BeanKeyDataDefine bkd = dlg.getSelectedKey();
                 return bkd;
             }
             dlg.dispose();
@@ -315,12 +315,12 @@ public class guiCodes
         }
         else if (tartp == iConst.DT_REQ_TARTYPE_SKILL)
         {
-            dlgSelectSkill dlg = new dlgSelectSkill(null, true, up);
+            DlgSelectSkill dlg = new DlgSelectSkill(null, true, up);
             dlg.setVisible(true);
             if (dlg.getOK())
             {
-                beanSkillDefine bskd = dlg.getSelectedDefine();
-                beanSkillLevel bslv = dlg.getSelectedLevel();
+                BeanSkillDefine bskd = dlg.getSelectedDefine();
+                BeanSkillLevel bslv = dlg.getSelectedLevel();
                 bskd.setStatus(bslv.getLevelIdx());
                 return bskd;
             }
@@ -355,7 +355,7 @@ public class guiCodes
                 {
                     for (int j = 0; j < lis.size(); j++)
                     {
-                        beanProgIntfDefine bpid = (beanProgIntfDefine) lis.get(j);
+                        BeanProgIntfDefine bpid = (BeanProgIntfDefine) lis.get(j);
                         myTreeNode mtn = new myTreeNode(bpid.getIntfName() + "<" + bpid.getIntfTag() + ">", bpid.getOID(), 1);
                         mst.add(mtn);
                     }
@@ -368,7 +368,7 @@ public class guiCodes
     }
 
     //预先将接口集模板中的接口定义列表转换为listItem 的LIST
-    public static List makeProgInterfaceListItems(wakeup up, beanProgIntfSet bean)
+    public static List makeProgInterfaceListItems(wakeup up, BeanProgIntfSet bean)
     {
         int[] ids = codeTools.convertStrToArr(bean.getSetInterfaces());
         interfaceDefine idef = new interfaceDefine(up);
@@ -376,7 +376,7 @@ public class guiCodes
         for (int i = 0; i < ids.length; i++)
         {
             int id = ids[i];
-            beanProgIntfDefine bpid = (beanProgIntfDefine) idef.getRecordByID(id);
+            BeanProgIntfDefine bpid = (BeanProgIntfDefine) idef.getRecordByID(id);
             if (bpid != null)
             {
                 listItem li = new listItem(bpid.getIntfName() + "<" + bpid.getIntfTag() + ">", bpid.getOID());
@@ -404,7 +404,7 @@ public class guiCodes
                 {
                     for (int j = 0; j < lset.size(); j++)
                     {
-                        beanProgIntfSet bpis = (beanProgIntfSet) lset.get(j);
+                        BeanProgIntfSet bpis = (BeanProgIntfSet) lset.get(j);
                         if (isetTag.trim().equals("") == false)
                         {
                             if (bpis.getSetTag().trim().equals(isetTag) == false)
@@ -432,14 +432,14 @@ public class guiCodes
         interfaceDefine idef = new interfaceDefine(up);
         interfaceRegister ireg = new interfaceRegister(up);
         myTreeNode mrt = new myTreeNode("[程序接口目录]", 0, 0);
-        beanProgIntfSet bset = (beanProgIntfSet) iset.getRecordByID(isid);
+        BeanProgIntfSet bset = (BeanProgIntfSet) iset.getRecordByID(isid);
         if (bset != null)
         {
             int[] ids = codeTools.convertStrToArr(bset.getSetInterfaces());
             for (int i = 0; i < ids.length; i++)
             {
                 int idid = ids[i];
-                beanProgIntfDefine bpid = (beanProgIntfDefine) idef.getRecordByID(idid);
+                BeanProgIntfDefine bpid = (BeanProgIntfDefine) idef.getRecordByID(idid);
                 if (bpid != null)
                 {
                     myTreeNode mdef = new myTreeNode("[接口]" + bpid.getIntfName(), 0, 0);
@@ -448,7 +448,7 @@ public class guiCodes
                     {
                         for (int j = 0; j < lrgs.size(); j++)
                         {
-                            beanProgIntfRegister bpir = (beanProgIntfRegister) lrgs.get(j);
+                            BeanProgIntfRegister bpir = (BeanProgIntfRegister) lrgs.get(j);
                             String s = bpir.getRegDescription() + "<" + bpir.getRegTag() + ">";
                             if (showFullAddr)
                             {
@@ -472,12 +472,12 @@ public class guiCodes
      * @param isetCode
      * @return
      */
-    public static beanProgIntfRegister selectIntfImpl(wakeup up, String isetCode)
+    public static BeanProgIntfRegister selectIntfImpl(wakeup up, String isetCode)
     {
-        dlgSelectIntfImplsByISET dlg = new dlgSelectIntfImplsByISET(null, true, up, isetCode);
+        DlgSelectIntfImplsByISET dlg = new DlgSelectIntfImplsByISET(null, true, up, isetCode);
         System.err.println(".isc = " + isetCode);
         dlg.setVisible(true);
-        beanProgIntfRegister bpir = null;
+        BeanProgIntfRegister bpir = null;
         if (dlg.getOK())
         {
             bpir = dlg.getSelectedReg();
@@ -493,13 +493,13 @@ public class guiCodes
      * @param up
      * @return
      */
-    public static beanProgIntfSet selectProgIntfSet(wakeup up)
+    public static BeanProgIntfSet selectProgIntfSet(wakeup up)
     {
-        dlgSelectIntfSet dlg = new dlgSelectIntfSet(null, true, up);
+        DlgSelectIntfSet dlg = new DlgSelectIntfSet(null, true, up);
         dlg.setVisible(true);
         if (dlg.getOK())
         {
-            beanProgIntfSet bpis = dlg.getSelectedIntfSet();
+            BeanProgIntfSet bpis = dlg.getSelectedIntfSet();
             return bpis;
         }
         dlg.dispose();
@@ -524,7 +524,7 @@ public class guiCodes
         else
         {
 
-            beanProgIntfRegister bpir = (beanProgIntfRegister) ireg.getRecordByID(rfid);
+            BeanProgIntfRegister bpir = (BeanProgIntfRegister) ireg.getRecordByID(rfid);
             if (bpir != null)
             {
                 String s = "";
@@ -554,7 +554,7 @@ public class guiCodes
         if (isid != 0)
         {
             interfaceSet iset = new interfaceSet(up);
-            beanProgIntfSet bpis = (beanProgIntfSet) iset.getRecordByID(isid);
+            BeanProgIntfSet bpis = (BeanProgIntfSet) iset.getRecordByID(isid);
             if (bpis != null)
             {
                 return bpis.getSetName() + "<" + bpis.getSetTag() + ">";

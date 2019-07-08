@@ -1,6 +1,6 @@
 package dev.xlin.gameworkshop.progs.foundation;
 
-import dev.xlin.gameworkshop.progs.foundation.beans.beanEffectData;
+import dev.xlin.gameworkshop.progs.foundation.beans.BeanEffectData;
 import dev.xlin.gameworkshop.progs.foundation.interfaces.iAdtDocumentSave;
 import dev.xlin.gameworkshop.progs.foundation.interfaces.iAdtXML;
 import dev.xlin.gameworkshop.progs.foundation.interfaces.iDataColumnOper;
@@ -194,7 +194,7 @@ public class effectListData implements iDataPageOper, iDataColumnOper, iDataElem
         {
             return iDAO.PARAM_OBJECT_NULL;
         }
-        beanEffectData bean = (beanEffectData) ide;
+        BeanEffectData bean = (BeanEffectData) ide;
         int i0 = doCheckEffectLogic(bean);
         if (i0 != 0)
         {
@@ -213,13 +213,13 @@ public class effectListData implements iDataPageOper, iDataColumnOper, iDataElem
         {
             return iDAO.OBJECT_RECORD_NOTEXIST;
         }
-        beanEffectData bean = (beanEffectData) ide;
+        BeanEffectData bean = (BeanEffectData) ide;
         int r0 = doCheckEffectLogic(bean);
         if (r0 != 0)
         {
             return r0;
         }
-        beanEffectData obean = (beanEffectData) getDataElementByOID(ide._getDataOID());
+        BeanEffectData obean = (BeanEffectData) getDataElementByOID(ide._getDataOID());
         obean.setDescription(bean.getDescription());
         obean.setEffectValue(bean.getEffectValue());
         obean.setPropID(bean.getPropID());
@@ -230,7 +230,7 @@ public class effectListData implements iDataPageOper, iDataColumnOper, iDataElem
         return DSO.updateDataElement(obean);
     }
 
-    private int doCheckEffectLogic(beanEffectData bean)
+    private int doCheckEffectLogic(BeanEffectData bean)
     {
         if (constChk.isConst(iConst.class, "EFT_TYPE_", bean.getTargetType()) == false)
         {
@@ -250,7 +250,7 @@ public class effectListData implements iDataPageOper, iDataColumnOper, iDataElem
         {
             return iDAO.PARAM_OBJECT_NULL;
         }
-        beanEffectData bean = (beanEffectData) ide;
+        BeanEffectData bean = (BeanEffectData) ide;
         bean.setState(iDAO.OBJECT_STATE_DELETE);
         return DSO.disableDataElement(ide);
     }
@@ -262,7 +262,7 @@ public class effectListData implements iDataPageOper, iDataColumnOper, iDataElem
         {
             return iDAO.PARAM_OBJECT_NULL;
         }
-        beanEffectData bean = (beanEffectData) ide;
+        BeanEffectData bean = (BeanEffectData) ide;
         bean.setState(iDAO.OBJECT_STATE_ACTIVE);
         return DSO.revertDataElement(ide);
     }

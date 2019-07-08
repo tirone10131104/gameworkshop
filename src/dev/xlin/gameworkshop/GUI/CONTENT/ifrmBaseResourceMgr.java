@@ -1,14 +1,14 @@
 package dev.xlin.gameworkshop.GUI.CONTENT;
 
-import dev.xlin.gameworkshop.GUI.CONTENT.dialog.dlgBaseResource;
+import dev.xlin.gameworkshop.GUI.CONTENT.dialog.DlgBaseResource;
 import dev.xlin.gameworkshop.GUI.fast;
 import dev.xlin.gameworkshop.GUI.frmMain;
 import dev.xlin.gameworkshop.GUI.guiCodes;
 import dev.xlin.gameworkshop.GUI.guiIFrameControl;
 import dev.xlin.gameworkshop.GUI.guiFullTreeGuiCodes;
-import dev.xlin.gameworkshop.progs.contents.beans.beanCtxBaseResource;
-import dev.xlin.gameworkshop.progs.contents.progs.baseResourceDefine;
-import dev.xlin.gameworkshop.progs.foundation.beans.beanItem;
+import dev.xlin.gameworkshop.progs.contents.beans.BeanCtxBaseResource;
+import dev.xlin.gameworkshop.progs.contents.progs.BaseResourceDefine;
+import dev.xlin.gameworkshop.progs.foundation.beans.BeanItem;
 import dev.xlin.gameworkshop.progs.foundation.itemDefine;
 import dev.xlin.gameworkshop.progs.iConst;
 import dev.xlin.swingTools2.dlgTools.dlgSelectTreeNode;
@@ -89,18 +89,18 @@ public class ifrmBaseResourceMgr extends javax.swing.JInternalFrame
             mtm = (myTableModel) tbRes.getModel();
         }
         int tpid = getSelectedType();
-        baseResourceDefine brdef = new baseResourceDefine(up);
+        BaseResourceDefine brdef = new BaseResourceDefine(up);
         lrs = brdef.getResListByType(tpid, ckShowRes.isSelected());
         itemDefine idef = new itemDefine(up);
         if (lrs != null)
         {
             for (int i = 0; i < lrs.size(); i++)
             {
-                beanCtxBaseResource bean = (beanCtxBaseResource) lrs.get(i);
+                BeanCtxBaseResource bean = (BeanCtxBaseResource) lrs.get(i);
                 Object[] os = fast.makeObjectArray(4);
                 os[0] = bean.getResName();
                 os[1] = bean.getResTag();
-                beanItem bit = (beanItem) idef.getRecordByID(bean.getItemOID());
+                BeanItem bit = (BeanItem) idef.getRecordByID(bean.getItemOID());
                 os[2] = bit.getItemName() + "<" + bit.getItemTag() + ">";
                 os[3] = iConst.transDAOState(bean.getStatus());
                 mtm.addRow(os);
@@ -111,7 +111,7 @@ public class ifrmBaseResourceMgr extends javax.swing.JInternalFrame
 
     private void newType()
     {
-        int r = guiFullTreeGuiCodes.doNewType(treeType, up, baseResourceDefine.STT_DEF_CTX_RES);
+        int r = guiFullTreeGuiCodes.doNewType(treeType, up, BaseResourceDefine.STT_DEF_CTX_RES);
         if (r == iDAO.OPERATE_SUCCESS)
         {
             makeTypeTree();
@@ -129,7 +129,7 @@ public class ifrmBaseResourceMgr extends javax.swing.JInternalFrame
         {
             return;
         }
-        dlgBaseResource dlg = new dlgBaseResource(null, true, up, null, tpid);
+        DlgBaseResource dlg = new DlgBaseResource(null, true, up, null, tpid);
         dlg.setVisible(true);
         if (dlg.getOK())
         {
@@ -159,7 +159,7 @@ public class ifrmBaseResourceMgr extends javax.swing.JInternalFrame
         {
             return;
         }
-        baseResourceDefine brd = new baseResourceDefine(up);
+        BaseResourceDefine brd = new BaseResourceDefine(up);
         if (brd.getResListByType(tpid, true) != null)
         {
             fast.warn("分类下还有资源数据，不可被失效");
@@ -202,24 +202,24 @@ public class ifrmBaseResourceMgr extends javax.swing.JInternalFrame
         }
     }
 
-    private beanCtxBaseResource getSelectedRes()
+    private BeanCtxBaseResource getSelectedRes()
     {
         int idx = tbRes.getSelectedRow();
         if (idx < 0)
         {
             return null;
         }
-        return (beanCtxBaseResource) lrs.get(idx);
+        return (BeanCtxBaseResource) lrs.get(idx);
     }
 
     private void editRes()
     {
-        beanCtxBaseResource bean = getSelectedRes();
+        BeanCtxBaseResource bean = getSelectedRes();
         if (bean == null)
         {
             return;
         }
-        dlgBaseResource dlg = new dlgBaseResource(null, true, up, bean, 0);
+        DlgBaseResource dlg = new DlgBaseResource(null, true, up, bean, 0);
         dlg.setVisible(true);
         if (dlg.getOK())
         {
@@ -231,7 +231,7 @@ public class ifrmBaseResourceMgr extends javax.swing.JInternalFrame
 
     private void disRes()
     {
-        beanCtxBaseResource bean = getSelectedRes();
+        BeanCtxBaseResource bean = getSelectedRes();
         if (bean == null)
         {
             return;
@@ -241,7 +241,7 @@ public class ifrmBaseResourceMgr extends javax.swing.JInternalFrame
         {
             return;
         }
-        baseResourceDefine brdef = new baseResourceDefine(up);
+        BaseResourceDefine brdef = new BaseResourceDefine(up);
         int r = brdef.deleteRecord(bean.getOID());
         if (r == iDAO.OPERATE_SUCCESS)
         {
@@ -255,7 +255,7 @@ public class ifrmBaseResourceMgr extends javax.swing.JInternalFrame
 
     private void revRes()
     {
-        beanCtxBaseResource bean = getSelectedRes();
+        BeanCtxBaseResource bean = getSelectedRes();
         if (bean == null)
         {
             return;
@@ -265,7 +265,7 @@ public class ifrmBaseResourceMgr extends javax.swing.JInternalFrame
         {
             return;
         }
-        baseResourceDefine brdef = new baseResourceDefine(up);
+        BaseResourceDefine brdef = new BaseResourceDefine(up);
         int r = brdef.revertBean(bean.getOID());
         if (r == iDAO.OPERATE_SUCCESS)
         {
@@ -279,7 +279,7 @@ public class ifrmBaseResourceMgr extends javax.swing.JInternalFrame
 
     private void desRes()
     {
-        beanCtxBaseResource bean = getSelectedRes();
+        BeanCtxBaseResource bean = getSelectedRes();
         if (bean == null)
         {
             return;
@@ -289,7 +289,7 @@ public class ifrmBaseResourceMgr extends javax.swing.JInternalFrame
         {
             return;
         }
-        baseResourceDefine brdef = new baseResourceDefine(up);
+        BaseResourceDefine brdef = new BaseResourceDefine(up);
         int r = brdef.destroyBean(bean.getOID());
         if (r == iDAO.OPERATE_SUCCESS)
         {
@@ -303,19 +303,19 @@ public class ifrmBaseResourceMgr extends javax.swing.JInternalFrame
 
     private void moveRes()
     {
-        beanCtxBaseResource bean = getSelectedRes();
+        BeanCtxBaseResource bean = getSelectedRes();
         if (bean == null)
         {
             return;
         }
-        myTreeNode mrt = guiCodes.makeFullTypeTree(up, baseResourceDefine.STT_DEF_CTX_RES, false, bean.getTypeOID());
+        myTreeNode mrt = guiCodes.makeFullTypeTree(up, BaseResourceDefine.STT_DEF_CTX_RES, false, bean.getTypeOID());
         dlgSelectTreeNode dlg = new dlgSelectTreeNode(null, true, mrt);
         dlg.setVisible(true);
         if (dlg.getOK())
         {
             myTreeNode msel = dlg.getSelect();
             int tpid = msel.getNodeOID();
-            baseResourceDefine brdef = new baseResourceDefine(up);
+            BaseResourceDefine brdef = new BaseResourceDefine(up);
             int r = brdef.moveResrouceToType(bean.getOID(), tpid);
             if (r == iDAO.OPERATE_SUCCESS)
             {

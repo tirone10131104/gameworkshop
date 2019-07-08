@@ -1,6 +1,6 @@
 package dev.xlin.gameworkshop.progs.foundation;
 
-import dev.xlin.gameworkshop.progs.foundation.beans.beanBuildListItemData;
+import dev.xlin.gameworkshop.progs.foundation.beans.BeanBuildListItemData;
 import dev.xlin.gameworkshop.progs.foundation.interfaces.iAdtDocumentSave;
 import dev.xlin.gameworkshop.progs.foundation.interfaces.iAdtXML;
 import dev.xlin.gameworkshop.progs.foundation.interfaces.iDataColumnOper;
@@ -38,7 +38,7 @@ public class buildListData implements iDataPageOper, iDataColumnOper, iDataEleme
         {
             return iDAO.PARAM_OBJECT_NULL;
         }
-        beanBuildListItemData bean = (beanBuildListItemData) ide;
+        BeanBuildListItemData bean = (BeanBuildListItemData) ide;
         int r0 = doCheckBeanLogic(bean);
         if (r0 != 0)
         {
@@ -53,8 +53,8 @@ public class buildListData implements iDataPageOper, iDataColumnOper, iDataEleme
     @Override
     public int updateDataElement(iDataElement ide)
     {
-        beanBuildListItemData bean = (beanBuildListItemData) ide;
-        beanBuildListItemData obean = (beanBuildListItemData) getDataElementByOID(bean.getOID());
+        BeanBuildListItemData bean = (BeanBuildListItemData) ide;
+        BeanBuildListItemData obean = (BeanBuildListItemData) getDataElementByOID(bean.getOID());
         if (obean == null)
         {
             return iDAO.OBJECT_RECORD_NOTEXIST;
@@ -73,7 +73,7 @@ public class buildListData implements iDataPageOper, iDataColumnOper, iDataEleme
         return DSO.updateDataElement(obean);
     }
 
-    private int doCheckBeanLogic(beanBuildListItemData bean)
+    private int doCheckBeanLogic(BeanBuildListItemData bean)
     {
         boolean b00 = constChk.isConst(iConst.class, "TARGET_REQ_METD_", bean.getRequestType());
         if (b00 == false)

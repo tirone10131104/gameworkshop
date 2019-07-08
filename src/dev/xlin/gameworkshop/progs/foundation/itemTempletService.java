@@ -1,10 +1,10 @@
 package dev.xlin.gameworkshop.progs.foundation;
 
-import dev.xlin.gameworkshop.progs.foundation.beans.beanDatablock;
-import dev.xlin.gameworkshop.progs.foundation.beans.beanDatablockDefine;
-import dev.xlin.gameworkshop.progs.foundation.beans.beanItem;
-import dev.xlin.gameworkshop.progs.foundation.beans.beanItemTemplet;
-import dev.xlin.gameworkshop.progs.foundation.beans.beanObjectClass;
+import dev.xlin.gameworkshop.progs.foundation.beans.BeanDatablock;
+import dev.xlin.gameworkshop.progs.foundation.beans.BeanDatablockDefine;
+import dev.xlin.gameworkshop.progs.foundation.beans.BeanItem;
+import dev.xlin.gameworkshop.progs.foundation.beans.BeanItemTemplet;
+import dev.xlin.gameworkshop.progs.foundation.beans.BeanObjectClass;
 import dev.xlin.gameworkshop.progs.foundation.interfaces.iAdtXML;
 import dev.xlin.gameworkshop.progs.foundation.interfaces.iDatablockClearValue;
 import dev.xlin.gameworkshop.progs.iReturn;
@@ -39,12 +39,12 @@ public class itemTempletService
         {
             sql = sql + " and tempName like '%" + s.trim() + "%'";
         }
-        return sn.querySQL(sql, beanItemTemplet.class);
+        return sn.querySQL(sql, BeanItemTemplet.class);
     }
 
-    public int updateItemTempInfo(beanItemTemplet bean)
+    public int updateItemTempInfo(BeanItemTemplet bean)
     {
-        beanItemTemplet obean = getItemTempletByOID(bean.getOID());
+        BeanItemTemplet obean = getItemTempletByOID(bean.getOID());
         if (obean == null)
         {
             return iDAO.OBJECT_RECORD_NOTEXIST;
@@ -56,7 +56,7 @@ public class itemTempletService
 
     public int removeItemTemplet(int oid)
     {
-        beanItemTemplet bit = getItemTempletByOID(oid);
+        BeanItemTemplet bit = getItemTempletByOID(oid);
         if (bit == null)
         {
             return iDAO.OBJECT_RECORD_NOTEXIST;
@@ -93,19 +93,19 @@ public class itemTempletService
     public int setItemFromTemplet(int itid, int tpid)
     {
         itemDefine idef = new itemDefine(up);
-        beanItem bit = (beanItem) idef.getRecordByID(itid);
+        BeanItem bit = (BeanItem) idef.getRecordByID(itid);
         if (idef.checkBean(bit) == false)
         {
             return iDAO.OBJECT_RECORD_NOTEXIST;
         }
-        beanItemTemplet btmp = getItemTempletByOID(tpid);
+        BeanItemTemplet btmp = getItemTempletByOID(tpid);
         if (btmp == null)
         {
             return iDAO.OBJECT_RECORD_NOTEXIST;
         }
         objectClassDefine ocd = new objectClassDefine(up);
         datablockService dbs = new datablockService(up);
-        beanObjectClass boc = (beanObjectClass) ocd.getRecordByID(bit.getOclsID());
+        BeanObjectClass boc = (BeanObjectClass) ocd.getRecordByID(bit.getOclsID());
         JSONObject jso = JSONObject.fromObject(btmp.getDatablockHeader());
         JSONObject njo = new JSONObject();
         int[] ifcs = codeTools.convertStrToArr(boc.getClassFuncs());
@@ -130,32 +130,32 @@ public class itemTempletService
         return dbs.updateData(bit.getEquipData(), njo.toString());
     }
 
-    public beanItemTemplet getItemTempletByOID(int oid)
+    public BeanItemTemplet getItemTempletByOID(int oid)
     {
         String sql = "select * from tb_item_templet where OID = " + oid;
-        List ls = sn.querySQL(sql, beanItemTemplet.class);
+        List ls = sn.querySQL(sql, BeanItemTemplet.class);
         if (ls == null)
         {
             return null;
         }
-        return (beanItemTemplet) ls.get(0);
+        return (BeanItemTemplet) ls.get(0);
     }
 
-    public beanItemTemplet getItemTempletBySourceItem(int id)
+    public BeanItemTemplet getItemTempletBySourceItem(int id)
     {
         String sql = "select * from tb_item_templet where srcItem = " + id;
-        List ls = sn.querySQL(sql, beanItemTemplet.class);
+        List ls = sn.querySQL(sql, BeanItemTemplet.class);
         if (ls == null)
         {
             return null;
         }
-        return (beanItemTemplet) ls.get(0);
+        return (BeanItemTemplet) ls.get(0);
     }
 
     public int saveAsTemplet(int itid, String name, String desp, boolean clear)
     {
         itemDefine idef = new itemDefine(up);
-        beanItem bit = (beanItem) idef.getRecordByID(itid);
+        BeanItem bit = (BeanItem) idef.getRecordByID(itid);
         if (idef.checkBean(bit) == false)
         {
             return iDAO.OBJECT_RECORD_NOTEXIST;
@@ -170,7 +170,7 @@ public class itemTempletService
         //透过数据块定义，反射操作器，读取数据，恢复结构，清零，转存，重新聚合引导
         //一系列灼热接口操作，完成模板创建 
         datablockService dbsrv = new datablockService(up);
-        beanDatablock bdt = dbsrv.getDatabean(bit.getEquipData());
+        BeanDatablock bdt = dbsrv.getDatabean(bit.getEquipData());
         if (bdt == null)
         {
             return iReturn.ITEM_HEADER_DATA_NOTEXIST;
@@ -179,7 +179,7 @@ public class itemTempletService
         JSONObject jso = JSONObject.fromObject(sHeader);
         JSONObject njo = new JSONObject();
         objectClassDefine ocd = new objectClassDefine(up);
-        beanObjectClass boc = (beanObjectClass) ocd.getRecordByID(bit.getOclsID());
+        BeanObjectClass boc = (BeanObjectClass) ocd.getRecordByID(bit.getOclsID());
         int[] ifcs = codeTools.convertStrToArr(boc.getClassFuncs());
         datablockDefine dbdef = new datablockDefine(up);
         datablockService dsrv = new datablockService(up);
@@ -191,7 +191,7 @@ public class itemTempletService
                 int fid = ifcs[i];
                 int dbidx = jso.getInt(fid + "");
                 String sctx = dsrv.loadData(dbidx);
-                beanDatablockDefine block = (beanDatablockDefine) dbdef.getRecordByID(fid);
+                BeanDatablockDefine block = (BeanDatablockDefine) dbdef.getRecordByID(fid);
                 Object odb = Class.forName(block.getDbAdtClass()).newInstance();
                 iAdtXML iax = (iAdtXML) odb;
                 xmlRight xr = new xmlRight();
@@ -226,7 +226,7 @@ public class itemTempletService
                 excp.printStackTrace();
             }
         }
-        beanItemTemplet btmp = new beanItemTemplet();
+        BeanItemTemplet btmp = new BeanItemTemplet();
         btmp.setDatablockHeader(njo.toString());
         btmp.setSrcItem(itid);
         btmp.setTempDesp(desp);

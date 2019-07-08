@@ -1,7 +1,7 @@
 package dev.xlin.gameworkshop.progs.foundation;
 
-import dev.xlin.gameworkshop.progs.foundation.beans.beanProgIntfDefine;
-import dev.xlin.gameworkshop.progs.foundation.beans.beanProgIntfSet;
+import dev.xlin.gameworkshop.progs.foundation.beans.BeanProgIntfDefine;
+import dev.xlin.gameworkshop.progs.foundation.beans.BeanProgIntfSet;
 import dev.xlin.gameworkshop.progs.iReturn;
 import dev.xlin.gameworkshop.progs.tools.tagCreator;
 import dev.xlin.tols.data.jcommon;
@@ -33,12 +33,12 @@ public class interfaceSet implements iDAO, iBeanCheckable, iBeanRevert
         sn = new session(up);
     }
 
-    public int createInterfaceSet(beanProgIntfSet bean)
+    public int createInterfaceSet(BeanProgIntfSet bean)
     {
         return createRecord(bean, false);
     }
 
-    public int updateInterfaceSet(beanProgIntfSet bean)
+    public int updateInterfaceSet(BeanProgIntfSet bean)
     {
         return modifyRecord(bean, false);
     }
@@ -50,7 +50,7 @@ public class interfaceSet implements iDAO, iBeanCheckable, iBeanRevert
         {
             return iDAO.PARAM_OBJECT_NULL;
         }
-        if (o.getClass() != beanProgIntfSet.class)
+        if (o.getClass() != BeanProgIntfSet.class)
         {
             return iDAO.PARAM_OBJECT_CLASS_INCORRECT;
         }
@@ -65,7 +65,7 @@ public class interfaceSet implements iDAO, iBeanCheckable, iBeanRevert
         {
             return r0;
         }
-        beanProgIntfSet bean = (beanProgIntfSet) o;
+        BeanProgIntfSet bean = (BeanProgIntfSet) o;
         //检查INTF列表
         int rcl = checkLogics(bean);
         if (rcl != 0)
@@ -83,14 +83,14 @@ public class interfaceSet implements iDAO, iBeanCheckable, iBeanRevert
         return jcommon.eInsert(sn, bean, table, bln);
     }
 
-    private int checkLogics(beanProgIntfSet bean)
+    private int checkLogics(BeanProgIntfSet bean)
     {
         int[] ifs = codeTools.convertStrToArr(bean.getSetInterfaces());
         interfaceDefine idef = new interfaceDefine(up);
         for (int i = 0; i < ifs.length; i++)
         {
             int fid = ifs[i];
-            beanProgIntfDefine bpid = (beanProgIntfDefine) idef.getRecordByID(fid);
+            BeanProgIntfDefine bpid = (BeanProgIntfDefine) idef.getRecordByID(fid);
             if (idef.checkBean(bpid) == false)
             {
                 return iReturn.INTF_DEFINE_NOTEXIST;
@@ -100,7 +100,7 @@ public class interfaceSet implements iDAO, iBeanCheckable, iBeanRevert
     }
 
     //检查并准备BEAN的必要标签数据
-    private int prepareBean(beanProgIntfSet bean)
+    private int prepareBean(BeanProgIntfSet bean)
     {
         if (bean.getOID() == 0)
         {
@@ -129,15 +129,15 @@ public class interfaceSet implements iDAO, iBeanCheckable, iBeanRevert
         return 0;
     }
 
-    public beanProgIntfSet getProgIntfSetByTag(String tag)
+    public BeanProgIntfSet getProgIntfSetByTag(String tag)
     {
         String sql = "select * from " + table + " where setTag = '" + tag.trim() + "'";
-        List ls = sn.querySQL(sql, beanProgIntfSet.class);
+        List ls = sn.querySQL(sql, BeanProgIntfSet.class);
         if (ls == null)
         {
             return null;
         }
-        return (beanProgIntfSet) ls.get(0);
+        return (BeanProgIntfSet) ls.get(0);
     }
 
     @Override
@@ -148,8 +148,8 @@ public class interfaceSet implements iDAO, iBeanCheckable, iBeanRevert
         {
             return r0;
         }
-        beanProgIntfSet bean = (beanProgIntfSet) o;
-        beanProgIntfSet obean = (beanProgIntfSet) getRecordByID(bean.getOID());
+        BeanProgIntfSet bean = (BeanProgIntfSet) o;
+        BeanProgIntfSet obean = (BeanProgIntfSet) getRecordByID(bean.getOID());
         if (checkBean(obean) == false)
         {
             return iDAO.OBJECT_RECORD_NOTEXIST;
@@ -210,14 +210,14 @@ public class interfaceSet implements iDAO, iBeanCheckable, iBeanRevert
         {
             sql = sql + " and status = " + iDAO.OBJECT_STATE_ACTIVE;
         }
-        return sn.querySQL(sql, beanProgIntfSet.class);
+        return sn.querySQL(sql, BeanProgIntfSet.class);
     }
 
     @Override
     public Object getRecordByID(int i)
     {
         String sql = "select * from " + table + " where OID = " + i;
-        List ls = sn.querySQL(sql, beanProgIntfSet.class);
+        List ls = sn.querySQL(sql, BeanProgIntfSet.class);
         if (ls == null)
         {
             return null;
@@ -232,11 +232,11 @@ public class interfaceSet implements iDAO, iBeanCheckable, iBeanRevert
         {
             return false;
         }
-        if (o.getClass() != beanProgIntfSet.class)
+        if (o.getClass() != BeanProgIntfSet.class)
         {
             return false;
         }
-        beanProgIntfSet bean = (beanProgIntfSet) o;
+        BeanProgIntfSet bean = (BeanProgIntfSet) o;
         if (bean.getStatus() != iDAO.OBJECT_STATE_ACTIVE)
         {
             return false;
@@ -255,7 +255,7 @@ public class interfaceSet implements iDAO, iBeanCheckable, iBeanRevert
     @Override
     public int destroyBean(int i)
     {
-        beanProgIntfSet bean = (beanProgIntfSet) getRecordByID(i);
+        BeanProgIntfSet bean = (BeanProgIntfSet) getRecordByID(i);
         if (bean == null)
         {
             return iDAO.OBJECT_RECORD_NOTEXIST;
@@ -271,7 +271,7 @@ public class interfaceSet implements iDAO, iBeanCheckable, iBeanRevert
 
     public List loadInterfaceDefineBySet(int stid)
     {
-        beanProgIntfSet bean = (beanProgIntfSet) getRecordByID(stid);
+        BeanProgIntfSet bean = (BeanProgIntfSet) getRecordByID(stid);
         if (bean == null)
         {
             return null;
@@ -297,7 +297,7 @@ public class interfaceSet implements iDAO, iBeanCheckable, iBeanRevert
             }
         }
         sql = sql +")";
-        return sn.querySQL(sql, beanProgIntfDefine.class);
+        return sn.querySQL(sql, BeanProgIntfDefine.class);
     }
 
     @Override

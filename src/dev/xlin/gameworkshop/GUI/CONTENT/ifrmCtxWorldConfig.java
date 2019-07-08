@@ -1,24 +1,24 @@
 package dev.xlin.gameworkshop.GUI.CONTENT;
 
-import dev.xlin.gameworkshop.GUI.CONTENT.dialog.dlgCtxWorldConfig;
-import dev.xlin.gameworkshop.GUI.CONTENT.dialog.dlgCtxWorldMain;
-import dev.xlin.gameworkshop.GUI.CONTENT.dialog.dlgCtxWorldSet;
-import dev.xlin.gameworkshop.GUI.CONTENT.dialog.dlgCtxWorldTypeResConfig;
+import dev.xlin.gameworkshop.GUI.CONTENT.dialog.DlgCtxWorldConfig;
+import dev.xlin.gameworkshop.GUI.CONTENT.dialog.DlgCtxWorldMain;
+import dev.xlin.gameworkshop.GUI.CONTENT.dialog.DlgCtxWorldSet;
+import dev.xlin.gameworkshop.GUI.CONTENT.dialog.DlgCtxWorldTypeResConfig;
 import dev.xlin.gameworkshop.GUI.fast;
 import dev.xlin.gameworkshop.GUI.frmMain;
 import dev.xlin.gameworkshop.GUI.systemIconLib;
-import dev.xlin.gameworkshop.progs.contents.beans.beanCtxBaseResource;
-import dev.xlin.gameworkshop.progs.contents.beans.beanCtxWorldCfgResItem;
-import dev.xlin.gameworkshop.progs.contents.beans.beanCtxWorldTypeConfig;
-import dev.xlin.gameworkshop.progs.contents.beans.beanCtxWorldTypeMain;
-import dev.xlin.gameworkshop.progs.contents.beans.beanCtxWorldTypeSet;
-import dev.xlin.gameworkshop.progs.contents.progs.baseResourceDefine;
+import dev.xlin.gameworkshop.progs.contents.beans.BeanCtxBaseResource;
+import dev.xlin.gameworkshop.progs.contents.beans.BeanCtxWorldCfgResItem;
+import dev.xlin.gameworkshop.progs.contents.beans.BeanCtxWorldTypeConfig;
+import dev.xlin.gameworkshop.progs.contents.beans.BeanCtxWorldTypeMain;
+import dev.xlin.gameworkshop.progs.contents.beans.BeanCtxWorldTypeSet;
+import dev.xlin.gameworkshop.progs.contents.progs.BaseResourceDefine;
 import dev.xlin.gameworkshop.progs.contents.progs.ctxConst;
 import dev.xlin.gameworkshop.progs.contents.progs.ctxTranslate;
-import dev.xlin.gameworkshop.progs.contents.progs.worldTypeConfig;
-import dev.xlin.gameworkshop.progs.contents.progs.worldTypeConfigResource;
-import dev.xlin.gameworkshop.progs.contents.progs.worldTypeMain;
-import dev.xlin.gameworkshop.progs.contents.progs.worldTypeSet;
+import dev.xlin.gameworkshop.progs.contents.progs.WorldTypeConfig;
+import dev.xlin.gameworkshop.progs.contents.progs.WorldTypeConfigResource;
+import dev.xlin.gameworkshop.progs.contents.progs.WorldTypeMain;
+import dev.xlin.gameworkshop.progs.contents.progs.WorldTypeSet;
 import dev.xlin.swingTools2.guiCommon;
 import dev.xlin.swingTools2.listItem;
 import dev.xlin.swingTools2.myCellRenderer;
@@ -44,9 +44,9 @@ public class ifrmCtxWorldConfig extends javax.swing.JInternalFrame
 
     private wakeup up = null;
     private JDesktopPane desk = null;
-    private worldTypeMain wtm = null;
-    private worldTypeSet wts = null;
-    private worldTypeConfig wtc = null;
+    private WorldTypeMain wtm = null;
+    private WorldTypeSet wts = null;
+    private WorldTypeConfig wtc = null;
     public static final int NODE_ROOT = 0;
     public static final int NODE_MAIN = 1;
     public static final int NODE_SET = 2;
@@ -59,9 +59,9 @@ public class ifrmCtxWorldConfig extends javax.swing.JInternalFrame
         initComponents();
         up = _up;
         desk = _desk;
-        wtm = new worldTypeMain(up);
-        wts = new worldTypeSet(up);
-        wtc = new worldTypeConfig(up);
+        wtm = new WorldTypeMain(up);
+        wts = new WorldTypeSet(up);
+        wtc = new WorldTypeConfig(up);
         initGUI();
     }
 
@@ -105,16 +105,16 @@ public class ifrmCtxWorldConfig extends javax.swing.JInternalFrame
                 ncid = msel.getNodeOID();
             }
         }
-        worldTypeConfigResource wtcr = new worldTypeConfigResource(up);
+        WorldTypeConfigResource wtcr = new WorldTypeConfigResource(up);
         LRS = wtcr.getResourceListByConfig(ncid);
-        baseResourceDefine brd = new baseResourceDefine(up);
+        BaseResourceDefine brd = new BaseResourceDefine(up);
         if (LRS != null)
         {
             for (int i = 0; i < LRS.size(); i++)
             {
-                beanCtxWorldCfgResItem bean = (beanCtxWorldCfgResItem) LRS.get(i);
+                BeanCtxWorldCfgResItem bean = (BeanCtxWorldCfgResItem) LRS.get(i);
                 Object[] ros = fast.makeObjectArray(8);
-                beanCtxBaseResource bcbr = (beanCtxBaseResource) brd.getRecordByID(bean.getResOID());
+                BeanCtxBaseResource bcbr = (BeanCtxBaseResource) brd.getRecordByID(bean.getResOID());
                 if (bcbr != null)
                 {
                     ros[0] = bcbr.getResName();
@@ -136,7 +136,7 @@ public class ifrmCtxWorldConfig extends javax.swing.JInternalFrame
         tbRes.setModel(mtm);
     }
 
-    private String makeMainTitle(beanCtxWorldTypeMain bean)
+    private String makeMainTitle(BeanCtxWorldTypeMain bean)
     {
         String s = bean.getWmName() + "<" + bean.getWmTag() + ">";
         if (bean.getStatus() != iDAO.OBJECT_STATE_ACTIVE)
@@ -146,7 +146,7 @@ public class ifrmCtxWorldConfig extends javax.swing.JInternalFrame
         return s;
     }
 
-    private String makeSetTitle(beanCtxWorldTypeSet bean)
+    private String makeSetTitle(BeanCtxWorldTypeSet bean)
     {
         String s = bean.getSetName() + "<" + bean.getSetTag() + ">";
         if (bean.getStatus() != iDAO.OBJECT_STATE_ACTIVE)
@@ -166,7 +166,7 @@ public class ifrmCtxWorldConfig extends javax.swing.JInternalFrame
         {
             for (int i = 0; i < lms.size(); i++)
             {
-                beanCtxWorldTypeMain bwtm = (beanCtxWorldTypeMain) lms.get(i);
+                BeanCtxWorldTypeMain bwtm = (BeanCtxWorldTypeMain) lms.get(i);
                 myTreeNode mtm = new myTreeNode(makeMainTitle(bwtm), bwtm.getOID(), NODE_MAIN);
                 mtm.setIco(systemIconLib.icoFolder);
                 List lss = wts.getWorldSetsByMainType(bwtm.getOID(), ckShowAllTps.isSelected());
@@ -174,7 +174,7 @@ public class ifrmCtxWorldConfig extends javax.swing.JInternalFrame
                 {
                     for (int j = 0; j < lss.size(); j++)
                     {
-                        beanCtxWorldTypeSet bwts = (beanCtxWorldTypeSet) lss.get(j);
+                        BeanCtxWorldTypeSet bwts = (BeanCtxWorldTypeSet) lss.get(j);
                         myTreeNode mts = new myTreeNode(makeSetTitle(bwts), bwts.getOID(), NODE_SET);
                         mts.setIco(systemIconLib.icoFolder2);
                         List lcs = wtc.getConfigsByWorldSet(bwts.getOID());
@@ -182,7 +182,7 @@ public class ifrmCtxWorldConfig extends javax.swing.JInternalFrame
                         {
                             for (int k = 0; k < lcs.size(); k++)
                             {
-                                beanCtxWorldTypeConfig bwtc = (beanCtxWorldTypeConfig) lcs.get(k);
+                                BeanCtxWorldTypeConfig bwtc = (BeanCtxWorldTypeConfig) lcs.get(k);
                                 myTreeNode mtc = new myTreeNode(bwtc.getCfgName() + "<" + bwtc.getCfgTag() + ">", bwtc.getOID(), NODE_CONFIG);
                                 mtc.setIco(systemIconLib.icoNode2);
                                 mts.add(mtc);
@@ -298,7 +298,7 @@ public class ifrmCtxWorldConfig extends javax.swing.JInternalFrame
     private void newMain()
     {
         int tpcst = swsys.getComboBoxSelected(cmbWorldType);
-        dlgCtxWorldMain dlg = new dlgCtxWorldMain(null, true, up, null, tpcst);
+        DlgCtxWorldMain dlg = new DlgCtxWorldMain(null, true, up, null, tpcst);
         dlg.setVisible(true);
         if (dlg.getOK())
         {
@@ -320,9 +320,9 @@ public class ifrmCtxWorldConfig extends javax.swing.JInternalFrame
             return;
         }
         int moid = msel.getNodeOID();
-        worldTypeMain wtm = new worldTypeMain(up);
-        beanCtxWorldTypeMain bean = (beanCtxWorldTypeMain) wtm.getRecordByID(moid);
-        dlgCtxWorldMain dlg = new dlgCtxWorldMain(null, true, up, bean, 0);
+        WorldTypeMain wtm = new WorldTypeMain(up);
+        BeanCtxWorldTypeMain bean = (BeanCtxWorldTypeMain) wtm.getRecordByID(moid);
+        DlgCtxWorldMain dlg = new DlgCtxWorldMain(null, true, up, bean, 0);
         dlg.setVisible(true);
         if (dlg.getOK())
         {
@@ -348,7 +348,7 @@ public class ifrmCtxWorldConfig extends javax.swing.JInternalFrame
         {
             return;
         }
-        worldTypeMain wtm = new worldTypeMain(up);
+        WorldTypeMain wtm = new WorldTypeMain(up);
         int r = wtm.deleteRecord(msel.getNodeOID());
         if (r == iDAO.OPERATE_SUCCESS)
         {
@@ -376,7 +376,7 @@ public class ifrmCtxWorldConfig extends javax.swing.JInternalFrame
         {
             return;
         }
-        worldTypeMain wtm = new worldTypeMain(up);
+        WorldTypeMain wtm = new WorldTypeMain(up);
         System.err.println(".sel .id = " + msel.getNodeOID());
         int r = wtm.revertBean(msel.getNodeOID());
         if (r == iDAO.OPERATE_SUCCESS)
@@ -405,7 +405,7 @@ public class ifrmCtxWorldConfig extends javax.swing.JInternalFrame
         {
             return;
         }
-        worldTypeMain wtm = new worldTypeMain(up);
+        WorldTypeMain wtm = new WorldTypeMain(up);
         int r = wtm.destroyBean(msel.getNodeOID());
         if (r == iDAO.OPERATE_SUCCESS)
         {
@@ -428,7 +428,7 @@ public class ifrmCtxWorldConfig extends javax.swing.JInternalFrame
         {
             return;
         }
-        dlgCtxWorldSet dlg = new dlgCtxWorldSet(null, true, up, null, msel.getNodeOID());
+        DlgCtxWorldSet dlg = new DlgCtxWorldSet(null, true, up, null, msel.getNodeOID());
         dlg.setVisible(true);
         if (dlg.getOK())
         {
@@ -449,9 +449,9 @@ public class ifrmCtxWorldConfig extends javax.swing.JInternalFrame
         {
             return;
         }
-        worldTypeSet wts = new worldTypeSet(up);
-        beanCtxWorldTypeSet bean = (beanCtxWorldTypeSet) wts.getRecordByID(msel.getNodeOID());
-        dlgCtxWorldSet dlg = new dlgCtxWorldSet(null, true, up, bean, 0);
+        WorldTypeSet wts = new WorldTypeSet(up);
+        BeanCtxWorldTypeSet bean = (BeanCtxWorldTypeSet) wts.getRecordByID(msel.getNodeOID());
+        DlgCtxWorldSet dlg = new DlgCtxWorldSet(null, true, up, bean, 0);
         dlg.setVisible(true);
         if (dlg.getOK())
         {
@@ -477,7 +477,7 @@ public class ifrmCtxWorldConfig extends javax.swing.JInternalFrame
         {
             return;
         }
-        worldTypeSet wts = new worldTypeSet(up);
+        WorldTypeSet wts = new WorldTypeSet(up);
         int r = wts.deleteRecord(msel.getNodeOID());
         if (r == iDAO.OPERATE_SUCCESS)
         {
@@ -505,7 +505,7 @@ public class ifrmCtxWorldConfig extends javax.swing.JInternalFrame
         {
             return;
         }
-        worldTypeSet wts = new worldTypeSet(up);
+        WorldTypeSet wts = new WorldTypeSet(up);
         int r = wts.revertBean(msel.getNodeOID());
         if (r == iDAO.OPERATE_SUCCESS)
         {
@@ -533,7 +533,7 @@ public class ifrmCtxWorldConfig extends javax.swing.JInternalFrame
         {
             return;
         }
-        worldTypeSet wts = new worldTypeSet(up);
+        WorldTypeSet wts = new WorldTypeSet(up);
         int r = wts.destroyBean(msel.getNodeOID());
         if (r == iDAO.OPERATE_SUCCESS)
         {
@@ -556,7 +556,7 @@ public class ifrmCtxWorldConfig extends javax.swing.JInternalFrame
         {
             return;
         }
-        dlgCtxWorldConfig dlg = new dlgCtxWorldConfig(null, true, up, null, msel.getNodeOID());
+        DlgCtxWorldConfig dlg = new DlgCtxWorldConfig(null, true, up, null, msel.getNodeOID());
         dlg.setVisible(true);
         if (dlg.getOK())
         {
@@ -577,9 +577,9 @@ public class ifrmCtxWorldConfig extends javax.swing.JInternalFrame
         {
             return;
         }
-        worldTypeConfig wtc = new worldTypeConfig(up);
-        beanCtxWorldTypeConfig bean = (beanCtxWorldTypeConfig) wtc.getRecordByID(msel.getNodeOID());
-        dlgCtxWorldConfig dlg = new dlgCtxWorldConfig(null, true, up, bean, 0);
+        WorldTypeConfig wtc = new WorldTypeConfig(up);
+        BeanCtxWorldTypeConfig bean = (BeanCtxWorldTypeConfig) wtc.getRecordByID(msel.getNodeOID());
+        DlgCtxWorldConfig dlg = new DlgCtxWorldConfig(null, true, up, bean, 0);
         dlg.setVisible(true);
         if (dlg.getOK())
         {
@@ -605,7 +605,7 @@ public class ifrmCtxWorldConfig extends javax.swing.JInternalFrame
         {
             return;
         }
-        worldTypeConfig wtc = new worldTypeConfig(up);
+        WorldTypeConfig wtc = new WorldTypeConfig(up);
         int r = wtc.deleteRecord(msel.getNodeOID());
         if (r == iDAO.OPERATE_SUCCESS)
         {
@@ -628,7 +628,7 @@ public class ifrmCtxWorldConfig extends javax.swing.JInternalFrame
         {
             return;
         }
-        dlgCtxWorldTypeResConfig dlg = new dlgCtxWorldTypeResConfig(null, true, up, null, msel.getNodeOID());
+        DlgCtxWorldTypeResConfig dlg = new DlgCtxWorldTypeResConfig(null, true, up, null, msel.getNodeOID());
         dlg.setVisible(true);
         if (dlg.getOK())
         {
@@ -638,24 +638,24 @@ public class ifrmCtxWorldConfig extends javax.swing.JInternalFrame
         dlg = null;
     }
 
-    private beanCtxWorldCfgResItem getSelectedResCfg()
+    private BeanCtxWorldCfgResItem getSelectedResCfg()
     {
         int idx = tbRes.getSelectedRow();
         if (idx < 0)
         {
             return null;
         }
-        return (beanCtxWorldCfgResItem) LRS.get(idx);
+        return (BeanCtxWorldCfgResItem) LRS.get(idx);
     }
 
     private void editResConfig()
     {
-        beanCtxWorldCfgResItem bean = getSelectedResCfg();
+        BeanCtxWorldCfgResItem bean = getSelectedResCfg();
         if (bean == null)
         {
             return;
         }
-        dlgCtxWorldTypeResConfig dlg = new dlgCtxWorldTypeResConfig(null, true, up, bean, 0);
+        DlgCtxWorldTypeResConfig dlg = new DlgCtxWorldTypeResConfig(null, true, up, bean, 0);
         dlg.setVisible(true);
         if (dlg.getOK())
         {
@@ -667,7 +667,7 @@ public class ifrmCtxWorldConfig extends javax.swing.JInternalFrame
 
     private void deleteResConfig()
     {
-        beanCtxWorldCfgResItem bean = getSelectedResCfg();
+        BeanCtxWorldCfgResItem bean = getSelectedResCfg();
         if (bean == null)
         {
             return;
@@ -677,7 +677,7 @@ public class ifrmCtxWorldConfig extends javax.swing.JInternalFrame
         {
             return;
         }
-        worldTypeConfigResource wtcr = new worldTypeConfigResource(up);
+        WorldTypeConfigResource wtcr = new WorldTypeConfigResource(up);
         int r = wtcr.deleteRecord(bean.getOID());
         if (r == iDAO.OPERATE_SUCCESS)
         {

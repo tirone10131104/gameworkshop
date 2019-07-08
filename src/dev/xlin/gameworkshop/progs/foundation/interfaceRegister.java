@@ -1,7 +1,7 @@
 package dev.xlin.gameworkshop.progs.foundation;
 
-import dev.xlin.gameworkshop.progs.foundation.beans.beanProgIntfDefine;
-import dev.xlin.gameworkshop.progs.foundation.beans.beanProgIntfRegister;
+import dev.xlin.gameworkshop.progs.foundation.beans.BeanProgIntfDefine;
+import dev.xlin.gameworkshop.progs.foundation.beans.BeanProgIntfRegister;
 import dev.xlin.gameworkshop.progs.iReturn;
 import dev.xlin.tols.data.jcommon;
 import dev.xlin.tols.data.session;
@@ -33,7 +33,7 @@ public class interfaceRegister implements iDAO, iBeanCheckable, iBeanRevert
         {
             return r0;
         }
-        beanProgIntfRegister bean = (beanProgIntfRegister) o;
+        BeanProgIntfRegister bean = (BeanProgIntfRegister) o;
         //检查标签
         if (getRegisterByTag(bean.getRegTag()) != null)
         {
@@ -41,7 +41,7 @@ public class interfaceRegister implements iDAO, iBeanCheckable, iBeanRevert
         }
         //检查源
         interfaceDefine itdef = new interfaceDefine(up);
-        beanProgIntfDefine bdef = (beanProgIntfDefine) itdef.getRecordByID(bean.getDefOID());
+        BeanProgIntfDefine bdef = (BeanProgIntfDefine) itdef.getRecordByID(bean.getDefOID());
         if (itdef.checkBean(bdef) == false)
         {
             return iReturn.INTF_DEFINE_NOTEXIST;
@@ -61,18 +61,18 @@ public class interfaceRegister implements iDAO, iBeanCheckable, iBeanRevert
         {
             sql = sql +" and status = " + iDAO.OBJECT_STATE_ACTIVE;
         }
-        return sn.querySQL(sql, beanProgIntfRegister.class);
+        return sn.querySQL(sql, BeanProgIntfRegister.class);
     }
 
-    public beanProgIntfRegister getRegisterByTag(String tag)
+    public BeanProgIntfRegister getRegisterByTag(String tag)
     {
         String sql = "select * from " + table + " where regTag = '" + tag + "'";
-        List ls = sn.querySQL(sql, beanProgIntfRegister.class);
+        List ls = sn.querySQL(sql, BeanProgIntfRegister.class);
         if (ls == null)
         {
             return null;
         }
-        return (beanProgIntfRegister) ls.get(0);
+        return (BeanProgIntfRegister) ls.get(0);
     }
 
     private int doCheckParam(Object o)
@@ -81,7 +81,7 @@ public class interfaceRegister implements iDAO, iBeanCheckable, iBeanRevert
         {
             return iDAO.PARAM_OBJECT_NULL;
         }
-        if (o.getClass() != beanProgIntfRegister.class)
+        if (o.getClass() != BeanProgIntfRegister.class)
         {
             return iDAO.PARAM_OBJECT_CLASS_INCORRECT;
         }
@@ -96,8 +96,8 @@ public class interfaceRegister implements iDAO, iBeanCheckable, iBeanRevert
         {
             return r0;
         }
-        beanProgIntfRegister bean = (beanProgIntfRegister) o;
-        beanProgIntfRegister obean = (beanProgIntfRegister) getRecordByID(bean.getOID());
+        BeanProgIntfRegister bean = (BeanProgIntfRegister) o;
+        BeanProgIntfRegister obean = (BeanProgIntfRegister) getRecordByID(bean.getOID());
         if (checkBean(obean) == false)
         {
             return iDAO.OBJECT_RECORD_NOTEXIST;
@@ -129,7 +129,7 @@ public class interfaceRegister implements iDAO, iBeanCheckable, iBeanRevert
     public Object getRecordByID(int i)
     {
         String sql = "select * from " + table + " where OID = " + i;
-        List ls = sn.querySQL(sql, beanProgIntfRegister.class);
+        List ls = sn.querySQL(sql, BeanProgIntfRegister.class);
         if (ls == null)
         {
             return null;
@@ -144,11 +144,11 @@ public class interfaceRegister implements iDAO, iBeanCheckable, iBeanRevert
         {
             return false;
         }
-        if (o.getClass() != beanProgIntfRegister.class)
+        if (o.getClass() != BeanProgIntfRegister.class)
         {
             return false;
         }
-        beanProgIntfRegister bean = (beanProgIntfRegister) o;
+        BeanProgIntfRegister bean = (BeanProgIntfRegister) o;
         if (bean.getStatus() != iDAO.OBJECT_STATE_ACTIVE)
         {
             return false;
@@ -167,7 +167,7 @@ public class interfaceRegister implements iDAO, iBeanCheckable, iBeanRevert
     @Override
     public int destroyBean(int i)
     {
-        beanProgIntfRegister bean = (beanProgIntfRegister) getRecordByID(i);
+        BeanProgIntfRegister bean = (BeanProgIntfRegister) getRecordByID(i);
         if (bean == null)
         {
             return iDAO.OBJECT_RECORD_NOTEXIST;

@@ -1,8 +1,8 @@
 package dev.xlin.gameworkshop.progs.foundation;
 
-import dev.xlin.gameworkshop.progs.foundation.beans.beanItem;
-import dev.xlin.gameworkshop.progs.foundation.beans.beanRecycleListItemData;
-import dev.xlin.gameworkshop.progs.foundation.beans.beanRecycleRequestListData;
+import dev.xlin.gameworkshop.progs.foundation.beans.BeanItem;
+import dev.xlin.gameworkshop.progs.foundation.beans.BeanRecycleListItemData;
+import dev.xlin.gameworkshop.progs.foundation.beans.BeanRecycleRequestListData;
 import dev.xlin.gameworkshop.progs.foundation.interfaces.iAdtDocumentSave;
 import dev.xlin.gameworkshop.progs.foundation.interfaces.iAdtXML;
 import dev.xlin.gameworkshop.progs.foundation.interfaces.iDataColumnOper;
@@ -34,7 +34,7 @@ public class recycleListData implements iDataPageOper, iDataColumnOper, iDataEle
     private ArrayList datapages = new ArrayList();
     private dataStructOperator DSO = null;
 
-    public int appendRecycleRequestItem(beanRecycleRequestListData brld)
+    public int appendRecycleRequestItem(BeanRecycleRequestListData brld)
     {
         if (brld == null)
         {
@@ -52,13 +52,13 @@ public class recycleListData implements iDataPageOper, iDataColumnOper, iDataEle
         return iDAO.OPERATE_SUCCESS;
     }
 
-    public int updateRecycleRequestItem(beanRecycleRequestListData bean)
+    public int updateRecycleRequestItem(BeanRecycleRequestListData bean)
     {
         if (bean == null)
         {
             return iDAO.PARAM_OBJECT_NULL;
         }
-        beanRecycleRequestListData obean = getRecycleRequestNotClone(bean.getOID());
+        BeanRecycleRequestListData obean = getRecycleRequestNotClone(bean.getOID());
         if (obean == null)
         {
             return iDAO.OBJECT_RECORD_NOTEXIST;
@@ -77,7 +77,7 @@ public class recycleListData implements iDataPageOper, iDataColumnOper, iDataEle
 
     public int disableRecycleRequestItem(int oid)
     {
-        beanRecycleRequestListData obean = getRecycleRequestNotClone(oid);
+        BeanRecycleRequestListData obean = getRecycleRequestNotClone(oid);
         if (obean == null)
         {
             return iDAO.OBJECT_RECORD_NOTEXIST;
@@ -88,7 +88,7 @@ public class recycleListData implements iDataPageOper, iDataColumnOper, iDataEle
 
     public int revertRecycleRequestItem(int oid)
     {
-        beanRecycleRequestListData obean = getRecycleRequestNotClone(oid);
+        BeanRecycleRequestListData obean = getRecycleRequestNotClone(oid);
         if (obean == null)
         {
             return iDAO.OBJECT_RECORD_NOTEXIST;
@@ -99,7 +99,7 @@ public class recycleListData implements iDataPageOper, iDataColumnOper, iDataEle
 
     public int destroyRecycleRequestItem(int oid)
     {
-        beanRecycleRequestListData obean = getRecycleRequestNotClone(oid);
+        BeanRecycleRequestListData obean = getRecycleRequestNotClone(oid);
         if (obean == null)
         {
             return iDAO.OBJECT_RECORD_NOTEXIST;
@@ -120,7 +120,7 @@ public class recycleListData implements iDataPageOper, iDataColumnOper, iDataEle
         {
             return iReturn.BEAN_CANT_MOVE_UP;
         }
-        beanRecycleRequestListData bpre = (beanRecycleRequestListData) recyReqs.get(idx - 1);
+        BeanRecycleRequestListData bpre = (BeanRecycleRequestListData) recyReqs.get(idx - 1);
         recyReqs.remove(idx - 1);
         recyReqs.add(idx, bpre);
         return iDAO.OPERATE_SUCCESS;
@@ -133,7 +133,7 @@ public class recycleListData implements iDataPageOper, iDataColumnOper, iDataEle
         {
             return iReturn.BEAN_CANT_MOVE_DOWN;
         }
-        beanRecycleRequestListData blast = (beanRecycleRequestListData) recyReqs.get(idx + 1);
+        BeanRecycleRequestListData blast = (BeanRecycleRequestListData) recyReqs.get(idx + 1);
         recyReqs.remove(idx + 1);
         recyReqs.add(idx, blast);
         return iDAO.OPERATE_SUCCESS;
@@ -144,7 +144,7 @@ public class recycleListData implements iDataPageOper, iDataColumnOper, iDataEle
         ArrayList arl = new ArrayList();
         for (int i = 0; i < recyReqs.size(); i++)
         {
-            beanRecycleRequestListData bean = (beanRecycleRequestListData) recyReqs.get(i);
+            BeanRecycleRequestListData bean = (BeanRecycleRequestListData) recyReqs.get(i);
             if (showAll == false && bean.getStatus() != iDAO.OBJECT_STATE_ACTIVE)
             {
                 continue;
@@ -162,7 +162,7 @@ public class recycleListData implements iDataPageOper, iDataColumnOper, iDataEle
     {
         for (int i = 0; i < recyReqs.size(); i++)
         {
-            beanRecycleRequestListData brr = (beanRecycleRequestListData) recyReqs.get(i);
+            BeanRecycleRequestListData brr = (BeanRecycleRequestListData) recyReqs.get(i);
             if (brr.getOID() == oid)
             {
                 return i;
@@ -171,7 +171,7 @@ public class recycleListData implements iDataPageOper, iDataColumnOper, iDataEle
         return -1;
     }
 
-    private int checkRecycleRequestBean(beanRecycleRequestListData bean)
+    private int checkRecycleRequestBean(BeanRecycleRequestListData bean)
     {
         if (bean.getQuantity() < 0)
         {
@@ -180,11 +180,11 @@ public class recycleListData implements iDataPageOper, iDataColumnOper, iDataEle
         return 0;
     }
 
-    private beanRecycleRequestListData getRecycleRequestNotClone(int oid)
+    private BeanRecycleRequestListData getRecycleRequestNotClone(int oid)
     {
         for (int i = 0; i < recyReqs.size(); i++)
         {
-            beanRecycleRequestListData bri = (beanRecycleRequestListData) recyReqs.get(i);
+            BeanRecycleRequestListData bri = (BeanRecycleRequestListData) recyReqs.get(i);
             if (bri.getOID() == oid)
             {
                 return bri;
@@ -193,14 +193,14 @@ public class recycleListData implements iDataPageOper, iDataColumnOper, iDataEle
         return null;
     }
 
-    public beanRecycleRequestListData getRecycleRequestListItemByOID(int oid)
+    public BeanRecycleRequestListData getRecycleRequestListItemByOID(int oid)
     {
-        beanRecycleRequestListData brld = getRecycleRequestNotClone(oid);
+        BeanRecycleRequestListData brld = getRecycleRequestNotClone(oid);
         if (brld == null)
         {
             return null;
         }
-        return (beanRecycleRequestListData) brld.cloneMe();
+        return (BeanRecycleRequestListData) brld.cloneMe();
     }
 
     private int createRROID()
@@ -227,7 +227,7 @@ public class recycleListData implements iDataPageOper, iDataColumnOper, iDataEle
         {
             return iDAO.PARAM_OBJECT_NULL;
         }
-        beanRecycleListItemData bean = (beanRecycleListItemData) ide;
+        BeanRecycleListItemData bean = (BeanRecycleListItemData) ide;
         //逻辑检查
         int r0 = doCheckBeanLogic(bean);
         if (r0 != 0)
@@ -240,14 +240,14 @@ public class recycleListData implements iDataPageOper, iDataColumnOper, iDataEle
         return DSO.appendDataElement(ide, colOID);
     }
 
-    private int doCheckBeanLogic(beanRecycleListItemData bean)
+    private int doCheckBeanLogic(BeanRecycleListItemData bean)
     {
         if (bean.getQuantity() < 0)
         {
             return iReturn.RECY_QUANTITY_ERROR;
         }
         itemDefine idef = new itemDefine(up);
-        beanItem bit = (beanItem) idef.getRecordByID(bean.getItemOID());
+        BeanItem bit = (BeanItem) idef.getRecordByID(bean.getItemOID());
         if (idef.checkBean(bit) == false)
         {
             return iReturn.RECY_ITEM_NOTEXIST;
@@ -263,8 +263,8 @@ public class recycleListData implements iDataPageOper, iDataColumnOper, iDataEle
             return iDAO.PARAM_OBJECT_NULL;
         }
 
-        beanRecycleListItemData bean = (beanRecycleListItemData) ide;
-        beanRecycleListItemData obean = (beanRecycleListItemData) getDataElementByOID(bean.getOID());
+        BeanRecycleListItemData bean = (BeanRecycleListItemData) ide;
+        BeanRecycleListItemData obean = (BeanRecycleListItemData) getDataElementByOID(bean.getOID());
         if (obean == null)
         {
             return iDAO.OBJECT_RECORD_NOTEXIST;
@@ -496,7 +496,7 @@ public class recycleListData implements iDataPageOper, iDataColumnOper, iDataEle
         //拆解需求数据
         for (int i = 0; i < recyReqs.size(); i++)
         {
-            beanRecycleRequestListData bean = (beanRecycleRequestListData) recyReqs.get(i);
+            BeanRecycleRequestListData bean = (BeanRecycleRequestListData) recyReqs.get(i);
             Element erq = bean.transToXmlElement(xr);
             erot.appendChild(erq);
         }
@@ -529,7 +529,7 @@ public class recycleListData implements iDataPageOper, iDataColumnOper, iDataEle
                 }
                 else if (e.getNodeName().equals("RECY_REQ_LIDT"))
                 {
-                    beanRecycleRequestListData brrld = new beanRecycleRequestListData();
+                    BeanRecycleRequestListData brrld = new BeanRecycleRequestListData();
                     boolean b = brrld.revertFromXmlElement(e);
                     if (b)
                     {

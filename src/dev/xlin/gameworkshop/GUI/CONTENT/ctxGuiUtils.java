@@ -1,7 +1,7 @@
 package dev.xlin.gameworkshop.GUI.CONTENT;
 
-import dev.xlin.gameworkshop.progs.contents.beans.beanCtxBaseResource;
-import dev.xlin.gameworkshop.progs.contents.progs.baseResourceDefine;
+import dev.xlin.gameworkshop.progs.contents.beans.BeanCtxBaseResource;
+import dev.xlin.gameworkshop.progs.contents.progs.BaseResourceDefine;
 import dev.xlin.gameworkshop.progs.tools.beanSttType;
 import dev.xlin.gameworkshop.progs.tools.sttType;
 import dev.xlin.swingTools2.dlgTools.dlgSelectTreeNode;
@@ -19,7 +19,7 @@ public class ctxGuiUtils
     public static myTreeNode selectBaseResource(wakeup up)
     {
         //制作资源列表
-        baseResourceDefine brd = new baseResourceDefine(up);
+        BaseResourceDefine brd = new BaseResourceDefine(up);
         sttType stp = new sttType(up);
         List ltps = stp.getRootsByTag("SST_C_BASE_RES", false);
         myTreeNode mrt = new myTreeNode("[基础资源数据]", 0, 0);
@@ -34,7 +34,7 @@ public class ctxGuiUtils
                 {
                     for (int j = 0; j < lrs.size(); j++)
                     {
-                        beanCtxBaseResource bcbr = (beanCtxBaseResource) lrs.get(j);
+                        BeanCtxBaseResource bcbr = (BeanCtxBaseResource) lrs.get(j);
                         myTreeNode mrs = new myTreeNode(bcbr.getResName(), bcbr.getOID(), 1);
                         mst.add(mrs);
                     }

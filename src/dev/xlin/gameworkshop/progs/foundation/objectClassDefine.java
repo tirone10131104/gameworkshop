@@ -1,6 +1,6 @@
 package dev.xlin.gameworkshop.progs.foundation;
 
-import dev.xlin.gameworkshop.progs.foundation.beans.beanObjectClass;
+import dev.xlin.gameworkshop.progs.foundation.beans.BeanObjectClass;
 import dev.xlin.gameworkshop.progs.iConst;
 import dev.xlin.gameworkshop.progs.iReturn;
 import dev.xlin.tols.data.jcommon;
@@ -38,23 +38,23 @@ public class objectClassDefine implements iDAO, iBeanCheckable, iBeanRevert
         {
             sql = sql + " and state = " + iDAO.OBJECT_STATE_ACTIVE;
         }
-        return sn.querySQL(sql, beanObjectClass.class);
+        return sn.querySQL(sql, BeanObjectClass.class);
     }
 
-    public beanObjectClass getObjectClassByOID(int oid)
+    public BeanObjectClass getObjectClassByOID(int oid)
     {
-        return (beanObjectClass) getRecordByID(oid);
+        return (BeanObjectClass) getRecordByID(oid);
     }
 
-    public beanObjectClass getoObjectClassByTag(String stg)
+    public BeanObjectClass getoObjectClassByTag(String stg)
     {
         String sql = "select * from " + table + " where classTag = '" + stg.trim() + "'";
-        List ls = sn.querySQL(sql, beanObjectClass.class);
+        List ls = sn.querySQL(sql, BeanObjectClass.class);
         if (ls == null)
         {
             return null;
         }
-        return (beanObjectClass) ls.get(0);
+        return (BeanObjectClass) ls.get(0);
     }
 
     @Override
@@ -65,7 +65,7 @@ public class objectClassDefine implements iDAO, iBeanCheckable, iBeanRevert
         {
             return r0;
         }
-        beanObjectClass bean = (beanObjectClass) o;
+        BeanObjectClass bean = (BeanObjectClass) o;
         if (getoObjectClassByTag(bean.getClassTag()) != null)
         {
             return iReturn.BEAN_TAG_REPEAT;
@@ -81,7 +81,7 @@ public class objectClassDefine implements iDAO, iBeanCheckable, iBeanRevert
         return jcommon.eInsert(sn, bean, table, bln);
     }
 
-    private int doCheckLogic(beanObjectClass bean)
+    private int doCheckLogic(BeanObjectClass bean)
     {
         int[] ids = codeTools.convertStrToArr(bean.getClassFuncs());
         for (int i = 0; i < ids.length; i++)
@@ -101,7 +101,7 @@ public class objectClassDefine implements iDAO, iBeanCheckable, iBeanRevert
         {
             return iDAO.PARAM_OBJECT_NULL;
         }
-        if (o.getClass() != beanObjectClass.class)
+        if (o.getClass() != BeanObjectClass.class)
         {
             return iDAO.PARAM_OBJECT_CLASS_INCORRECT;
         }
@@ -116,8 +116,8 @@ public class objectClassDefine implements iDAO, iBeanCheckable, iBeanRevert
         {
             return r0;
         }
-        beanObjectClass bean = (beanObjectClass) o;
-        beanObjectClass obean = getObjectClassByOID(bean.getOID());
+        BeanObjectClass bean = (BeanObjectClass) o;
+        BeanObjectClass obean = getObjectClassByOID(bean.getOID());
         if (obean == null)
         {
             return iDAO.OBJECT_RECORD_NOTEXIST;
@@ -162,7 +162,7 @@ public class objectClassDefine implements iDAO, iBeanCheckable, iBeanRevert
     public Object getRecordByID(int i)
     {
         String sql = "select * from " + table + " where OID = " + i;
-        List ls = sn.querySQL(sql, beanObjectClass.class);
+        List ls = sn.querySQL(sql, BeanObjectClass.class);
         if (ls == null)
         {
             return null;
@@ -177,11 +177,11 @@ public class objectClassDefine implements iDAO, iBeanCheckable, iBeanRevert
         {
             return false;
         }
-        if (o.getClass() != beanObjectClass.class)
+        if (o.getClass() != BeanObjectClass.class)
         {
             return false;
         }
-        beanObjectClass bean = (beanObjectClass) o;
+        BeanObjectClass bean = (BeanObjectClass) o;
         if (bean.getState() != iDAO.OBJECT_STATE_ACTIVE)
         {
             return false;

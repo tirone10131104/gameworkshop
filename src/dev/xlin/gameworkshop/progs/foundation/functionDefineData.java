@@ -1,9 +1,9 @@
 package dev.xlin.gameworkshop.progs.foundation;
 
-import dev.xlin.gameworkshop.progs.foundation.beans.beanFuncControl;
-import dev.xlin.gameworkshop.progs.foundation.beans.beanFuncEffectListItem;
-import dev.xlin.gameworkshop.progs.foundation.beans.beanFuncEnableListItem;
-import dev.xlin.gameworkshop.progs.foundation.beans.beanFuncPropListItem;
+import dev.xlin.gameworkshop.progs.foundation.beans.BeanFuncControl;
+import dev.xlin.gameworkshop.progs.foundation.beans.BeanFuncEffectListItem;
+import dev.xlin.gameworkshop.progs.foundation.beans.BeanFuncEnableListItem;
+import dev.xlin.gameworkshop.progs.foundation.beans.BeanFuncPropListItem;
 import dev.xlin.gameworkshop.progs.foundation.interfaces.iAdtDocumentSave;
 import dev.xlin.gameworkshop.progs.foundation.interfaces.iAdtXML;
 import dev.xlin.gameworkshop.progs.foundation.interfaces.iClone;
@@ -47,7 +47,7 @@ public class functionDefineData implements iAdtXML, iAdtDocumentSave, iDatablock
      * @param bean
      * @return
      */
-    public int appendFuncProperty(beanFuncPropListItem bean)
+    public int appendFuncProperty(BeanFuncPropListItem bean)
     {
         if (bean == null)
         {
@@ -66,13 +66,13 @@ public class functionDefineData implements iAdtXML, iAdtDocumentSave, iDatablock
      * @param bean
      * @return
      */
-    public int updateFuncProperty(beanFuncPropListItem bean)
+    public int updateFuncProperty(BeanFuncPropListItem bean)
     {
         if (bean == null)
         {
             return iDAO.PARAM_OBJECT_NULL;
         }
-        beanFuncPropListItem obean = getFuncPropListItemNotClone(bean.getOID());
+        BeanFuncPropListItem obean = getFuncPropListItemNotClone(bean.getOID());
         if (obean == null)
         {
             return iDAO.OBJECT_RECORD_NOTEXIST;
@@ -94,7 +94,7 @@ public class functionDefineData implements iAdtXML, iAdtDocumentSave, iDatablock
      * @param bean
      * @return
      */
-    public int appendFuncEnableItem(beanFuncEnableListItem bean)
+    public int appendFuncEnableItem(BeanFuncEnableListItem bean)
     {
         if (bean == null)
         {
@@ -113,13 +113,13 @@ public class functionDefineData implements iAdtXML, iAdtDocumentSave, iDatablock
      * @param bean
      * @return
      */
-    public int updateFuncEnableItem(beanFuncEnableListItem bean)
+    public int updateFuncEnableItem(BeanFuncEnableListItem bean)
     {
         if (bean == null)
         {
             return iDAO.PARAM_OBJECT_NULL;
         }
-        beanFuncEnableListItem obean = getFuncEnableListItemNotClone(bean.getOID());
+        BeanFuncEnableListItem obean = getFuncEnableListItemNotClone(bean.getOID());
         if (obean == null)
         {
             return iDAO.OBJECT_RECORD_NOTEXIST;
@@ -142,7 +142,7 @@ public class functionDefineData implements iAdtXML, iAdtDocumentSave, iDatablock
      * @param bean
      * @return
      */
-    public int appendFuncEffect(beanFuncEffectListItem bean)
+    public int appendFuncEffect(BeanFuncEffectListItem bean)
     {
         if (bean == null)
         {
@@ -161,13 +161,13 @@ public class functionDefineData implements iAdtXML, iAdtDocumentSave, iDatablock
      * @param bean
      * @return
      */
-    public int updateFuncEffect(beanFuncEffectListItem bean)
+    public int updateFuncEffect(BeanFuncEffectListItem bean)
     {
         if (bean == null)
         {
             return iDAO.PARAM_OBJECT_NULL;
         }
-        beanFuncEffectListItem obean = getFuncEffectListItemNotClone(bean.getOID());
+        BeanFuncEffectListItem obean = getFuncEffectListItemNotClone(bean.getOID());
         if (obean == null)
         {
             return iDAO.OBJECT_RECORD_NOTEXIST;
@@ -191,9 +191,9 @@ public class functionDefineData implements iAdtXML, iAdtDocumentSave, iDatablock
      * @param _bean
      * @return
      */
-    public int updateFunctionControl(beanFuncControl bean)
+    public int updateFunctionControl(BeanFuncControl bean)
     {
-        beanFuncControl obean = getControlNotClone();
+        BeanFuncControl obean = getControlNotClone();
         obean.setAutoLoop(bean.getAutoLoop());
         obean.setCooldown(bean.getCooldown());
         obean.setDescription(bean.getDescription());
@@ -208,14 +208,14 @@ public class functionDefineData implements iAdtXML, iAdtDocumentSave, iDatablock
         return iDAO.OPERATE_SUCCESS;
     }
 
-    public beanFuncControl getFunctionControl()
+    public BeanFuncControl getFunctionControl()
     {
-        return (beanFuncControl) getControlNotClone().cloneMe();
+        return (BeanFuncControl) getControlNotClone().cloneMe();
     }
 
-    private beanFuncControl getControlNotClone()
+    private BeanFuncControl getControlNotClone()
     {
-        return (beanFuncControl) datapages.get(keyCtrl);
+        return (BeanFuncControl) datapages.get(keyCtrl);
     }
 
     /**
@@ -284,17 +284,17 @@ public class functionDefineData implements iAdtXML, iAdtDocumentSave, iDatablock
         }
         if (nodeKey.equals(keyEffecttList))
         {
-            beanFuncEffectListItem bean = (beanFuncEffectListItem) ide;
+            BeanFuncEffectListItem bean = (BeanFuncEffectListItem) ide;
             bean.setStatus(status);
         }
         else if (nodeKey.equals(keyPropertyList))
         {
-            beanFuncPropListItem bean = (beanFuncPropListItem) ide;
+            BeanFuncPropListItem bean = (BeanFuncPropListItem) ide;
             bean.setStatus(status);
         }
         else if (nodeKey.equals(keyEnableList))
         {
-            beanFuncEnableListItem bean = (beanFuncEnableListItem) ide;
+            BeanFuncEnableListItem bean = (BeanFuncEnableListItem) ide;
             bean.setStatus(status);
         }
         else
@@ -419,7 +419,7 @@ public class functionDefineData implements iAdtXML, iAdtDocumentSave, iDatablock
      * @param oid
      * @return
      */
-    public beanFuncEffectListItem getFuncEffectItem(int oid)
+    public BeanFuncEffectListItem getFuncEffectItem(int oid)
     {
         iDataElement ide = getFuncNodeNotClone(keyEffecttList, oid);
         if (ide == null)
@@ -427,7 +427,7 @@ public class functionDefineData implements iAdtXML, iAdtDocumentSave, iDatablock
             return null;
         }
         iClone ico = (iClone) ide;
-        return (beanFuncEffectListItem) ico.cloneMe();
+        return (BeanFuncEffectListItem) ico.cloneMe();
     }
 
     /**
@@ -436,7 +436,7 @@ public class functionDefineData implements iAdtXML, iAdtDocumentSave, iDatablock
      * @param oid
      * @return
      */
-    public beanFuncPropListItem getFuncPropertyItem(int oid)
+    public BeanFuncPropListItem getFuncPropertyItem(int oid)
     {
         iDataElement ide = getFuncNodeNotClone(keyPropertyList, oid);
         if (ide == null)
@@ -444,7 +444,7 @@ public class functionDefineData implements iAdtXML, iAdtDocumentSave, iDatablock
             return null;
         }
         iClone ico = (iClone) ide;
-        return (beanFuncPropListItem) ico.cloneMe();
+        return (BeanFuncPropListItem) ico.cloneMe();
     }
 
     /**
@@ -453,7 +453,7 @@ public class functionDefineData implements iAdtXML, iAdtDocumentSave, iDatablock
      * @param oid
      * @return
      */
-    public beanFuncEnableListItem getFuncEnableItem(int oid)
+    public BeanFuncEnableListItem getFuncEnableItem(int oid)
     {
         iDataElement ide = getFuncNodeNotClone(keyEnableList, oid);
         if (ide == null)
@@ -461,25 +461,25 @@ public class functionDefineData implements iAdtXML, iAdtDocumentSave, iDatablock
             return null;
         }
         iClone ico = (iClone) ide;
-        return (beanFuncEnableListItem) ico.cloneMe();
+        return (BeanFuncEnableListItem) ico.cloneMe();
     }
 
     //获取效果节点的引用
-    private beanFuncEffectListItem getFuncEffectListItemNotClone(int oid)
+    private BeanFuncEffectListItem getFuncEffectListItemNotClone(int oid)
     {
-        return (beanFuncEffectListItem) getFuncNodeNotClone(keyEffecttList, oid);
+        return (BeanFuncEffectListItem) getFuncNodeNotClone(keyEffecttList, oid);
     }
 
     //获取启用节点的引用
-    private beanFuncEnableListItem getFuncEnableListItemNotClone(int oid)
+    private BeanFuncEnableListItem getFuncEnableListItemNotClone(int oid)
     {
-        return (beanFuncEnableListItem) getFuncNodeNotClone(keyEnableList, oid);
+        return (BeanFuncEnableListItem) getFuncNodeNotClone(keyEnableList, oid);
     }
 
     //获取属性节点的引用
-    private beanFuncPropListItem getFuncPropListItemNotClone(int oid)
+    private BeanFuncPropListItem getFuncPropListItemNotClone(int oid)
     {
-        return (beanFuncPropListItem) getFuncNodeNotClone(keyPropertyList, oid);
+        return (BeanFuncPropListItem) getFuncNodeNotClone(keyPropertyList, oid);
     }
 
     //通过节点名和节点ID，取得节点的引用
@@ -546,14 +546,14 @@ public class functionDefineData implements iAdtXML, iAdtDocumentSave, iDatablock
             xr.createXML();
             Element erot = xr.createElement("ROOT");
             //转换控制节点
-            beanFuncControl bctrl = (beanFuncControl) datapages.get(keyCtrl);
+            BeanFuncControl bctrl = (BeanFuncControl) datapages.get(keyCtrl);
             Element ctrl = bctrl.transToXmlElement(xr);
             erot.appendChild(ctrl);
             //转换启用数据列表
             List lenb = (List) datapages.get(keyEnableList);
             for (int i = 0; i < lenb.size(); i++)
             {
-                beanFuncEnableListItem bfeli = (beanFuncEnableListItem) lenb.get(i);
+                BeanFuncEnableListItem bfeli = (BeanFuncEnableListItem) lenb.get(i);
                 Element eenb = bfeli.transToXmlElement(xr);
                 erot.appendChild(eenb);
             }
@@ -561,7 +561,7 @@ public class functionDefineData implements iAdtXML, iAdtDocumentSave, iDatablock
             List lprop = (List) datapages.get(keyPropertyList);
             for (int i = 0; i < lprop.size(); i++)
             {
-                beanFuncPropListItem bfpli = (beanFuncPropListItem) lprop.get(i);
+                BeanFuncPropListItem bfpli = (BeanFuncPropListItem) lprop.get(i);
                 Element epp = bfpli.transToXmlElement(xr);
                 erot.appendChild(epp);
             }
@@ -569,7 +569,7 @@ public class functionDefineData implements iAdtXML, iAdtDocumentSave, iDatablock
             List lefs = (List) datapages.get(keyEffecttList);
             for (int i = 0; i < lefs.size(); i++)
             {
-                beanFuncEffectListItem beli = (beanFuncEffectListItem) lefs.get(i);
+                BeanFuncEffectListItem beli = (BeanFuncEffectListItem) lefs.get(i);
                 Element eeft = beli.transToXmlElement(xr);
                 erot.appendChild(eeft);
             }
@@ -591,9 +591,9 @@ public class functionDefineData implements iAdtXML, iAdtDocumentSave, iDatablock
             createEmptyDataStruct();
             Element erot = xr.getDocument().getDocumentElement();
             //恢复控制数据
-            NodeList nlCtrl = erot.getElementsByTagName(new beanFuncControl()._getXmlNodeName());
+            NodeList nlCtrl = erot.getElementsByTagName(new BeanFuncControl()._getXmlNodeName());
             Element ectrl = (Element) nlCtrl.item(0);
-            beanFuncControl bfc = new beanFuncControl();
+            BeanFuncControl bfc = new BeanFuncControl();
             boolean bct = bfc.revertFromXmlElement(ectrl);
             if (bct == false)
             {
@@ -601,12 +601,12 @@ public class functionDefineData implements iAdtXML, iAdtDocumentSave, iDatablock
             }
             datapages.put(keyCtrl, bfc);
             //恢复启用数据列表
-            NodeList nlEnbs = erot.getElementsByTagName(new beanFuncEnableListItem()._getXmlNodeName());
+            NodeList nlEnbs = erot.getElementsByTagName(new BeanFuncEnableListItem()._getXmlNodeName());
             ArrayList aenbs = (ArrayList) datapages.get(keyEnableList);
             for (int i = 0; i < nlEnbs.getLength(); i++)
             {
                 Element eenb = (Element) nlEnbs.item(i);
-                beanFuncEnableListItem benb = new beanFuncEnableListItem();
+                BeanFuncEnableListItem benb = new BeanFuncEnableListItem();
                 boolean b = benb.revertFromXmlElement(eenb);
                 if (b == false)
                 {
@@ -616,12 +616,12 @@ public class functionDefineData implements iAdtXML, iAdtDocumentSave, iDatablock
             }
             datapages.put(keyEnableList, aenbs);
             //恢复属性数据列表
-            NodeList nlProps = erot.getElementsByTagName(new beanFuncPropListItem()._getXmlNodeName());
+            NodeList nlProps = erot.getElementsByTagName(new BeanFuncPropListItem()._getXmlNodeName());
             ArrayList aprops = (ArrayList) datapages.get(keyPropertyList);
             for (int i = 0; i < nlProps.getLength(); i++)
             {
                 Element epp = (Element) nlProps.item(i);
-                beanFuncPropListItem bean = new beanFuncPropListItem();
+                BeanFuncPropListItem bean = new BeanFuncPropListItem();
                 boolean b = bean.revertFromXmlElement(epp);
                 if (b == false)
                 {
@@ -631,12 +631,12 @@ public class functionDefineData implements iAdtXML, iAdtDocumentSave, iDatablock
             }
             datapages.put(keyPropertyList, aprops);
             //恢复效果数据列表
-            NodeList nlEffs = erot.getElementsByTagName(new beanFuncEffectListItem()._getXmlNodeName());
+            NodeList nlEffs = erot.getElementsByTagName(new BeanFuncEffectListItem()._getXmlNodeName());
             ArrayList aefs = (ArrayList) datapages.get(keyEffecttList);
             for (int i = 0; i < nlEffs.getLength(); i++)
             {
                 Element eeft = (Element) nlEffs.item(i);
-                beanFuncEffectListItem bean = new beanFuncEffectListItem();
+                BeanFuncEffectListItem bean = new BeanFuncEffectListItem();
                 boolean b = bean.revertFromXmlElement(eeft);
                 if (b == false)
                 {
@@ -694,7 +694,7 @@ public class functionDefineData implements iAdtXML, iAdtDocumentSave, iDatablock
     private void createEmptyDataStruct()
     {
         datapages.clear();
-        datapages.put(keyCtrl, new beanFuncControl());
+        datapages.put(keyCtrl, new BeanFuncControl());
         datapages.put(keyEffecttList, new ArrayList());
         datapages.put(keyEnableList, new ArrayList());
         datapages.put(keyPropertyList, new ArrayList());
@@ -706,19 +706,19 @@ public class functionDefineData implements iAdtXML, iAdtDocumentSave, iDatablock
         ArrayList aenbs = (ArrayList) datapages.get(keyEnableList);
         for (int i = 0; i < aenbs.size(); i++)
         {
-            beanFuncEnableListItem bean = (beanFuncEnableListItem) aenbs.get(i);
+            BeanFuncEnableListItem bean = (BeanFuncEnableListItem) aenbs.get(i);
             bean._setValueClear();
         }
         ArrayList aprop = (ArrayList) datapages.get(keyPropertyList);
         for (int i = 0; i < aprop.size(); i++)
         {
-            beanFuncPropListItem bean = (beanFuncPropListItem) aprop.get(i);
+            BeanFuncPropListItem bean = (BeanFuncPropListItem) aprop.get(i);
             bean._setValueClear();
         }
         ArrayList aefs = (ArrayList) datapages.get(keyEffecttList);
         for (int i = 0; i < aefs.size(); i++)
         {
-            beanFuncEffectListItem bean = (beanFuncEffectListItem) aefs.get(i);
+            BeanFuncEffectListItem bean = (BeanFuncEffectListItem) aefs.get(i);
             bean._setValueClear();
         }
     }

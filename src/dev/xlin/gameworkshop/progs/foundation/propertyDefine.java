@@ -1,6 +1,6 @@
 package dev.xlin.gameworkshop.progs.foundation;
 
-import dev.xlin.gameworkshop.progs.foundation.beans.beanPropertyDefine;
+import dev.xlin.gameworkshop.progs.foundation.beans.BeanPropertyDefine;
 import dev.xlin.gameworkshop.progs.iReturn;
 import dev.xlin.gameworkshop.progs.tools.beanSttType;
 import dev.xlin.gameworkshop.progs.tools.sttType;
@@ -37,7 +37,7 @@ public class propertyDefine implements iDAO, iBeanCheckable, iBeanRevert
         {
             sql = sql + " and state = " + iDAO.OBJECT_STATE_ACTIVE;
         } 
-        return sn.querySQL(sql, beanPropertyDefine.class);
+        return sn.querySQL(sql, BeanPropertyDefine.class);
     }
 
     @Override
@@ -48,8 +48,8 @@ public class propertyDefine implements iDAO, iBeanCheckable, iBeanRevert
         {
             return r0;
         }
-        beanPropertyDefine bean = (beanPropertyDefine) o ; 
-        beanPropertyDefine obean = getPropertyByTag(bean.getPropTag());
+        BeanPropertyDefine bean = (BeanPropertyDefine) o ; 
+        BeanPropertyDefine obean = getPropertyByTag(bean.getPropTag());
         if (obean != null)
         {
             return iReturn.BEAN_TAG_REPEAT;
@@ -60,15 +60,15 @@ public class propertyDefine implements iDAO, iBeanCheckable, iBeanRevert
         return jcommon.eInsert(sn, bean, table, bln);
     }
     
-    public beanPropertyDefine getPropertyByTag (String tag )
+    public BeanPropertyDefine getPropertyByTag (String tag )
     {
         String sql = "select * from tb_prop_define where propTag = '" + tag.trim() +"'";
-        List ls = sn.querySQL(sql, beanPropertyDefine.class);
+        List ls = sn.querySQL(sql, BeanPropertyDefine.class);
         if (ls == null)
         {
             return null;
         }
-        return (beanPropertyDefine) ls.get(0);
+        return (BeanPropertyDefine) ls.get(0);
     }
 
     private int doCheckParam(Object o)
@@ -77,7 +77,7 @@ public class propertyDefine implements iDAO, iBeanCheckable, iBeanRevert
         {
             return iDAO.PARAM_OBJECT_NULL;
         }
-        if (o.getClass() != beanPropertyDefine.class)
+        if (o.getClass() != BeanPropertyDefine.class)
         {
             return iDAO.PARAM_OBJECT_CLASS_INCORRECT;
         }
@@ -92,8 +92,8 @@ public class propertyDefine implements iDAO, iBeanCheckable, iBeanRevert
         {
             return r0 ;
         }
-        beanPropertyDefine bean = (beanPropertyDefine) o ; 
-        beanPropertyDefine obean = (beanPropertyDefine) getRecordByID(bean.getOID());
+        BeanPropertyDefine bean = (BeanPropertyDefine) o ; 
+        BeanPropertyDefine obean = (BeanPropertyDefine) getRecordByID(bean.getOID());
         if (checkBean(obean) == false)
         {
             return iDAO.OBJECT_RECORD_NOTEXIST;
@@ -139,7 +139,7 @@ public class propertyDefine implements iDAO, iBeanCheckable, iBeanRevert
     public Object getRecordByID(int i)
     {
         String sql = "select * from " + table +" where OID = " + i ;
-        List ls = sn.querySQL(sql, beanPropertyDefine.class);
+        List ls = sn.querySQL(sql, BeanPropertyDefine.class);
         if (ls == null)
         {
             return null;
@@ -154,11 +154,11 @@ public class propertyDefine implements iDAO, iBeanCheckable, iBeanRevert
         {
             return false;
         }
-        if (o.getClass().equals(beanPropertyDefine.class) == false)
+        if (o.getClass().equals(BeanPropertyDefine.class) == false)
         {
             return false;
         }
-        beanPropertyDefine bean = (beanPropertyDefine) o;
+        BeanPropertyDefine bean = (BeanPropertyDefine) o;
         if (bean.getState()!= iDAO.OBJECT_STATE_ACTIVE)
         {
             return false;

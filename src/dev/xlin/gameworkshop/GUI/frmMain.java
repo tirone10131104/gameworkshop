@@ -3,22 +3,22 @@ package dev.xlin.gameworkshop.GUI;
 import dev.xlin.gameworkshop.GUI.CONTENT.ifrmBaseResourceMgr;
 import dev.xlin.gameworkshop.GUI.CONTENT.ifrmCtxWorldConfig;
 import dev.xlin.gameworkshop.GUI.CONTENT.ifrmGlaxyEditor;
-import dev.xlin.gameworkshop.GUI.infrms.ifrmDatablockDefine;
-import dev.xlin.gameworkshop.GUI.infrms.ifrmDatablockTempMgr;
-import dev.xlin.gameworkshop.GUI.infrms.ifrmItemCluster;
-import dev.xlin.gameworkshop.GUI.infrms.ifrmObjectClass;
-import dev.xlin.gameworkshop.GUI.infrms.ifrmPropManager;
-import dev.xlin.gameworkshop.GUI.infrms.ifrmItemDefineMgr;
-import dev.xlin.gameworkshop.GUI.infrms.ifrmItemEquipStruct;
-import dev.xlin.gameworkshop.GUI.infrms.ifrmItemTempletMgr;
-import dev.xlin.gameworkshop.GUI.infrms.ifrmKeyDataChunkMgr;
-import dev.xlin.gameworkshop.GUI.infrms.ifrmKeyDataDefineMgr;
-import dev.xlin.gameworkshop.GUI.infrms.ifrmMCESMgr;
-import dev.xlin.gameworkshop.GUI.infrms.ifrmMDBSMainControl;
-import dev.xlin.gameworkshop.GUI.infrms.ifrmMDBTypes;
-import dev.xlin.gameworkshop.GUI.infrms.ifrmProgInterfaceMgr;
-import dev.xlin.gameworkshop.GUI.infrms.ifrmProgIntfSets;
-import dev.xlin.gameworkshop.GUI.infrms.ifrmSkillDefine;
+import dev.xlin.gameworkshop.GUI.infrms.IFrmDatablockDefine;
+import dev.xlin.gameworkshop.GUI.infrms.IFrmDatablockTempMgr;
+import dev.xlin.gameworkshop.GUI.infrms.IFrmItemCluster;
+import dev.xlin.gameworkshop.GUI.infrms.IFrmObjectClass;
+import dev.xlin.gameworkshop.GUI.infrms.IFrmPropManager;
+import dev.xlin.gameworkshop.GUI.infrms.IFrmItemDefineMgr;
+import dev.xlin.gameworkshop.GUI.infrms.IFrmItemEquipStruct;
+import dev.xlin.gameworkshop.GUI.infrms.IFrmItemTempletMgr;
+import dev.xlin.gameworkshop.GUI.infrms.IFrmKeyDataChunkMgr;
+import dev.xlin.gameworkshop.GUI.infrms.IFrmKeyDataDefineMgr;
+import dev.xlin.gameworkshop.GUI.infrms.IFrmMCESMgr;
+import dev.xlin.gameworkshop.GUI.infrms.IFrmMDBSMainControl;
+import dev.xlin.gameworkshop.GUI.infrms.IFrmMDBTypes;
+import dev.xlin.gameworkshop.GUI.infrms.IFrmProgInterfaceMgr;
+import dev.xlin.gameworkshop.GUI.infrms.IFrmProgIntfSets;
+import dev.xlin.gameworkshop.GUI.infrms.IFrmSkillDefine;
 import dev.xlin.gameworkshop.progs.databaseTools;
 import dev.xlin.swingTools2.guiCommon;
 import dev.xlin.swingTools2.myTreeNode;
@@ -208,14 +208,14 @@ public class frmMain extends javax.swing.JFrame
     {
         if (guiIFrameControl.isIsPropMgr() == false)
         {
-            ifrmPropManager ifmPropMgr = new ifrmPropManager(up, this.deskMain);
+            IFrmPropManager ifmPropMgr = new IFrmPropManager(up, this.deskMain);
             deskMain.add(ifmPropMgr);
             ifmPropMgr.setVisible(true);
             guiIFrameControl.setIsPropMgr(true);
         }
         else
         {
-            JInternalFrame jif = findIFrameInDesk(deskMain, ifrmPropManager.class);
+            JInternalFrame jif = findIFrameInDesk(deskMain, IFrmPropManager.class);
             if (jif != null)
             {
                 deskMain.setComponentZOrder(jif, 0);
@@ -228,14 +228,14 @@ public class frmMain extends javax.swing.JFrame
     {
         if (guiIFrameControl.isIsMCEManager() == false)
         {
-            ifrmMCESMgr ifmMCE = new ifrmMCESMgr(up, deskMain);
+            IFrmMCESMgr ifmMCE = new IFrmMCESMgr(up, deskMain);
             deskMain.add(ifmMCE);
             ifmMCE.setVisible(true);
             guiIFrameControl.setIsMCEManager(true);
         }
         else
         {
-            JInternalFrame jif = findIFrameInDesk(deskMain, ifrmMCESMgr.class);
+            JInternalFrame jif = findIFrameInDesk(deskMain, IFrmMCESMgr.class);
             if (jif != null)
             {
                 deskMain.setComponentZOrder(jif, 0);
@@ -248,14 +248,14 @@ public class frmMain extends javax.swing.JFrame
     {
         if (guiIFrameControl.isIsObjectClass() == false)
         {
-            ifrmObjectClass ifmObjCls = new ifrmObjectClass(up, deskMain);
+            IFrmObjectClass ifmObjCls = new IFrmObjectClass(up, deskMain);
             deskMain.add(ifmObjCls);
             ifmObjCls.setVisible(true);
             guiIFrameControl.setIsObjectClass(true);
         }
         else
         {
-            JInternalFrame jif = findIFrameInDesk(deskMain, ifrmObjectClass.class);
+            JInternalFrame jif = findIFrameInDesk(deskMain, IFrmObjectClass.class);
             if (jif != null)
             {
                 deskMain.setComponentZOrder(jif, 0);
@@ -268,14 +268,14 @@ public class frmMain extends javax.swing.JFrame
     {
         if (guiIFrameControl.isIsItemDefineMgr() == false)
         {
-            ifrmItemDefineMgr ifmShipEqpMgr = new ifrmItemDefineMgr(up, deskMain);
+            IFrmItemDefineMgr ifmShipEqpMgr = new IFrmItemDefineMgr(up, deskMain);
             deskMain.add(ifmShipEqpMgr);
             ifmShipEqpMgr.setVisible(true);
             guiIFrameControl.setIsItemDefineMgr(true);
         }
         else
         {
-            JInternalFrame jif = findIFrameInDesk(deskMain, ifrmItemDefineMgr.class);
+            JInternalFrame jif = findIFrameInDesk(deskMain, IFrmItemDefineMgr.class);
             if (jif != null)
             {
                 deskMain.setComponentZOrder(jif, 0);
@@ -288,14 +288,14 @@ public class frmMain extends javax.swing.JFrame
     {
         if (guiIFrameControl.isIsDatablockDefine() == false)
         {
-            ifrmDatablockDefine ifrmDbDefine = new ifrmDatablockDefine(up, deskMain);
+            IFrmDatablockDefine ifrmDbDefine = new IFrmDatablockDefine(up, deskMain);
             deskMain.add(ifrmDbDefine);
             ifrmDbDefine.setVisible(true);
             guiIFrameControl.setIsDatablockDefine(true);
         }
         else
         {
-            JInternalFrame jif = findIFrameInDesk(deskMain, ifrmDatablockDefine.class);
+            JInternalFrame jif = findIFrameInDesk(deskMain, IFrmDatablockDefine.class);
             if (jif != null)
             {
                 deskMain.setComponentZOrder(jif, 0);
@@ -308,14 +308,14 @@ public class frmMain extends javax.swing.JFrame
     {
         if (guiIFrameControl.isIsItemCluster() == false)
         {
-            ifrmItemCluster ifrmItCls = new ifrmItemCluster(up, deskMain);
+            IFrmItemCluster ifrmItCls = new IFrmItemCluster(up, deskMain);
             deskMain.add(ifrmItCls);
             ifrmItCls.setVisible(true);
             guiIFrameControl.setIsItemCluster(true);
         }
         else
         {
-            JInternalFrame jif = findIFrameInDesk(deskMain, ifrmItemCluster.class);
+            JInternalFrame jif = findIFrameInDesk(deskMain, IFrmItemCluster.class);
             if (jif != null)
             {
                 deskMain.setComponentZOrder(jif, 0);
@@ -328,14 +328,14 @@ public class frmMain extends javax.swing.JFrame
     {
         if (guiIFrameControl.isIsKeyDefMgr() == false)
         {
-            ifrmKeyDataDefineMgr ifrmKeyDef = new ifrmKeyDataDefineMgr(up, deskMain);
+            IFrmKeyDataDefineMgr ifrmKeyDef = new IFrmKeyDataDefineMgr(up, deskMain);
             deskMain.add(ifrmKeyDef);
             ifrmKeyDef.setVisible(true);
             guiIFrameControl.setIsKeyDefMgr(true);
         }
         else
         {
-            JInternalFrame jif = findIFrameInDesk(deskMain, ifrmKeyDataDefineMgr.class);
+            JInternalFrame jif = findIFrameInDesk(deskMain, IFrmKeyDataDefineMgr.class);
             if (jif != null)
             {
                 deskMain.setComponentZOrder(jif, 0);
@@ -348,14 +348,14 @@ public class frmMain extends javax.swing.JFrame
     {
         if (guiIFrameControl.isIsKeyChunkMgr() == false)
         {
-            ifrmKeyDataChunkMgr ifrmKeyChunk = new ifrmKeyDataChunkMgr(up, deskMain);
+            IFrmKeyDataChunkMgr ifrmKeyChunk = new IFrmKeyDataChunkMgr(up, deskMain);
             deskMain.add(ifrmKeyChunk);
             ifrmKeyChunk.setVisible(true);
             guiIFrameControl.setIsKeyChunkMgr(true);
         }
         else
         {
-            JInternalFrame jif = findIFrameInDesk(deskMain, ifrmKeyDataChunkMgr.class);
+            JInternalFrame jif = findIFrameInDesk(deskMain, IFrmKeyDataChunkMgr.class);
             if (jif != null)
             {
                 deskMain.setComponentZOrder(jif, 0);
@@ -368,14 +368,14 @@ public class frmMain extends javax.swing.JFrame
     {
         if (guiIFrameControl.isIsDblockTempMgr() == false)
         {
-            ifrmDatablockTempMgr ifrmDblTmpMgr = new ifrmDatablockTempMgr(up, deskMain);
+            IFrmDatablockTempMgr ifrmDblTmpMgr = new IFrmDatablockTempMgr(up, deskMain);
             deskMain.add(ifrmDblTmpMgr);
             ifrmDblTmpMgr.setVisible(true);
             guiIFrameControl.setIsDblockTempMgr(true);
         }
         else
         {
-            JInternalFrame jif = findIFrameInDesk(deskMain, ifrmDatablockTempMgr.class);
+            JInternalFrame jif = findIFrameInDesk(deskMain, IFrmDatablockTempMgr.class);
             if (jif != null)
             {
                 deskMain.setComponentZOrder(jif, 0);
@@ -388,14 +388,14 @@ public class frmMain extends javax.swing.JFrame
     {
         if (guiIFrameControl.isIsIntfSetMgr() == false)
         {
-            ifrmProgIntfSets ifrmPITS = new ifrmProgIntfSets(up, deskMain);
+            IFrmProgIntfSets ifrmPITS = new IFrmProgIntfSets(up, deskMain);
             deskMain.add(ifrmPITS);
             ifrmPITS.setVisible(true);
             guiIFrameControl.setIsIntfSetMgr(true);
         }
         else
         {
-            JInternalFrame jif = findIFrameInDesk(deskMain, ifrmProgIntfSets.class);
+            JInternalFrame jif = findIFrameInDesk(deskMain, IFrmProgIntfSets.class);
             if (jif != null)
             {
                 deskMain.setComponentZOrder(jif, 0);
@@ -408,14 +408,14 @@ public class frmMain extends javax.swing.JFrame
     {
         if (guiIFrameControl.isIsItemTempMgr() == false)
         {
-            ifrmItemTempletMgr ifrmItTmpMgr = new ifrmItemTempletMgr(up, deskMain);
+            IFrmItemTempletMgr ifrmItTmpMgr = new IFrmItemTempletMgr(up, deskMain);
             deskMain.add(ifrmItTmpMgr);
             ifrmItTmpMgr.setVisible(true);
             guiIFrameControl.setIsItemTempMgr(true);
         }
         else
         {
-            JInternalFrame jif = findIFrameInDesk(deskMain, ifrmItemTempletMgr.class);
+            JInternalFrame jif = findIFrameInDesk(deskMain, IFrmItemTempletMgr.class);
             if (jif != null)
             {
                 deskMain.setComponentZOrder(jif, 0);
@@ -428,14 +428,14 @@ public class frmMain extends javax.swing.JFrame
     {
         if (guiIFrameControl.isIsItemEquipStruct() == false)
         {
-            ifrmItemEquipStruct ifrmItEqSt = new ifrmItemEquipStruct(up, deskMain);
+            IFrmItemEquipStruct ifrmItEqSt = new IFrmItemEquipStruct(up, deskMain);
             deskMain.add(ifrmItEqSt);
             ifrmItEqSt.setVisible(true);
             guiIFrameControl.setIsItemEquipStruct(true);
         }
         else
         {
-            JInternalFrame jif = findIFrameInDesk(deskMain, ifrmItemEquipStruct.class);
+            JInternalFrame jif = findIFrameInDesk(deskMain, IFrmItemEquipStruct.class);
             if (jif != null)
             {
                 deskMain.setComponentZOrder(jif, 0);
@@ -448,14 +448,14 @@ public class frmMain extends javax.swing.JFrame
     {
         if (guiIFrameControl.isIsProgInterfaceMgr() == false)
         {
-            ifrmProgInterfaceMgr ifrmPrgIntfMgr = new ifrmProgInterfaceMgr(up, deskMain);
+            IFrmProgInterfaceMgr ifrmPrgIntfMgr = new IFrmProgInterfaceMgr(up, deskMain);
             deskMain.add(ifrmPrgIntfMgr);
             ifrmPrgIntfMgr.setVisible(true);
             guiIFrameControl.setIsProgInterfaceMgr(true);
         }
         else
         {
-            JInternalFrame jif = findIFrameInDesk(deskMain, ifrmProgInterfaceMgr.class);
+            JInternalFrame jif = findIFrameInDesk(deskMain, IFrmProgInterfaceMgr.class);
             if (jif != null)
             {
                 deskMain.setComponentZOrder(jif, 0);
@@ -468,14 +468,14 @@ public class frmMain extends javax.swing.JFrame
     {
         if (guiIFrameControl.isIsSkillDefine() == false)
         {
-            ifrmSkillDefine ifrmSklDef = new ifrmSkillDefine(up, deskMain);
+            IFrmSkillDefine ifrmSklDef = new IFrmSkillDefine(up, deskMain);
             deskMain.add(ifrmSklDef);
             ifrmSklDef.setVisible(true);
             guiIFrameControl.setIsSkillDefine(true);
         }
         else
         {
-            JInternalFrame jif = findIFrameInDesk(deskMain, ifrmSkillDefine.class);
+            JInternalFrame jif = findIFrameInDesk(deskMain, IFrmSkillDefine.class);
             if (jif != null)
             {
                 deskMain.setComponentZOrder(jif, 0);
@@ -488,14 +488,14 @@ public class frmMain extends javax.swing.JFrame
     {
         if (guiIFrameControl.isIsMDBMainControl()== false)
         {
-            ifrmMDBSMainControl ifrmMDBMC = new ifrmMDBSMainControl(up ,deskMain);
+            IFrmMDBSMainControl ifrmMDBMC = new IFrmMDBSMainControl(up ,deskMain);
             deskMain.add(ifrmMDBMC);
             ifrmMDBMC.setVisible(true);
             guiIFrameControl.setIsMDBMainControl(true);
         }
         else
         {
-            JInternalFrame jif = findIFrameInDesk(deskMain, ifrmMDBSMainControl.class);
+            JInternalFrame jif = findIFrameInDesk(deskMain, IFrmMDBSMainControl.class);
             if (jif != null)
             {
                 deskMain.setComponentZOrder(jif, 0);
@@ -508,14 +508,14 @@ public class frmMain extends javax.swing.JFrame
     {
         if (guiIFrameControl.isIsMDBTPMgr() == false)
         {
-            ifrmMDBTypes ifrmMDBTP = new ifrmMDBTypes(up, deskMain);
+            IFrmMDBTypes ifrmMDBTP = new IFrmMDBTypes(up, deskMain);
             deskMain.add(ifrmMDBTP);
             ifrmMDBTP.setVisible(true);
             guiIFrameControl.setIsMDBTPMgr(true);
         }
         else
         {
-            JInternalFrame jif = findIFrameInDesk(deskMain, ifrmMDBTypes.class);
+            JInternalFrame jif = findIFrameInDesk(deskMain, IFrmMDBTypes.class);
             if (jif != null)
             {
                 deskMain.setComponentZOrder(jif, 0);

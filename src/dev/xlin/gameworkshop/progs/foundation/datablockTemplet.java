@@ -1,6 +1,6 @@
 package dev.xlin.gameworkshop.progs.foundation;
 
-import dev.xlin.gameworkshop.progs.foundation.beans.beanDatablockTemplet;
+import dev.xlin.gameworkshop.progs.foundation.beans.BeanDatablockTemplet;
 import dev.xlin.gameworkshop.progs.foundation.interfaces.iAdtXML;
 import dev.xlin.gameworkshop.progs.iReturn;
 import dev.xlin.gameworkshop.progs.tools.dbTask;
@@ -29,10 +29,10 @@ public class datablockTemplet
         sn = new session(up);
     }
 
-    public int saveAsTemplet(beanDatablockTemplet bean, iAdtXML iax )
+    public int saveAsTemplet(BeanDatablockTemplet bean, iAdtXML iax )
     {
         //检查系统中是否已经有了dbtype和oriid的数据
-        beanDatablockTemplet btmp = getTempletByOriID(bean.getDbType(), bean.getOriID());
+        BeanDatablockTemplet btmp = getTempletByOriID(bean.getDbType(), bean.getOriID());
         if (btmp != null)
         {
             return iReturn.DATA_BLOCK_TEMP_ORI_REPEAT;
@@ -61,15 +61,15 @@ public class datablockTemplet
         }
     }
 
-    public beanDatablockTemplet getTempletByOID(int oid)
+    public BeanDatablockTemplet getTempletByOID(int oid)
     {
         String sql = "select * from " + table + " where OID = " + oid;
-        List ls = sn.querySQL(sql, beanDatablockTemplet.class);
+        List ls = sn.querySQL(sql, BeanDatablockTemplet.class);
         if (ls == null)
         {
             return null;
         }
-        return (beanDatablockTemplet) ls.get(0);
+        return (BeanDatablockTemplet) ls.get(0);
     }
 
     public List getDatablockTemplets(int dbType, int ocls, String stxt)
@@ -92,12 +92,12 @@ public class datablockTemplet
         {
             sql = sql + " and tempName like '%" + stxt + "%'";
         }
-        return sn.querySQL(sql, beanDatablockTemplet.class);
+        return sn.querySQL(sql, BeanDatablockTemplet.class);
     }
 
-    public int updateTempletInfo(beanDatablockTemplet bean)
+    public int updateTempletInfo(BeanDatablockTemplet bean)
     {
-        beanDatablockTemplet obean = getTempletByOID(bean.getOID());
+        BeanDatablockTemplet obean = getTempletByOID(bean.getOID());
         if (obean == null)
         {
             return iDAO.OBJECT_RECORD_NOTEXIST;
@@ -107,9 +107,9 @@ public class datablockTemplet
         return jcommon.eUpdate(sn, obean, table, "OID", false);
     }
 
-    public int updateTempletData(beanDatablockTemplet bean)
+    public int updateTempletData(BeanDatablockTemplet bean)
     {
-        beanDatablockTemplet obean = getTempletByOID(bean.getOID());
+        BeanDatablockTemplet obean = getTempletByOID(bean.getOID());
         if (obean == null)
         {
             return iDAO.OBJECT_RECORD_NOTEXIST;
@@ -125,15 +125,15 @@ public class datablockTemplet
     }
 
     //通过ORIID读取模板，主要用于防重复
-    private beanDatablockTemplet getTempletByOriID(int dbtype, long oriid)
+    private BeanDatablockTemplet getTempletByOriID(int dbtype, long oriid)
     {
         String sql = "select * from " + table + " where dbType = " + dbtype + " and oriID = " + oriid;
-        List ls = sn.querySQL(sql, beanDatablockTemplet.class);
+        List ls = sn.querySQL(sql, BeanDatablockTemplet.class);
         if (ls == null)
         {
             return null;
         }
-        return (beanDatablockTemplet) ls.get(0);
+        return (BeanDatablockTemplet) ls.get(0);
     }
 
 }

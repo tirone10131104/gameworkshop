@@ -1,6 +1,6 @@
 package dev.xlin.gameworkshop.progs.foundation;
 
-import dev.xlin.gameworkshop.progs.foundation.beans.beanProgIntfDefine;
+import dev.xlin.gameworkshop.progs.foundation.beans.BeanProgIntfDefine;
 import dev.xlin.gameworkshop.progs.iReturn;
 import dev.xlin.tols.data.jcommon;
 import dev.xlin.tols.data.session;
@@ -32,7 +32,7 @@ public class interfaceDefine implements iDAO, iBeanCheckable, iBeanRevert
         {
             return r0;
         }
-        beanProgIntfDefine bean = (beanProgIntfDefine) o;
+        BeanProgIntfDefine bean = (BeanProgIntfDefine) o;
         //check tag repeat 
         if (getInterfaceByTag(bean.getIntfTag()) != null)
         {
@@ -44,15 +44,15 @@ public class interfaceDefine implements iDAO, iBeanCheckable, iBeanRevert
         return jcommon.eInsert(sn, bean, table, bln);
     }
 
-    public beanProgIntfDefine getInterfaceByTag(String tag)
+    public BeanProgIntfDefine getInterfaceByTag(String tag)
     {
         String sql = "select * from " + table + " where intfTag = '" + tag.trim() + "'";
-        List ls = sn.querySQL(sql, beanProgIntfDefine.class);
+        List ls = sn.querySQL(sql, BeanProgIntfDefine.class);
         if (ls == null)
         {
             return null;
         }
-        return (beanProgIntfDefine) ls.get(0);
+        return (BeanProgIntfDefine) ls.get(0);
     }
 
     private int doCheckParam(Object o)
@@ -61,7 +61,7 @@ public class interfaceDefine implements iDAO, iBeanCheckable, iBeanRevert
         {
             return iDAO.PARAM_OBJECT_NULL;
         }
-        if (o.getClass() != beanProgIntfDefine.class)
+        if (o.getClass() != BeanProgIntfDefine.class)
         {
             return iDAO.PARAM_OBJECT_CLASS_INCORRECT;
         }
@@ -76,8 +76,8 @@ public class interfaceDefine implements iDAO, iBeanCheckable, iBeanRevert
         {
             return r0;
         }
-        beanProgIntfDefine bean = (beanProgIntfDefine) o;
-        beanProgIntfDefine obean = (beanProgIntfDefine) getRecordByID(bean.getOID());
+        BeanProgIntfDefine bean = (BeanProgIntfDefine) o;
+        BeanProgIntfDefine obean = (BeanProgIntfDefine) getRecordByID(bean.getOID());
         if (checkBean(obean) == false)
         {
             return iDAO.OBJECT_RECORD_NOTEXIST;
@@ -111,7 +111,7 @@ public class interfaceDefine implements iDAO, iBeanCheckable, iBeanRevert
     public Object getRecordByID(int i)
     {
         String sql = "select * from " + table + " where OID = " + i;
-        List ls = sn.querySQL(sql, beanProgIntfDefine.class);
+        List ls = sn.querySQL(sql, BeanProgIntfDefine.class);
         if (ls == null)
         {
             return null;
@@ -126,11 +126,11 @@ public class interfaceDefine implements iDAO, iBeanCheckable, iBeanRevert
         {
             return false;
         }
-        if (o.getClass() != beanProgIntfDefine.class)
+        if (o.getClass() != BeanProgIntfDefine.class)
         {
             return false;
         }
-        beanProgIntfDefine bean = (beanProgIntfDefine) o;
+        BeanProgIntfDefine bean = (BeanProgIntfDefine) o;
         if (bean.getStatus() != iDAO.OBJECT_STATE_ACTIVE)
         {
             return false;
@@ -145,7 +145,7 @@ public class interfaceDefine implements iDAO, iBeanCheckable, iBeanRevert
         {
              sql = sql  +" and status = " + iDAO.OBJECT_STATE_ACTIVE;
         }
-        return sn.querySQL(sql, beanProgIntfDefine.class);
+        return sn.querySQL(sql, BeanProgIntfDefine.class);
     }
 
     @Override
@@ -158,7 +158,7 @@ public class interfaceDefine implements iDAO, iBeanCheckable, iBeanRevert
     @Override
     public int destroyBean(int i)
     {
-        beanProgIntfDefine bean = (beanProgIntfDefine) getRecordByID(i);
+        BeanProgIntfDefine bean = (BeanProgIntfDefine) getRecordByID(i);
         if (bean == null)
         {
             return iDAO.OBJECT_RECORD_NOTEXIST;

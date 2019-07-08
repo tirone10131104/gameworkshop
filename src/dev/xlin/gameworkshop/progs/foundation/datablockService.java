@@ -1,8 +1,8 @@
 package dev.xlin.gameworkshop.progs.foundation;
 
-import dev.xlin.gameworkshop.progs.foundation.beans.beanDatablock;
-import dev.xlin.gameworkshop.progs.foundation.beans.beanDatablockDefine;
-import dev.xlin.gameworkshop.progs.foundation.beans.beanObjectClass;
+import dev.xlin.gameworkshop.progs.foundation.beans.BeanDatablock;
+import dev.xlin.gameworkshop.progs.foundation.beans.BeanDatablockDefine;
+import dev.xlin.gameworkshop.progs.foundation.beans.BeanObjectClass;
 import dev.xlin.gameworkshop.progs.foundation.interfaces.iAdtXML;
 import dev.xlin.gameworkshop.progs.foundation.interfaces.iDatablockInitInstance;
 import dev.xlin.tols.data.JDBSession;
@@ -117,7 +117,7 @@ public class datablockService
         try
         {
             objectClassDefine ocd = new objectClassDefine(up);
-            beanObjectClass bean = (beanObjectClass) ocd.getRecordByID(oclsid);
+            BeanObjectClass bean = (BeanObjectClass) ocd.getRecordByID(oclsid);
             int[] ids = codeTools.convertStrToArr(bean.getClassFuncs());
             return initDatablockProg(ids, inDbTask);
         }
@@ -131,7 +131,7 @@ public class datablockService
     {
         iAdtXML iamx = null;
         datablockDefine dbdef = new datablockDefine(up);
-        beanDatablockDefine bdf = (beanDatablockDefine) dbdef.getRecordByID(dtpid);
+        BeanDatablockDefine bdf = (BeanDatablockDefine) dbdef.getRecordByID(dtpid);
         try
         {
             Object oc = Class.forName(bdf.getDbAdtClass()).newInstance();
@@ -157,7 +157,7 @@ public class datablockService
 
     public long saveData(String data )
     {
-        beanDatablock bean = new beanDatablock();
+        BeanDatablock bean = new BeanDatablock();
         long oid = OIDCreator.createOID_Long_simple(up, "tb_datablock", "OID");
         bean.setOID(oid);
         bean.setDatablock(data);
@@ -173,21 +173,21 @@ public class datablockService
         } 
     }
 
-    public beanDatablock getDatabean(long oid)
+    public BeanDatablock getDatabean(long oid)
     {
         String sql = "select * from tb_datablock where OID = " + oid;
-        List ls = sn.querySQL(sql, beanDatablock.class);
+        List ls = sn.querySQL(sql, BeanDatablock.class);
         if (ls == null)
         {
             return null;
         }
-        return (beanDatablock) ls.get(0);
+        return (BeanDatablock) ls.get(0);
     }
 
     public String loadData(long oid)
     { 
         JDBSession jsn = new JDBSession (up);
-        beanDatablock bean = (beanDatablock) jsn.get(beanDatablock.class, oid);
+        BeanDatablock bean = (BeanDatablock) jsn.get(BeanDatablock.class, oid);
         if (bean == null )
         {
             return null;
@@ -197,7 +197,7 @@ public class datablockService
  
     public int updateData(long oid, String data)
     {
-        beanDatablock bean = getDatabean(oid);
+        BeanDatablock bean = getDatabean(oid);
         if (bean == null)
         {
             return iDAO.OBJECT_RECORD_NOTEXIST;

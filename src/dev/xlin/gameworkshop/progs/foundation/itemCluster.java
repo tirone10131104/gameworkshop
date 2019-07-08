@@ -1,8 +1,8 @@
 package dev.xlin.gameworkshop.progs.foundation;
 
-import dev.xlin.gameworkshop.progs.foundation.beans.beanItem;
-import dev.xlin.gameworkshop.progs.foundation.beans.beanItemCluster;
-import dev.xlin.gameworkshop.progs.foundation.beans.beanObjectClass;
+import dev.xlin.gameworkshop.progs.foundation.beans.BeanItem;
+import dev.xlin.gameworkshop.progs.foundation.beans.BeanItemCluster;
+import dev.xlin.gameworkshop.progs.foundation.beans.BeanObjectClass;
 import dev.xlin.gameworkshop.progs.iConst;
 import dev.xlin.gameworkshop.progs.iReturn;
 import dev.xlin.gameworkshop.progs.tools.beanSttType;
@@ -37,7 +37,7 @@ public class itemCluster implements iDAO, iBeanCheckable, iBeanRevert
         {
             return r0;
         }
-        beanItemCluster bean = (beanItemCluster) o;
+        BeanItemCluster bean = (BeanItemCluster) o;
         if (getItemClusterByTag(bean.getClusterTag()) != null)
         {
             return iReturn.BEAN_TAG_REPEAT;
@@ -57,18 +57,18 @@ public class itemCluster implements iDAO, iBeanCheckable, iBeanRevert
         return jcommon.eExcute(up, sql);
     }
 
-    public beanItemCluster getItemClusterByTag(String tag)
+    public BeanItemCluster getItemClusterByTag(String tag)
     {
         String sql = "select * from " + table + " where clusterTag = '" + tag.trim() + "'";
-        List ls = sn.querySQL(sql, beanItemCluster.class);
+        List ls = sn.querySQL(sql, BeanItemCluster.class);
         if (ls == null)
         {
             return null;
         }
-        return (beanItemCluster) ls.get(0);
+        return (BeanItemCluster) ls.get(0);
     }
 
-    private int doCheckLogic(beanItemCluster bean)
+    private int doCheckLogic(BeanItemCluster bean)
     {
         //数据目标类型
         //根据类型检查IDS
@@ -79,7 +79,7 @@ public class itemCluster implements iDAO, iBeanCheckable, iBeanRevert
             for (int i = 0; i < ids.length; i++)
             {
                 int id = ids[i];
-                beanItem bit = (beanItem) idef.getRecordByID(id);
+                BeanItem bit = (BeanItem) idef.getRecordByID(id);
                 if (idef.checkBean(bit) == false)
                 {
                     return iReturn.DATA_TARGET_ERROR;
@@ -92,7 +92,7 @@ public class itemCluster implements iDAO, iBeanCheckable, iBeanRevert
             for (int i = 0; i < ids.length; i++)
             {
                 int id = ids[i];
-                beanObjectClass boc = (beanObjectClass) ocd.getRecordByID(id);
+                BeanObjectClass boc = (BeanObjectClass) ocd.getRecordByID(id);
                 if (ocd.checkBean(boc) == false)
                 {
                     return iReturn.DATA_TARGET_ERROR;
@@ -125,7 +125,7 @@ public class itemCluster implements iDAO, iBeanCheckable, iBeanRevert
         {
             return iDAO.PARAM_OBJECT_NULL;
         }
-        if (o.getClass() != beanItemCluster.class)
+        if (o.getClass() != BeanItemCluster.class)
         {
             return iDAO.PARAM_OBJECT_CLASS_INCORRECT;
         }
@@ -140,8 +140,8 @@ public class itemCluster implements iDAO, iBeanCheckable, iBeanRevert
         {
             return r0;
         }
-        beanItemCluster bean = (beanItemCluster) o;
-        beanItemCluster obean = (beanItemCluster) getRecordByID(bean.getOID());
+        BeanItemCluster bean = (BeanItemCluster) o;
+        BeanItemCluster obean = (BeanItemCluster) getRecordByID(bean.getOID());
         int r2 = doCheckLogic(bean);
         if (r2 != 0)
         {
@@ -168,7 +168,7 @@ public class itemCluster implements iDAO, iBeanCheckable, iBeanRevert
         {
             sql = sql + " and status = " + iDAO.OBJECT_STATE_ACTIVE;
         }
-        return sn.querySQL(sql, beanItemCluster.class);
+        return sn.querySQL(sql, BeanItemCluster.class);
     }
 
     public List findItemClusters(int tartp, int tpid, boolean showAll)
@@ -186,7 +186,7 @@ public class itemCluster implements iDAO, iBeanCheckable, iBeanRevert
         {
             sql = sql + " and status = " + iDAO.OBJECT_STATE_ACTIVE;
         }
-        return sn.querySQL(sql, beanItemCluster.class);
+        return sn.querySQL(sql, BeanItemCluster.class);
     }
 
     @Override
@@ -199,7 +199,7 @@ public class itemCluster implements iDAO, iBeanCheckable, iBeanRevert
     public Object getRecordByID(int i)
     {
         String sql = "select * from " + table + " where OID = " + i;
-        List ls = sn.querySQL(sql, beanItemCluster.class);
+        List ls = sn.querySQL(sql, BeanItemCluster.class);
         if (ls == null)
         {
             return null;
@@ -214,11 +214,11 @@ public class itemCluster implements iDAO, iBeanCheckable, iBeanRevert
         {
             return false;
         }
-        if (o.getClass() != beanItemCluster.class)
+        if (o.getClass() != BeanItemCluster.class)
         {
             return false;
         }
-        beanItemCluster bic = (beanItemCluster) o;
+        BeanItemCluster bic = (BeanItemCluster) o;
         if (bic.getStatus() != iDAO.OBJECT_STATE_ACTIVE)
         {
             return false;
@@ -237,7 +237,7 @@ public class itemCluster implements iDAO, iBeanCheckable, iBeanRevert
     @Override
     public int destroyBean(int i)
     {
-        beanItemCluster bic = (beanItemCluster) getRecordByID(i);
+        BeanItemCluster bic = (BeanItemCluster) getRecordByID(i);
         if (bic == null)
         {
             return iDAO.OBJECT_RECORD_NOTEXIST;
