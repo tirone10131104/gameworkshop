@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<VSL version = "0.1">
+    <CLASS name = "VSLExSource" interfaceClass = "false">
+        <MEMBER modifier = "private">
+            <VAR name = "count" varType = "int" defaultValue = "0"/>
+        </MEMBER>
+        <FUNCTION modifier = "public" name = "VSLExSource">
+            <PARAM>
+                <VAR name = "_count" varType = "int">
+            </PARAM>
+            <BLOCK>
+                <ROW>
+                    <ASSIGN>
+                        <LEFT varname = "count"/>
+                        <RIGHT>
+                            <EXPRESSION type = "arithmetic">
+                                <NODES>
+                                    <NODE nodetype = "var" name = "_count" symbol = "no"/>
+                                </NODES>
+                            </EXPRESSION>
+                        </RIGHT>
+                    </ASSIGN>
+                </ROW>
+            </BLOCK>
+            
+        </FUNCTION>
+    </CLASS>
+</VSL>
